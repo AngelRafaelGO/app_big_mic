@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-class search_scene extends Component {
+class Search_listview extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,10 +11,10 @@ class search_scene extends Component {
   render() {
     return (
       <View>
-        <Text> search_scene </Text>
+        <Text> search_listview </Text>
       </View>
     );
   }
 }
 
-export default search_scene;
+export default Search_listview;
