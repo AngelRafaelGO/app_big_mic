@@ -1,6 +1,5 @@
 import React from 'react';
-import {TextInput, Button } from 'react-native';
-import { SafeAreaView } from 'react-native-web';
+import {TextInput, Button, View, Text } from 'react-native';
 
 const Search_bar = () => {
     
@@ -8,9 +7,14 @@ const Search_bar = () => {
     const [number, onChangeNumber] = React.useState(null);
   
     return (
-      <SafeAreaView>
-       
-      </SafeAreaView>
+      <View>
+       <Text> Rechercher une scène </Text>
+        <TextInput />
+        <Button
+        title="Rechercher"
+        onPress={()=> alert('Afficher la liste des scènes')}
+        />
+      </View>
     );
   };
 

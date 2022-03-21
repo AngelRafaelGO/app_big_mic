@@ -1,14 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { Search_scene } from './components';
+
+import { StyleSheet} from 'react-native';
+import SearchSceneScreen from './screens/SearchSceneScreen';
 
 export default function App() {
+let x = 1;
+console.log(x);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <Search_scene />
-      <StatusBar style="auto" />
-    </View>
+    <SearchSceneScreen />
   );
 }
 
