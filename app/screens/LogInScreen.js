@@ -11,10 +11,15 @@ function LoginScreen(props) {
                 <Text>BIG MIC</Text>
             </View>
             <View style={styles.inputContainer}>
-                <TextInput style={styles.loginText} />
                 <TextInput 
+                textContentType='emailAddress'
+                keyboardType='email-address' 
                 style={styles.loginText} 
+                />
+                <TextInput 
+                textContentType='password'
                 secureTextEntry={true}
+                style={styles.loginText} 
                 />
                 <TouchableOpacity style={styles.loginTouch}>
                     <Text style={styles.touchText}>
