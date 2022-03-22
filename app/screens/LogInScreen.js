@@ -35,10 +35,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: colors.white,
     },
-    button: {
-        fontSize: 5,
-        color: colors.white,
-    },
     inputContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -58,7 +54,7 @@ const styles = StyleSheet.create({
         top: 70,
     },
     loginText: {
-        backgroundColor: colors.secondary_color,
+        backgroundColor: colors.secondary,
         width: '70%',
         height: 40,
         borderRadius: 5,
@@ -70,7 +66,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '40%' ,
         height: 40, 
-        backgroundColor: colors.primary_color,
+        backgroundColor: colors.primary,
         margin: 5,
         borderRadius: 5,
     },
@@ -79,7 +75,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '40%',
         height: 40,
-        backgroundColor: colors.primary_color,
+        backgroundColor: colors.primary,
         margin: 5,
         borderRadius: 5,
     },
