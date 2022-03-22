@@ -11,7 +11,8 @@ const Search_bar = () => {
         <TextInput />
         <Button
         title="Rechercher"
-        onPress={()=> alert('Afficher la liste des scènes')}
+        value = {text}
+        onPress={()=> alert('Afficher la liste des scènes pour : '+ text)}
         />
       </View>
     );
