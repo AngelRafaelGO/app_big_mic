@@ -12,7 +12,10 @@ function LoginScreen(props) {
             </View>
             <View style={styles.inputContainer}>
                 <TextInput style={styles.loginText} />
-                <TextInput style={styles.loginText} />
+                <TextInput 
+                style={styles.loginText} 
+                secureTextEntry={true}
+                />
                 <TouchableOpacity style={styles.loginTouch}>
                     <Text style={styles.touchText}>
                         Connexion
