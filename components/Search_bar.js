@@ -4,7 +4,6 @@ import {TextInput, Button, View, Text } from 'react-native';
 const Search_bar = () => {
     
     const [text, onChangeText] = React.useState("Useless Text");
-    const [number, onChangeNumber] = React.useState(null);
   
     return (
       <View>
