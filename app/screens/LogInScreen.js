@@ -32,6 +32,14 @@ function LoginScreen(props) {
                     </Text>
                 </TouchableOpacity>
             </View>
+            <View style={styles.footerText}>
+                <Text style={styles.footerTextFont}>
+                    Big Mic &#127897;
+                </Text>
+                <Text style={styles.footerTextFont}>
+                &copy; 2022
+                </Text>
+            </View>
         </SafeAreaView>
     );
 };
@@ -42,6 +50,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colors.white,
+    },
+    footerText: {
+        alignItems: 'center',
+    },
+    footerTextFont: {
+        fontSize: 12,
     },
     inputContainer: {
         flex: 1,
