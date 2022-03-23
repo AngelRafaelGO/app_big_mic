@@ -1,9 +1,12 @@
-import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Image, SafeAreaView, StyleSheet, View, TextInput, Text, TouchableOpacity } from 'react-native';
 
 import colors from '../config/colors';
 
 function LoginScreen(props) {
+
+    const navigation = useNavigation();
+
     return (
         <SafeAreaView style={styles.background}>
             <View style={styles.logoTitleContainer}>
@@ -26,7 +29,7 @@ function LoginScreen(props) {
                         Connexion
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.registerTouch}>
+                <TouchableOpacity style={styles.registerTouch} onPress={() => navigation.navigate('Création de compte')} >
                     <Text style={styles.touchText}>
                         Créer une compte
                     </Text>
@@ -35,6 +38,9 @@ function LoginScreen(props) {
             <View style={styles.footerText}>
                 <Text style={styles.footerTextFont}>
                     Big Mic &#127897;
+                </Text>
+                <Text style={styles.footerTextFont}>
+                    Coding Factory Paris
                 </Text>
                 <Text style={styles.footerTextFont}>
                 &copy; 2022
