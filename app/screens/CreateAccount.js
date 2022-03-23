@@ -10,43 +10,37 @@ function CreateAccount(props) {
     return (
         <SafeAreaView style={styles.background}>
             <View style={styles.formView}>
-              <Text>
+              <Text style={styles.textInfo}>
                   Nom
               </Text>
               <TextInput style={styles.inputText}>
 
-              </TextInput>
-              <Text>
+              </TextInput >
+              <Text style={styles.textInfo}>
                   Prenom
               </Text>
               <TextInput style={styles.inputText}>
 
               </TextInput>
-              <Text>
-                  Pseudo
-              </Text>
-              <TextInput style={styles.inputText}>
-
-              </TextInput>
-              <Text>
+              <Text style={styles.textInfo}>
                   Email
               </Text>
               <TextInput style={styles.inputText}>
 
               </TextInput>
-              <Text>
+              <Text style={styles.textInfo}>
                   Mot de passe
               </Text>
               <TextInput style={styles.inputText}>
 
               </TextInput>
-              <Text>
+              <Text style={styles.textInfo}>
                   Téléphone
               </Text>
               <TextInput style={styles.inputText}>
 
               </TextInput>
-              <Text>
+              <Text style={styles.textInfo}>
                   Ville
               </Text>
               <TextInput style={styles.inputText}>
@@ -54,7 +48,7 @@ function CreateAccount(props) {
               </TextInput>
                 <TouchableOpacity style={styles.createAccountTouchable}>
                     <Text style={styles.createAccountTouchableText}>
-                        Créer mon compte
+                        Suivant
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -95,6 +89,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         margin: 5,
         padding: 10,
+    },
+    textInfo: {
+        marginTop: 8,
     },
 });
 
