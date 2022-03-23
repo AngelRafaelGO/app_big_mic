@@ -29,13 +29,25 @@ function CreateAccount(props) {
 
               </TextInput>
               <Text>
-                  email
+                  Email
               </Text>
               <TextInput style={styles.inputText}>
 
               </TextInput>
               <Text>
                   Mot de passe
+              </Text>
+              <TextInput style={styles.inputText}>
+
+              </TextInput>
+              <Text>
+                  Téléphone
+              </Text>
+              <TextInput style={styles.inputText}>
+
+              </TextInput>
+              <Text>
+                  Ville
               </Text>
               <TextInput style={styles.inputText}>
 
@@ -55,6 +67,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: colors.white,
     },
     createAccountTouchable: {
         justifyContent: 'center',
@@ -76,7 +89,7 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     inputText: {
-        backgroundColor: colors.secondary,
+        backgroundColor: colors.light,
         width: '70%',
         height: 40,
         borderRadius: 5,

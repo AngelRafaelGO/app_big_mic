@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         top: 70,
     },
     loginText: {
-        backgroundColor: colors.secondary,
+        backgroundColor: colors.light,
         width: '70%',
         height: 40,
         borderRadius: 5,
