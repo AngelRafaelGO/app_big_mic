@@ -1,21 +1,24 @@
 
+import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet} from 'react-native';
 import SearchSceneScreen from './screens/SearchSceneScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export default function App() {
-let x = 1;
-console.log(x);
+  const Stack = createNativeStackNavigator();
 
   return (
-    <SearchSceneScreen />
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+            name="Recherche de scène"
+            component={SearchSceneScreen}
+          />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+ 
 });

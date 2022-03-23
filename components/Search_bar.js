@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {TextInput, Button, View, Text, StyleSheet } from 'react-native';
+import {TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
 import colors from '../config/colors';
+import { Feather } from '@expo/vector-icons';
 
 const Search_bar = () => {
     
@@ -8,22 +9,18 @@ const Search_bar = () => {
   
     return (
       <View style={styles.containerView}>
-       <Text> Rechercher une scène </Text>
         <View style= {styles.containerBar}>
           <TextInput 
           style={styles.textInput}
           placeholder='Entrez votre recherche'
           onChangeText={newText => onChangeText(newText)}
           defaultValue={text}/>
-          <View style={styles.containerButton}>
-            <Button 
-            style= {styles.button}
-            title="Rechercher"
-            onPress={()=> alert('Afficher la liste des scènes pour : '+ text)}
-            />
-            
-          </View>
-          
+          <TouchableOpacity
+          style={styles.containerButton}
+          onPress={()=> alert('Afficher la liste des scènes pour : '+ text)}
+          >
+            <Feather name="search" size={26} color="white" style={styles.button} />
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -37,15 +34,17 @@ const styles = StyleSheet.create({
   },
   containerButton: {
     backgroundColor: colors.primary,
-    width: '28%',
+    width: 40,
     borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   containerView: {
     alignItems: 'center',
     margin: 5,
   },
   textInput: {
-    width: '68%',
+    width: '80%',
     height:40 ,
     backgroundColor: colors.light,
     padding: 5,
