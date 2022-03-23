@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, Alert, TouchableOpacity, Text} from 'react-native';
-import colors from '../config/colors';
+import colors from '../app/config/colors';
+
 
 const Button_filter = (props) => {
 
@@ -12,7 +13,7 @@ const Button_filter = (props) => {
       <View >
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={()=> set_action()}
+          onPress={()=> props.set_action()}
           >
             <Text style={styles.button}>
             {props.name}

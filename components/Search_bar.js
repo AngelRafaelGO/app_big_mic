@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
-import colors from '../config/colors';
+
 import { Feather } from '@expo/vector-icons';
+import colors from '../app/config/colors';
 
 const Search_bar = () => {
     

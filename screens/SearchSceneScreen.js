@@ -1,8 +1,8 @@
 import React from 'react';
-import { SafeAreaView, View, StyleSheet, VirtualizedList, Text } from 'react-native';
+import { SafeAreaView, View, StyleSheet, VirtualizedList, Text, TouchableHighlight, Alert } from 'react-native';
+import colors from '../app/config/colors';
 import Button_filter from '../components/Button_filter';
 import Search_bar from '../components/Search_bar';
-import colors from '../config/colors';
 
 const DATA = [];
 
@@ -12,16 +12,31 @@ const getItem = (data, index) => ({
   title: `Item ${index+1}`
 });
 
-const getItemCount = (data) => 50;
+//Generates unique key for each item
+const _keyExtractor = (item, index) => item.id.toString();
+
+const getItemCount = (data) => 30;
 
 //Research item structure and filling
 const Item = ({ title }) => (
-
+  <TouchableHighlight 
+  onPress={()=> set_action()}
+  >
     <View style={styles.item}>
       <Text style={styles.itemTitle}>{title}</Text>
     </View>
+  </TouchableHighlight>
 
 );
+
+//Action when user clicks on an item of the resulted search
+const set_action = () => {
+  Alert.alert('Aller vers la fiche selectionnée');
+};
+
+const set_filter = () => {
+  Alert.alert('Selectionner les paramètres du filtre + rafraichir');
+};
 
 const SearchSceneScreen = () => {
 
@@ -29,15 +44,17 @@ const SearchSceneScreen = () => {
     <SafeAreaView style={styles.container}>
       <Search_bar />
       <View style={styles.filterContainer}>  
-        <Button_filter name="Date" />
-        <Button_filter name="Tag" />
+        <Button_filter name="Date" 
+        set_action= {set_filter}/>
+        <Button_filter name="Tag"
+        set_action= {set_filter} />
       </View>
       {/* Results of the research */}
       <VirtualizedList
         data={DATA}
         initialNumToRender={4}
         renderItem={({ item }) => <Item title={item.title} />}
-        keyExtractor={item => item.key}
+        keyExtractor={_keyExtractor}
         getItemCount={getItemCount}
         getItem={getItem}
       />
