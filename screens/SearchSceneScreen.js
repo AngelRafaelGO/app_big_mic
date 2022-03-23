@@ -3,7 +3,6 @@ import { SafeAreaView, View, StyleSheet, VirtualizedList, Text } from 'react-nat
 import Button_filter from '../components/Button_filter';
 import Search_bar from '../components/Search_bar';
 import colors from '../config/colors';
-import DropShadow from "react-native-drop-shadow";
 
 const DATA = [];
 
@@ -17,11 +16,11 @@ const getItemCount = (data) => 50;
 
 //Research item structure and filling
 const Item = ({ title }) => (
-  <DropShadow style={styles.shadowProp}>
+
     <View style={styles.item}>
       <Text style={styles.itemTitle}>{title}</Text>
     </View>
-  </DropShadow>
+
 );
 
 const SearchSceneScreen = () => {
