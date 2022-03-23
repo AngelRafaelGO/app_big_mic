@@ -21,7 +21,9 @@ const Search_bar = () => {
             title="Rechercher"
             onPress={()=> alert('Afficher la liste des scènes pour : '+ text)}
             />
+            
           </View>
+          
         </View>
       </View>
     );
