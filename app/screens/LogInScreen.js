@@ -29,7 +29,10 @@ function LoginScreen(props) {
                         Connexion
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.registerTouch} onPress={() => navigation.navigate('Création de compte')} >
+                <TouchableOpacity 
+                style={styles.registerTouch} 
+                onPress={() => navigation.navigate('Création de compte')} 
+                >
                     <Text style={styles.touchText}>
                         Créer une compte
                     </Text>

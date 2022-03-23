@@ -13,41 +13,32 @@ function CreateAccount(props) {
               <Text style={styles.textInfo}>
                   Nom
               </Text>
-              <TextInput style={styles.inputText}>
-
-              </TextInput >
+              <TextInput style={styles.inputText} />
               <Text style={styles.textInfo}>
                   Prenom
               </Text>
-              <TextInput style={styles.inputText}>
-
-              </TextInput>
+              <TextInput style={styles.inputText} />
               <Text style={styles.textInfo}>
                   Email
               </Text>
-              <TextInput style={styles.inputText}>
-
-              </TextInput>
+              <TextInput style={styles.inputText} />
               <Text style={styles.textInfo}>
                   Mot de passe
               </Text>
-              <TextInput style={styles.inputText}>
-
-              </TextInput>
+              <TextInput style={styles.inputText} />
               <Text style={styles.textInfo}>
                   Téléphone
               </Text>
-              <TextInput style={styles.inputText}>
-
-              </TextInput>
+              <TextInput style={styles.inputText} />
               <Text style={styles.textInfo}>
                   Ville
               </Text>
-              <TextInput style={styles.inputText}>
-
-              </TextInput>
-                <TouchableOpacity style={styles.createAccountTouchable}>
-                    <Text style={styles.createAccountTouchableText}>
+              <TextInput style={styles.inputText} />
+                <TouchableOpacity 
+                style={styles.createAccountTouchable} 
+                onPress={() => navigation.navigate('Création de compte 2')}
+                >
+                    <Text style={styles.nextScreenTouchable}>
                         Suivant
                     </Text>
                 </TouchableOpacity>
@@ -72,7 +63,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginTop: 20,
     },
-    createAccountTouchableText: {
+    nextScreenTouchable: {
         color: colors.white,
     },
     formView: {
