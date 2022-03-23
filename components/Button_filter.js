@@ -26,13 +26,13 @@ const Button_filter = (props) => {
       buttonContainer: {
         backgroundColor: colors.secondary,
         color: colors.light,
-        padding: 15,
+        padding: 10,
         margin: 5,
         borderRadius: 18,
       },
       button: {
-        width: 'auto',
-        fontSize: 18,
+        width: 80,
+        textAlign: 'center',
       },
   })
 
