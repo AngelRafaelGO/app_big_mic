@@ -1,8 +1,9 @@
 import React from 'react';
 import { SafeAreaView, View, StyleSheet, VirtualizedList, Text, TouchableHighlight, Alert } from 'react-native';
 import colors from '../app/config/colors';
-import Button_filter from '../components/Button_filter';
+import {Button_filter_Tag, Button_filter_Date} from '../components/Button_filter';
 import Search_bar from '../components/Search_bar';
+import SelectDate from '../components/SelectDate';
 
 const DATA = [];
 
@@ -44,9 +45,8 @@ const SearchSceneScreen = () => {
     <SafeAreaView style={styles.container}>
       <Search_bar />
       <View style={styles.filterContainer}>  
-        <Button_filter name="Date" 
-        set_action= {set_filter}/>
-        <Button_filter name="Tag"
+        <Button_filter_Date name="Date" />
+        <Button_filter_Tag name="Tag"
         set_action= {set_filter} />
       </View>
       {/* Results of the research */}
