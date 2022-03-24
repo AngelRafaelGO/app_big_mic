@@ -1,34 +1,38 @@
-import React from 'react';
-import {View, StyleSheet, Alert, TouchableOpacity, Text} from 'react-native';
+import React, {useState} from 'react';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import colors from '../app/config/colors';
 import SelectDate from './SelectDate';
 import Dialog from "react-native-dialog";
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 export const Button_filter_Tag = (props) => {
 
-    const set_action_tag = () => {
-      const visibility = false;
-        <SafeAreaView>
-            <Dialog.Container visible={visibility}>
-            <Dialog.Title>"Calendrier"</Dialog.Title>
-            <Dialog.Description>
-            Choisissez la période
-            </Dialog.Description>
-            <SelectDate />
-            <Dialog.Button label="Annuler" onPress={visibility = false}/>
-            <Dialog.Button label="Valider" onPress={visibility = false}/>
-            </Dialog.Container>
-        </SafeAreaView>
+  const [visible, setVisible] = useState(false);
+
+    const showTags = () => {
+      setVisible(true);
+    };
+  
+    const handleCancel = () => {
+      setVisible(false);
+    };
+  
+    const handleValidate = () => {
+      // The user has pressed the "Delete" button, so here you can do your own logic.
+      // ...Your logic
+      setVisible(false);
     };
 
-    
     return (
       <View >
+        <Dialog.Container visible={visible} >
+            <Dialog.Title>Tags</Dialog.Title>
+            <Dialog.Button label="Annuler" onPress={handleCancel} color={colors.primary}/>
+            <Dialog.Button label="Valider" onPress={handleValidate} color={colors.primary}/>
+          </Dialog.Container>
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={()=> set_action_tag()}
+          onPress={showTags}
           >
             <Text style={styles.button}>
             {props.name}
@@ -39,24 +43,37 @@ export const Button_filter_Tag = (props) => {
   };
 
   export const Button_filter_Date = (props) => {
+    const [visible, setVisible] = useState(false);
 
-    const set_action_date = () => {
-      Alert.alert(
-        "Choisissez la période",
-        <SelectDate />,
-        [
-          {text: "Valider",
-        onPress: () => console.log('Période enregistrée')}
-        ]
-      );
+    const showCalendar = () => {
+      setVisible(true);
     };
-    
+  
+    const handleCancel = () => {
+      setVisible(false);
+    };
+  
+    const handleValidate = () => {
+      // The user has pressed the "Delete" button, so here you can do your own logic.
+      // ...Your logic
+      setVisible(false);
+    };
     
     return (
       <View >
+          <View>
+            <Dialog.Container visible={visible} contentStyle={{height: 'auto', width: 'auto', padding:5}}>
+              <Dialog.Title>Calendrier</Dialog.Title>
+              <Dialog.Description >
+                <SelectDate />
+              </Dialog.Description>
+              <Dialog.Button label="Annuler" onPress={handleCancel} color={colors.primary}/>
+              <Dialog.Button label="Valider" onPress={handleValidate} color={colors.primary}/>
+            </Dialog.Container>
+          </View>
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={()=> set_action_date()}
+          onPress={showCalendar}
           >
             <Text style={styles.button}>
             {props.name}

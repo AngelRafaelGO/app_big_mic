@@ -1,57 +1,38 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {Text, View, StyleSheet } from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker/CalendarPicker';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import colors from '../app/config/colors';
 
 const SelectDate = () => {
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const startDate = selectedStartDate
+    ? selectedStartDate.format('YYYY-MM-DD').toString()
+    : '';
 
-    onDateChange = (date, type) => {
-        if (type === 'END_DATE') {
-          useState({
-            selectedEndDate: date,
-          });
-        } else {
-          useState({
-            selectedStartDate: date,
-            selectedEndDate: null,
-          });
-        }
-      }
+  const minDate = new Date(); // Today
+  const maxDate = new Date(2035, 6, 3);
 
-    const { selectedStartDate, selectedEndDate } = useState;
-    const minDate = new Date(); // Today
-    const maxDate = new Date(2017, 6, 3);
-    const startDate  =  selectedStartDate ? selectedStartDate.toString() : '';
-    const endDate = selectedEndDate ? selectedEndDate.toString() : '';
-
-    return(
-        <SafeAreaView style={styles.container}>
-        <CalendarPicker
-          startFromMonday={true}
-          allowRangeSelection={true}
-          minDate={minDate}
-          maxDate={maxDate}
-          todayBackgroundColor="#f2e6ff"
-          selectedDayColor="#7300e6"
-          selectedDayTextColor="#FFFFFF"
-          onDateChange={this.onDateChange}
-        />
-
-        <View>
-          <Text>SELECTED START DATE:{ startDate }</Text>
-          <Text>SELECTED END DATE:{ endDate }</Text>
-        </View>
-      </SafeAreaView>
-    )
-
+  return (
+    <View style={styles.container}>
+      <CalendarPicker onDateChange={setSelectedStartDate}
+      width={300}
+      minDate={minDate}
+      maxDate={maxDate}
+      todayBackgroundColor={colors.secondary}
+      selectedDayColor={colors.primary}
+      selectedDayTextColor={colors.black}
+      scrollable={true}
+       />
+      <Text>Rechercher jusqu'au {startDate}</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#FFFFFF',
-        marginTop: 100,
+      alignItems: "center",
+      justifyContent: "center",
     }
-})
+});
 
 export default SelectDate;
