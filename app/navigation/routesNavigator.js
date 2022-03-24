@@ -14,9 +14,9 @@ export function RootNavigator() {
     return (
         <Stack.Navigator>
         <Stack.Screen 
-            name="Prestation" component={Presta} />
-        <Stack.Screen 
             name="Créer une Prestation" component={CreatePresta} />
+        <Stack.Screen 
+            name="Prestation" component={Presta} />
         </Stack.Navigator>
       );
 };

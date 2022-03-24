@@ -17,7 +17,7 @@ function Presta(props) {
                     votre description ...
                 </Text>
                 <View style={styles.imgContainer}>
-                    <Image style={styles.img} source={require("../../assets/adaptatice-icon.png")} />
+                    <Image style={styles.img} source={require("../../assets/splash.png")} />
                 </View>
             </View>
         </SafeAreaView>
