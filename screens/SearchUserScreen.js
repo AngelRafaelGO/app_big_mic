@@ -44,8 +44,9 @@ const SearchSceneScreen = () => {
     <SafeAreaView style={styles.container}>
       <Search_bar />
       <View style={styles.filterContainer}>  
-        <Button_filter_Date name="Date" />
         <Button_filter_Tag name="Tag"
+        set_action= {set_filter} />
+        <Button_filter_Tag name="Rôle"
         set_action= {set_filter} />
       </View>
       {/* Results of the research */}

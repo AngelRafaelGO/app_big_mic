@@ -1,20 +1,25 @@
-
 import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet} from 'react-native';
 import SearchSceneScreen from './screens/SearchSceneScreen';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import SearchUserScreen from './screens/SearchUserScreen';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App() {
-  const Stack = createNativeStackNavigator();
+  const Tab = createMaterialTopTabNavigator();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
+      <Tab.Navigator>
+        <Tab.Screen
             name="Recherche de scène"
             component={SearchSceneScreen}
           />
-      </Stack.Navigator>
+          <Tab.Screen
+            name="Recherche de personne"
+            component={SearchUserScreen}
+          />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
