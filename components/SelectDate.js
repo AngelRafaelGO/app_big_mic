@@ -10,7 +10,7 @@ const SelectDate = () => {
     : '';
 
   const minDate = new Date(); // Today
-  const maxDate = new Date(2035, 6, 3);
+  const maxDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getFullYear()+3);
 
   return (
     <View style={styles.container}>
@@ -22,6 +22,7 @@ const SelectDate = () => {
       selectedDayColor={colors.primary}
       selectedDayTextColor={colors.black}
       scrollable={true}
+      restrictMonthNavigation={true}
        />
       <Text>Rechercher jusqu'au {startDate}</Text>
     </View>
