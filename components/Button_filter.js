@@ -135,7 +135,7 @@ export const Button_filter_Tag = (props) => {
       textAlign: 'center',
     },
     filterList: {
-      width: 'parent',
+      alignItems: 'center',
     },
 })
   

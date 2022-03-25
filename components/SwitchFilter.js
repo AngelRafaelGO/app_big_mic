@@ -26,15 +26,17 @@ const SwitchFilter = (props) => {
 
 const styles = StyleSheet.create({
     containerTag: {
+        width: 220,
         flexDirection: 'row',
         borderRadius: 15,
-        width: 'auto',
-        justifyContent:'space-around',
-        marginBottom:5,
+        flexBasis: 'auto',
+        justifyContent:'space-between',
+        marginBottom: 10,
+        alignItems: 'center',
     },
     tag: {
       fontSize: 22,
-      width:'50%',
+      flexGrow: 1,
     },
 })
 
