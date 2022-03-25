@@ -3,6 +3,8 @@ import {Text, View, StyleSheet } from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker/CalendarPicker';
 import colors from '../config/colors';
 
+
+
 const SelectDate = () => {
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const startDate = selectedStartDate
@@ -14,6 +16,7 @@ const SelectDate = () => {
 
   return (
     <View style={styles.container}>
+      
       <CalendarPicker onDateChange={setSelectedStartDate}
       width={300}
       minDate={minDate}

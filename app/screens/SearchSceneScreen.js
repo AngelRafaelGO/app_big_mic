@@ -3,6 +3,9 @@ import { SafeAreaView, View, StyleSheet, VirtualizedList, Text, TouchableHighlig
 import colors from '../config/colors';
 import {Button_filter_Tag, Button_filter_Date} from '../components/Button_filter';
 import Search_bar from '../components/Search_bar';
+import { AntDesign } from '@expo/vector-icons'; 
+import { Card, Avatar } from 'react-native-paper';
+
 
 
 const DATA = [];
@@ -42,6 +45,14 @@ const getItemCount = (data) => 30;
 
 //Research result item structure and filling
 const Item = ({ title }) => (
+  //Remplacer avec une Card de Card paper ??
+  /* <Card.Title
+    title="Card Title"
+    subtitle="Card Subtitle"
+    left={(props) => <Avatar.Image size={24} source={require('../assets/avatar.png') />}
+    right={(props) => <IconButton {...props} icon="heart" onPress={() => {}} />}
+  /> */
+
   <TouchableHighlight 
   style={styles.itemContainer}
   onPress={()=> set_action()}
@@ -75,12 +86,23 @@ const SearchSceneScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Search_bar />
-      <View style={styles.filterContainer}>  
+     
+      <View style={styles.filterContainer}>
+          
         <Button_filter_Date name="Date" />
         <Button_filter_Tag name="Tag"
         tagList={tagList}
         set_action= {set_filter} />
       </View>
+
+      <Card.Title
+    style={styles.itemContainer}
+    title="Card Title"
+    subtitle="Card Subtitle"
+    left={(props) => <Avatar.Image size={40} source={require('../assets/itemCat.png')} />}
+    right={(props) => <AntDesign name="hearto" size={20} color={colors.primary} />
+                      }
+  />
       {/* Results of the research */}
       <VirtualizedList
         data={DATA}
@@ -111,9 +133,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   itemContainer: {
-    flexDirection: 'row',
-    margin:10,
-    alignContent: 'flex-start',
+    marginVertical:5,
+    marginHorizontal: 20,
   },
   itemImage: {
     borderRadius: 25,

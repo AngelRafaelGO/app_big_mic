@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SearchSceneScreen, SearchUserScreen } from '../screens/screensindex';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import colors from '../config/colors';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {StatusBar} from 'react-native';
 
 
-//
 const SearchMainStack = () => {
     const Tab = createMaterialTopTabNavigator();
-    
+    //Set status bar color to light mode
+    StatusBar.setBarStyle( 'light-content',true)
+
     return (
-        <Tab.Navigator
+        <Tab.Navigator 
         screenOptions={{
-          tabBarLabelStyle: { fontSize: 12 },
-          tabBarStyle: { backgroundColor: colors.secondary, paddingTop: 25 },
+          tabBarLabelStyle: { fontSize: 12, color: colors.light },
+          tabBarStyle: { backgroundColor: colors.dark, paddingTop: 25 },
           tabBarIndicatorStyle: {backgroundColor: colors.primary}
         }}
         >
