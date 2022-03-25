@@ -1,41 +1,121 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import select from 'react-select';
+import React, {useState} from 'react';
+import { StyleSheet, Text, View, Image, TextInput,ScrollView, Button } from 'react-native';
 
 
 const SceneForm = () => {
 
-    state= {
-        titreScene: '',
-        description:'',
-    
-        
-    }
+    React.useState
+   
 
-    handletitreScene = e => {
-        this.setState({e.target.value})
+    // handletitreScene = (e) => {
+    //     this.setState(e.target.value)
 
-    }
+    // }
 
-    handleDescription = e => {
-        this.setState({e.target.value})
-    }
+    // handleDescription = (e) => {
+    //     this.setState(e.target.value)
+    // }
+
+    let text = useState();
+
 
     return (
 
-        <ScrollView>
+        <ScrollView> 
+
+            <Text>Creation de ma scène </Text>
             
-            <view>
+            <View styles={styles.wrapper}>
 
-            <h1>Creation de ma scène</h1>
+            <Text> Titre de la scène : </Text>
+            <TextInput style={styles.TextInput}
+                        value={text}
+                        onChangeText = {text}
 
-            <text> Titre de la scène </text>
+            />
+
+            <Text> Adresse de la scène :</Text>
+            <TextInput style={styles.TextInput}
+                        value={text}
+                        onChangeText = {text}
+
+            />
+
+            <Text> Description :</Text>
+            <TextInput style={styles.TextInput}
+                        value={text}
+                        onChangeText = {text}
+
+            />
+
+            <Text> Tags :</Text>
+            <TextInput style={styles.TextInput}
+                        value={text}
+                        onChangeText = {text}
+
+            />
+
+            <Text> Critères de participation :</Text>
+            <TextInput style={styles.TextInput}
+                        value={text}
+                        onChangeText = {text}
+
+            />
+
+            <Text> Charger une photo pour la scène :</Text>
+
+            
+
+ 
+            </View>
+
+            <View >
+                <Button title="Valider" StyleSheet={styles.Button} />
+
+            </View>
+
+            
+
+        </ScrollView>
+    )
+
+} 
+ 
+const styles = StyleSheet.create({
+
+    
+    Button: {
+        backgroundColor: "#ff0000",
+        fontSize: 40,
+    },
+
+    wrapper: {
+        marginTop: 50,
+        height: 300,
+        alignItems:"center",
+    },
+
+    TextInput: { 
+
+        height: 30,
+        width: '90%',
+        borderColor: 'grey',
+        borderWidth: 1,
+        padding: 5,
+        margin:15,
+    }
+});
+
+export default SceneForm;
+
+   {/* <Text> Titre de la scène </Text>
             <TextInput style={{height:40, borderColor: 'gray', borderWidth:1}} value={this.state.titreScene} onChange = {this.handletitreScene} ></TextInput>
 
-            <view>
-                <text> Date :</text>
+            <View>
+                <Text> Date :</Text>
 
-                <select>
+                <Select>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -68,14 +148,14 @@ const SceneForm = () => {
                     <option value="30">30</option>
                     <option value="31">31</option>
 
-                </select>
+                </Select>
 
-            </view>
+            </View>
 
-            <view>
-                <text> Mois :</text>
+            <View>
+                <Text> Mois :</Text>
 
-                <select>
+                <Select>
                     <option value="Janvier">Janvier</option>
                     <option value="Fevrier">Février</option>
                     <option value="Mars">Mars</option>
@@ -89,30 +169,21 @@ const SceneForm = () => {
                     <option value="Novembre">Novembre</option>
                     <option value="Decembre">Decembre</option>
 
-                </select>
+                </Select>
 
-            </view>
+            </View>
 
-            <view>
-                <text> Date :</text>
+            <View>
+                <Text> Date :</Text>
 
-                <select>
+                <Select>
                     <option value="2022">2022</option>
                     <option value="2023">2023</option>
                     
 
-                </select>
+                </Select>
 
-            </view>
+            </View>
 
-            <text> Description :</text>
-            <TextInput style={{height:40, borderColor: 'gray', borderWidth:1}} value={this.state.description} onChange={this.handleDescription}></TextInput>
-
-            </view>
-
-            
-
-        </ScrollView>
-    )
-
-} 
+            <Text> Description :</Text>
+            <TextInput style={{height:40, borderColor: 'gray', borderWidth:1}} value={this.state.description} onChange={this.handleDescription}></TextInput> */}
