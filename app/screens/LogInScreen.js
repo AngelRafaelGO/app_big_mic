@@ -1,13 +1,20 @@
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Image, SafeAreaView, StyleSheet, View, TextInput, Text, TouchableOpacity } from 'react-native';
 
+import { AuthContext } from '../config/context';
 import colors from '../config/colors';
 
-function LoginScreen(props) {
+function LoginScreen({}) {
 
     const navigation = useNavigation();
+    const { signIn } = React.useContext(AuthContext);
+
+    const [password, setPassword] = React.useState();
+    const [email, setEmail] = React.useState();
 
     return (
+
         <SafeAreaView style={styles.background}>
             <View style={styles.logoTitleContainer}>
                 <Image style={styles.logo} source={require("../assets/microImage.jpg")}/>
@@ -18,20 +25,25 @@ function LoginScreen(props) {
                 textContentType='emailAddress'
                 keyboardType='email-address' 
                 style={styles.loginText} 
+                onChangeText={(email) => setEmail(email)}
                 />
                 <TextInput 
                 textContentType='password'
                 secureTextEntry={true}
                 style={styles.loginText} 
+                onChangeText={(password) => setPassword(password)}
                 />
-                <TouchableOpacity style={styles.loginTouch}>
+                <TouchableOpacity 
+                style={styles.loginTouch}
+                onPress={() => signIn(password)}
+                >
                     <Text style={styles.touchText}>
                         Connexion
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
                 style={styles.registerTouch} 
-                onPress={() => navigation.navigate('Création de compte')} 
+                onPress={() => navigation.navigate('CreateAccoun1')} 
                 >
                     <Text style={styles.touchText}>
                         Créer une compte

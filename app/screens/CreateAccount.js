@@ -1,11 +1,11 @@
-import { useNavigation } from "@react-navigation/native";
+import React from 'react';
 import { SafeAreaView, View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 
 import colors from "../config/colors";
 
-function CreateAccount(props) {
+function CreateAccount({ navigation }) {
 
-    const navigation = useNavigation();
+    const [createPassword, setCreatePassword] = React.useState();
 
     return (
         <SafeAreaView style={styles.background}>
@@ -25,7 +25,12 @@ function CreateAccount(props) {
               <Text style={styles.textInfo}>
                   Mot de passe
               </Text>
-              <TextInput style={styles.inputText} />
+              <TextInput 
+              textContentType='password'
+              secureTextEntry={true}
+              style={styles.inputText} 
+              onChangeText={(createPassword) => setCreatePassword(createPassword)}
+              />
               <Text style={styles.textInfo}>
                   Téléphone
               </Text>
@@ -36,7 +41,9 @@ function CreateAccount(props) {
               <TextInput style={styles.inputText} />
                 <TouchableOpacity 
                 style={styles.createAccountTouchable} 
-                onPress={() => navigation.navigate('Création de compte 2')}
+                onPress={() => navigation.navigate('CreateAccount2', {
+                    password: createPassword,
+                })}
                 >
                     <Text style={styles.nextScreenTouchable}>
                         Suivant

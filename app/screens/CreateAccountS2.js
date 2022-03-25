@@ -1,11 +1,14 @@
-import { useNavigation } from "@react-navigation/native";
+import { NavigationContext } from '@react-navigation/native';
+import React from 'react';
 import { TouchableOpacity, Text, View, SafeAreaView, TextInput, StyleSheet } from "react-native";
 
 import colors from "../config/colors";
+import { AuthContext } from '../config/context';
 
-function CreateAccountS2() {
+function CreateAccountS2({ navigation, route }) {
 
-    const navigation = useNavigation();
+    const { signUp } = React.useContext(AuthContext);
+    const {password} = route.params;
     
     return (
         <SafeAreaView style={styles.background}>
@@ -17,7 +20,10 @@ function CreateAccountS2() {
                 <Text style={styles.textInfo}>
                     Choisiez une photo
                 </Text>
-                <TouchableOpacity style={styles.createAccountTouchable}>
+                <TouchableOpacity 
+                style={styles.createAccountTouchable}
+                onPress={() => signUp(password)}
+                >
                     <Text style={styles.createAccountTouchableTxt}>
                         Créer mon compte
                     </Text>
