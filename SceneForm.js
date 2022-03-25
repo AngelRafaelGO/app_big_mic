@@ -30,36 +30,31 @@ const SceneForm = () => {
 
             <Text> Titre de la scène : </Text>
             <TextInput style={styles.TextInput}
-                        value={text}
-                        onChangeText = {text}
+                        
 
             />
 
             <Text> Adresse de la scène :</Text>
             <TextInput style={styles.TextInput}
-                        value={text}
-                        onChangeText = {text}
+                        
 
             />
 
             <Text> Description :</Text>
             <TextInput style={styles.TextInput}
-                        value={text}
-                        onChangeText = {text}
+                        
 
             />
 
             <Text> Tags :</Text>
             <TextInput style={styles.TextInput}
-                        value={text}
-                        onChangeText = {text}
+                        
 
             />
 
             <Text> Critères de participation :</Text>
             <TextInput style={styles.TextInput}
-                        value={text}
-                        onChangeText = {text}
+                        
 
             />
 
