@@ -46,13 +46,15 @@ const getItemCount = (data) => 30;
 //Research result item structure and filling
 const Item = ({ title }) => (
   //Remplacer avec une Card de Card paper ??
-  /* <Card.Title
-    title="Card Title"
+  <Card.Title
+    style={styles.itemContainer}
+    title={title}
     subtitle="Card Subtitle"
-    left={(props) => <Avatar.Image size={24} source={require('../assets/avatar.png') />}
-    right={(props) => <IconButton {...props} icon="heart" onPress={() => {}} />}
-  /> */
-
+    left={(props) => <Avatar.Image size={40} source={require('../assets/itemCat.png')} />}
+    right={(props) => <AntDesign name="hearto" size={20} color={colors.primary} />
+    }
+  />
+  /* 
   <TouchableHighlight 
   style={styles.itemContainer}
   onPress={()=> set_action()}
@@ -67,7 +69,7 @@ const Item = ({ title }) => (
         <Text>Description lorem</Text>
       </View>
     </View>
-  </TouchableHighlight>
+  </TouchableHighlight>*/
 
 );
 
@@ -94,15 +96,6 @@ const SearchSceneScreen = () => {
         tagList={tagList}
         set_action= {set_filter} />
       </View>
-
-      <Card.Title
-    style={styles.itemContainer}
-    title="Card Title"
-    subtitle="Card Subtitle"
-    left={(props) => <Avatar.Image size={40} source={require('../assets/itemCat.png')} />}
-    right={(props) => <AntDesign name="hearto" size={20} color={colors.primary} />
-                      }
-  />
       {/* Results of the research */}
       <VirtualizedList
         data={DATA}
@@ -118,19 +111,12 @@ const SearchSceneScreen = () => {
 
 const styles = StyleSheet.create({
   container:{
-    backgroundColor: colors.white,
+    backgroundColor: colors.light,
   },
   filterContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  item: {
-    padding: 10,
-    backgroundColor: colors.white,
-    marginVertical: 5,
-    marginHorizontal: 10,
-    borderRadius: 5,
   },
   itemContainer: {
     marginVertical:5,
