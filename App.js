@@ -1,9 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet} from 'react-native';
-import SearchSceneScreen from './screens/SearchSceneScreen';
-import SearchUserScreen from './screens/SearchUserScreen';
+import SearchSceneScreen from './app/screens/SearchSceneScreen';
+import SearchUserScreen from './app/screens/SearchUserScreen';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 export default function App() {
   const Tab = createMaterialTopTabNavigator();

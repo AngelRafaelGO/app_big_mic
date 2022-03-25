@@ -1,10 +1,11 @@
 import React from 'react';
 import { SafeAreaView, View, StyleSheet, VirtualizedList, Text, TouchableHighlight, Alert } from 'react-native';
 import colors from '../config/colors';
-import {Button_filter_Tag, Button_filter_Date} from '../components/Button_filter';
+import {Button_filter_Tag} from './app/components/Button_filter';
 import Search_bar from '../components/Search_bar';
 
 const DATA = [];
+
 const tagList = [
   {
     id: 1,
@@ -62,16 +63,17 @@ const set_filter = () => {
 
 const SearchSceneScreen = () => {
 
-
   return (
     <SafeAreaView style={styles.container}>
       <Search_bar />
       <View style={styles.filterContainer}>  
-        <Button_filter_Date name="Date" />
-        {console.log('Dans button_searchScreen'+tagList)}
         <Button_filter_Tag name="Tag"
+        set_action= {set_filter}
+        tagList={tagList} />
+        <Button_filter_Tag name="Rôle"
         tagList={tagList}
-        set_action= {set_filter} />
+        set_action= {set_filter}
+         />
       </View>
       {/* Results of the research */}
       <VirtualizedList

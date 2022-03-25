@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, View, StyleSheet, VirtualizedList, Text, TouchableHighlight, Alert } from 'react-native';
-import colors from '../app/config/colors';
+import colors from '../config/colors';
 import {Button_filter_Tag} from '../components/Button_filter';
 import Search_bar from '../components/Search_bar';
 
