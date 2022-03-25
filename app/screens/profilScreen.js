@@ -1,6 +1,7 @@
 import React from "react";
-import { Text, SafeAreaView, View, TouchableOpacity, StyleSheet, useWindowDimensions, useState } from "react-native";
+import { Text, SafeAreaView, View, TouchableOpacity, StyleSheet, useWindowDimensions } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import { Ionicons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
 
@@ -39,7 +40,7 @@ const renderTabBar = props => (
     />
 );
 
-function ProfilScreen() {
+function ProfilScreen({ navigation }) {
         
     const layout = useWindowDimensions();
     const [index, setIndex] = React.useState(0);
@@ -52,6 +53,12 @@ function ProfilScreen() {
     return (
         <SafeAreaView style={styles.mainView}>
             <View style={styles.accountInfoView}>
+                <TouchableOpacity 
+                style={styles.profilOprionsTouchable}
+                onPress={() => navigation.navigate('ProfilOptions')}
+                >
+                    <Ionicons name='settings-outline' size={24} color='white' />
+                </TouchableOpacity>
                 <Text style={{ color: colors.white }}>
                     Hello, my name is Angel
                 </Text>
@@ -74,6 +81,13 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '30%',
         backgroundColor: colors.primary,
+    },
+    profilOprionsTouchable: {
+        position: 'absolute',
+        right: -10,
+        top: 20,
+        width: 50,
+        height: 50,
     },
     tabScreen: {
         flex: 1,

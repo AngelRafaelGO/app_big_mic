@@ -8,7 +8,7 @@ import { AuthContext } from '../config/context';
 function CreateAccountS2({ navigation, route }) {
 
     const { signUp } = React.useContext(AuthContext);
-    const {password} = route.params;
+    const { password } = route.params;
     
     return (
         <SafeAreaView style={styles.background}>

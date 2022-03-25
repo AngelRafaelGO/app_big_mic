@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { LoginScreen, CreateAccount, CreateAccountS2, ProfilScreen, Loading } from '../screens/screensIndex';
+import { LoginScreen, CreateAccount, CreateAccountS2, ProfilScreen, Loading, ProfilOptions } from '../screens/screensIndex';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { AuthContext } from '../config/context';
@@ -37,19 +37,27 @@ const LoginStackScreen = () => (
 // Profil stack screen
 const ProfilStack = createNativeStackNavigator();
 const ProfilStackScreen = () => (
-    <ProfilStack.Navigator screenOptions={{ headerShown: false}}>
+    <ProfilStack.Navigator >
         <ProfilStack.Screen 
         name='Profil'
         component={ProfilScreen}
         options={{ title: 'Compte' }}
         />
+        <TabsMainStack.Screen 
+        name='ProfilOptions'
+        component={ProfilOptions}
+        options={{ title: 'Options de compte' }}
+        />
+
     </ProfilStack.Navigator>
 );
 
 // Main menu screen navigation stack (logged in)
 const TabsMainStack = createBottomTabNavigator();
 const MainScreen = () => (
-    <TabsMainStack.Navigator>
+    <TabsMainStack.Navigator 
+    screenOptions={{ headerShown: false }}
+    >
         <TabsMainStack.Screen 
         name='Profil'
         component={ProfilStackScreen}

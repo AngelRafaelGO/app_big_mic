@@ -5,7 +5,7 @@ import { Image, SafeAreaView, StyleSheet, View, TextInput, Text, TouchableOpacit
 import { AuthContext } from '../config/context';
 import colors from '../config/colors';
 
-function LoginScreen({}) {
+function LoginScreen() {
 
     const navigation = useNavigation();
     const { signIn } = React.useContext(AuthContext);
