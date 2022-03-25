@@ -20,10 +20,7 @@ function ProfilOptions({ navigation }) {
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
-
-
     );
-
 };
 
 const styles = StyleSheet.create({

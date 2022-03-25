@@ -14,12 +14,12 @@ function CreateAccountS2({ navigation, route }) {
         <SafeAreaView style={styles.background}>
             <View style={styles.formView}>
                 <Text style={styles.textInfo}>
-                    Choisiez un pseudo
+                    Choisissez une photo
+                </Text>
+                <Text style={styles.textInfo}>
+                Choisissez un pseudo
                 </Text>
                 <TextInput style={styles.inputText} />
-                <Text style={styles.textInfo}>
-                    Choisiez une photo
-                </Text>
                 <TouchableOpacity 
                 style={styles.createAccountTouchable}
                 onPress={() => signUp(password)}

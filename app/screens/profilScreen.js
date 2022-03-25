@@ -2,7 +2,8 @@ import React from "react";
 import { 
     Text, SafeAreaView, 
     View, TouchableOpacity, 
-    StyleSheet, useWindowDimensions 
+    StyleSheet, useWindowDimensions,
+    Image,
 } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { Ionicons } from "@expo/vector-icons";
@@ -83,8 +84,17 @@ function ProfilScreen({ navigation }) {
                 >
                     <Ionicons name='settings-outline' size={24} color='white' />
                 </TouchableOpacity>
-                <Text style={{ color: colors.white }}>
+                <Image 
+                style={styles.accountImage}
+                source={{
+                    uri: 'https://avatars.githubusercontent.com/u/53479682?v=4'
+                }}
+                />
+                <Text style={styles.accountText}>
                     Hello, my name is Angel
+                </Text>
+                <Text style={styles.accountText}>
+                    Paris
                 </Text>
             </View>
             <TabView 
@@ -105,6 +115,17 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '30%',
         backgroundColor: colors.primary,
+    },
+    accountImage: {
+        position: 'absolute',
+        top: 40,
+        left: 20,
+        width: 75,
+        height: 75,
+        borderRadius: 75,
+    },
+    accountText: {
+        color: colors.white,
     },
     profilOprionsTouchable: {
         position: 'absolute',

@@ -53,6 +53,8 @@ const ProfilStackScreen = () => (
 );
 
 // Main menu screen navigation stack (logged in)
+// Adding a new TabsMainStack.Screen will result in
+// a new element in the navigation bar + a new stack
 const TabsMainStack = createBottomTabNavigator();
 const MainScreen = () => (
     <TabsMainStack.Navigator 
