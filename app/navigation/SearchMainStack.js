@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { SearchSceneScreen, SearchUserScreen } from './app/screens/screensindex';
+import { SearchSceneScreen, SearchUserScreen } from '../screens/screensindex';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 
@@ -10,7 +10,6 @@ const SearchMainStack = () => {
     const Tab = createMaterialTopTabNavigator();
     
     return (
-      <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen
               name="Recherche de scène"
@@ -21,7 +20,7 @@ const SearchMainStack = () => {
               component={SearchUserScreen}
             />
         </Tab.Navigator>
-      </NavigationContainer>
     );
   }
 
+  export default SearchMainStack;

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Text, Switch} from 'react-native';
-import colors from '../app/config/colors';
+import colors from '../config/colors';
 
 
 

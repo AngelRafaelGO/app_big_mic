@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Text, View, StyleSheet } from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker/CalendarPicker';
-import colors from '../app/config/colors';
+import colors from '../config/colors';
 
 const SelectDate = () => {
   const [selectedStartDate, setSelectedStartDate] = useState(null);

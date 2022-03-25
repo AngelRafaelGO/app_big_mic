@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
-import colors from '../app/config/colors';
+import colors from '../config/colors';
 
 const Search_bar = () => {
     
