@@ -1,8 +1,9 @@
 import React from 'react';
-import { SafeAreaView, View, StyleSheet, VirtualizedList, Text, TouchableHighlight, Alert } from 'react-native';
+import { SafeAreaView, View, StyleSheet, VirtualizedList, Text, TouchableHighlight, Alert, Image } from 'react-native';
 import colors from '../config/colors';
 import {Button_filter_Tag, Button_filter_Date} from '../components/Button_filter';
 import Search_bar from '../components/Search_bar';
+
 
 const DATA = [];
 const tagList = [
@@ -39,13 +40,21 @@ const _keyExtractor = (item, index) => item.id.toString();
 
 const getItemCount = (data) => 30;
 
-//Research item structure and filling
+//Research result item structure and filling
 const Item = ({ title }) => (
   <TouchableHighlight 
+  style={styles.itemContainer}
   onPress={()=> set_action()}
   >
-    <View style={styles.item}>
-      <Text style={styles.itemTitle}>{title}</Text>
+    <View style={{width:'auto', flexDirection: 'row'}}>
+      <Image
+          style={styles.itemImage}
+          source={require('../assets/itemCat.png')}
+      />
+      <View style={styles.item}>
+        <Text style={styles.itemTitle}>{title}</Text>
+        <Text>Description lorem</Text>
+      </View>
     </View>
   </TouchableHighlight>
 
@@ -68,7 +77,6 @@ const SearchSceneScreen = () => {
       <Search_bar />
       <View style={styles.filterContainer}>  
         <Button_filter_Date name="Date" />
-        {console.log('Dans button_searchScreen'+tagList)}
         <Button_filter_Tag name="Tag"
         tagList={tagList}
         set_action= {set_filter} />
@@ -101,6 +109,18 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     marginHorizontal: 10,
     borderRadius: 5,
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    margin:10,
+    alignContent: 'flex-start',
+  },
+  itemImage: {
+    borderRadius: 25,
+  },
+  itemTitle: {
+    fontWeight: 'bold',
+    fontSize: 18,
   },
   shadowProp: {
     shadowColor: colors.dark,
