@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, TouchableOpacity, Text, Switch} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import colors from '../config/colors';
 import SelectDate from './SelectDate';
 import Dialog from "react-native-dialog";
