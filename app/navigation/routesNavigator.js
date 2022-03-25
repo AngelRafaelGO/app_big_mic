@@ -88,6 +88,8 @@ export function RootNavigator() {
         };
     }, []);
 
+    // This effect component simulates the loading time needed
+    // to athentificate a user
     React.useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);

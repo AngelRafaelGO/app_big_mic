@@ -1,5 +1,9 @@
 import React from "react";
-import { Text, SafeAreaView, View, TouchableOpacity, StyleSheet, useWindowDimensions } from "react-native";
+import { 
+    Text, SafeAreaView, 
+    View, TouchableOpacity, 
+    StyleSheet, useWindowDimensions 
+} from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -7,22 +11,42 @@ import colors from "../config/colors";
 
 const firstTab = () => (
     <View style={styles.tabScreen}>
+        <TouchableOpacity style={styles.tabScrArtCardCreate}>
+            <Ionicons 
+            name='ios-create-outline'
+            size={24} 
+            color={{ color: colors.white }} />
+        </TouchableOpacity>
         <Text>
-            Artiste
+            Hello, this is the artist profile
         </Text>
     </View>
 );
 const secondTab = () => (
     <View style={styles.tabScreen}>
+        <TouchableOpacity style={styles.tabScrSceneCardCreate}>
+            <Ionicons
+            name='ios-create-outline'
+            size={24}
+            color={{ color: colors.white }}
+            />
+        </TouchableOpacity>
         <Text>
-            Ogranisateur
+            Hello, here you can create a new scene
         </Text>
     </View>
 );
 const thirdTab = () => (
     <View style={styles.tabScreen}>
+        <TouchableOpacity style={styles.tabScrLocCardCreate}>
+            <Ionicons 
+            name='ios-create-outline'
+            size={24}
+            color={{ color: colors.white }}
+            />
+        </TouchableOpacity>
         <Text>
-            Exploitant lieux
+            Hello, add a new place to host events!
         </Text>
     </View>
 );
@@ -84,10 +108,23 @@ const styles = StyleSheet.create({
     },
     profilOprionsTouchable: {
         position: 'absolute',
-        right: -10,
+        right: 15,
         top: 20,
-        width: 50,
-        height: 50,
+    },
+    tabScrArtCardCreate: {
+        position: 'absolute',
+        right: 20,
+        top: 15,
+    },
+    tabScrSceneCardCreate: {
+        position: 'absolute',
+        right: 20,
+        top: 15,
+    },
+    tabScrLocCardCreate: {
+        position: 'absolute',
+        right: 20,
+        top: 15,
     },
     tabScreen: {
         flex: 1,
