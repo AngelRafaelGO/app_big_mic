@@ -5,6 +5,28 @@ import {Button_filter_Tag, Button_filter_Date} from '../components/Button_filter
 import Search_bar from '../components/Search_bar';
 
 const DATA = [];
+const tagList = [
+  {
+    id: 1,
+    name: "Musique"
+  },
+  {
+    id: 2,
+    name: "Danse"
+  },
+  {
+    id: 3,
+    name: "Chant"
+  },
+  {
+    id: 4,
+    name: "Théâtre"
+  },
+  {
+    id: 5,
+    name: "Stand-up"
+  },
+];
 
 //Generation of the item's data
 const getItem = (data, index) => ({
@@ -40,12 +62,15 @@ const set_filter = () => {
 
 const SearchSceneScreen = () => {
 
+
   return (
     <SafeAreaView style={styles.container}>
       <Search_bar />
       <View style={styles.filterContainer}>  
         <Button_filter_Date name="Date" />
+        {console.log('Dans button_searchScreen'+tagList)}
         <Button_filter_Tag name="Tag"
+        tagList={tagList}
         set_action= {set_filter} />
       </View>
       {/* Results of the research */}

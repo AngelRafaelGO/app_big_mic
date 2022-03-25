@@ -1,10 +1,33 @@
 import React from 'react';
 import { SafeAreaView, View, StyleSheet, VirtualizedList, Text, TouchableHighlight, Alert } from 'react-native';
 import colors from '../app/config/colors';
-import {Button_filter_Tag, Button_filter_Date} from '../components/Button_filter';
+import {Button_filter_Tag} from '../components/Button_filter';
 import Search_bar from '../components/Search_bar';
 
 const DATA = [];
+
+const tagList = [
+  {
+    id: 1,
+    name: "Musique"
+  },
+  {
+    id: 2,
+    name: "Danse"
+  },
+  {
+    id: 3,
+    name: "Chant"
+  },
+  {
+    id: 4,
+    name: "Théâtre"
+  },
+  {
+    id: 5,
+    name: "Stand-up"
+  },
+];
 
 //Generation of the item's data
 const getItem = (data, index) => ({
@@ -45,9 +68,12 @@ const SearchSceneScreen = () => {
       <Search_bar />
       <View style={styles.filterContainer}>  
         <Button_filter_Tag name="Tag"
-        set_action= {set_filter} />
+        set_action= {set_filter}
+        tagList={tagList} />
         <Button_filter_Tag name="Rôle"
-        set_action= {set_filter} />
+        tagList={tagList}
+        set_action= {set_filter}
+         />
       </View>
       {/* Results of the research */}
       <VirtualizedList
