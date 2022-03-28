@@ -3,7 +3,7 @@ import {
     Text, SafeAreaView, 
     View, TouchableOpacity, 
     StyleSheet, useWindowDimensions,
-    Image,
+    Image, ScrollView,
 } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { Ionicons } from "@expo/vector-icons";
