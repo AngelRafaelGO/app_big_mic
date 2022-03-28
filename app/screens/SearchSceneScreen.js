@@ -43,17 +43,25 @@ const _keyExtractor = (item, index) => item.id.toString();
 
 const getItemCount = (data) => 30;
 
+//Action when user clicks on an item of the resulted search
+const set_action = () => {
+  Alert.alert('Aller vers la fiche selectionnée');
+};
+
 //Research result item structure and filling
 const Item = ({ title }) => (
   //Remplacer avec une Card de Card paper ??
-  <Card.Title
-    style={styles.itemContainer}
-    title={title}
-    subtitle="Card Subtitle"
-    left={(props) => <Avatar.Image size={40} source={require('../assets/itemCat.png')} />}
-    right={(props) => <AntDesign name="hearto" size={20} color={colors.primary} />
-    }
-  />
+  <Card
+  style={styles.itemContainer}
+  onPress={set_action}>
+    <Card.Title
+      title={title}
+      subtitle="Card Subtitle"
+      left={(props) => <Avatar.Image size={40} source={require('../assets/itemCat.png')} />}
+      right={(props) => <AntDesign name="hearto" size={20} color={colors.primary} style={{paddingRight:15}}/>
+      }
+    />
+  </Card>
   /* 
   <TouchableHighlight 
   style={styles.itemContainer}
@@ -72,11 +80,6 @@ const Item = ({ title }) => (
   </TouchableHighlight>*/
 
 );
-
-//Action when user clicks on an item of the resulted search
-const set_action = () => {
-  Alert.alert('Aller vers la fiche selectionnée');
-};
 
 const set_filter = () => {
   Alert.alert('Selectionner les paramètres du filtre + rafraichir');
@@ -98,6 +101,7 @@ const SearchSceneScreen = () => {
       </View>
       {/* Results of the research */}
       <VirtualizedList
+        style={styles.listContainer}
         data={DATA}
         initialNumToRender={4}
         renderItem={({ item }) => <Item title={item.title} />}
@@ -111,12 +115,18 @@ const SearchSceneScreen = () => {
 
 const styles = StyleSheet.create({
   container:{
-    backgroundColor: colors.light,
+    backgroundColor: colors.white,
   },
   filterContainer: {
+    backgroundColor: colors.white,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 5,
+  },
+  listContainer: {
+    backgroundColor: colors.light,
+    paddingTop: 10,
   },
   itemContainer: {
     marginVertical:5,
@@ -136,6 +146,5 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
 })
-
 
 export default SearchSceneScreen;
