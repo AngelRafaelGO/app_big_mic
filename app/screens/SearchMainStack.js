@@ -21,11 +21,11 @@ const SearchMainStack = () => {
           <Tab.Screen
               name="Recherche de scène"
               component={SearchSceneScreen}
-            />
-            <Tab.Screen
-              name="Recherche de contact"
-              component={SearchUserScreen}
-            />
+          />
+          <Tab.Screen
+            name="Recherche de contact"
+            component={SearchUserScreen}
+          />
         </Tab.Navigator>
     );
   }

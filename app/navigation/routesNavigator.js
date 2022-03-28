@@ -8,7 +8,6 @@ import { LoginScreen,
     ProfilOptions, 
     SceneForm, 
     SearchMainStack,
-    SceneForm, 
     CreatePresta  } from '../screens/screensIndex';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
@@ -77,12 +76,12 @@ const MainScreen = () => (
     screenOptions={{ headerShown: false }}
     >
         <TabsMainStack.Screen 
-        name='Recherche'
-        component={SearchMainStack}
-        />
-        <TabsMainStack.Screen 
         name='Compte'
         component={ProfilStackScreen}
+        />
+        <TabsMainStack.Screen 
+        name='Recherche'
+        component={SearchMainStack}
         />
     </TabsMainStack.Navigator>
 );
