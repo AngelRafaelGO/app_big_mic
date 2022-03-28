@@ -10,6 +10,8 @@ import { Ionicons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
 
+import Prestations from "./screensIndex"
+
 const FirstTab = () => (
     <View style={styles.tabScreen}>
         <TouchableOpacity style={styles.tabScrArtCardCreate}>
@@ -18,9 +20,7 @@ const FirstTab = () => (
             size={24} 
             color={{ color: colors.white }} />
         </TouchableOpacity>
-        <Text>
-            Hello, this is the artist profile
-        </Text>
+        < Prestations />    
     </View>
 );
 
