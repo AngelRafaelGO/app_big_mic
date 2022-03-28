@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+//import { useNavigation } from '@react-navigation/native';
 import {Card, FAB} from 'react-native-paper';
 
 
 
-function Prestations(props) {
+function Prestations( {navigation}) {
 
   // const navigation = useNavigation();
 
@@ -66,21 +66,21 @@ function Prestations(props) {
           small={false}
           icon="plus"
           color='white'
-          label='add'
+          // label='add'
           theme= {{colors:{accent:"rgb(255, 72, 88)"}}}
-          // onPress = {() => navigation.navigate('Create')}
+          onPress = {() => navigation.navigate('CreatePresta')}
           />
           <View>
             <Text>  </Text>
           </View>
-        <FAB
+        {/* <FAB
           small={false}
           icon="filter"
           label='FILTERS'
           color='white'
           theme= {{colors:{accent:"rgb(255, 72, 88)"}}}
           // onPress = {() => navigation.navigate('Filter')}
-          />
+          /> */}
         </View>
     </View>
   );
@@ -89,10 +89,11 @@ function Prestations(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    marginTop: 5,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    // marginTop: 50,
   },
   fabView: {
     position: 'absolute',
