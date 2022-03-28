@@ -52,7 +52,7 @@ CREATE TABLE scenes (
 	numscene INT AUTO_INCREMENT PRIMARY KEY,
 	numcompte INT,
 	titrescene VARCHAR(255),
-	datescene VARCHAR(255),
+	datescene DATE,
 	numphoto INT,
 	criteres VARCHAR(255),
 	recurrence VARCHAR(255),
