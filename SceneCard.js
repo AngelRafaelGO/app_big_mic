@@ -12,7 +12,7 @@ const SceneCard = () => {
     <View>
       <Text> Ma scène </Text>
 
-      <Text style={{fontWeight: 'bold'}}> {sceneTitle} </Text>
+      <Text style={{fontWeight: 'bold'}}> {SceneForm.sceneTitle} </Text>
 
       <View >
          <Button title="Modifier" color='red' borderRadius= '20' fontWeight="bold" padding='10' />

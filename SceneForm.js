@@ -15,6 +15,8 @@ const SceneForm = () => {
     const [sceneDate, setSceneDate] = useState('');
     const [sceneImage, setSceneImage] = useState('');
 
+    
+
    
     return (
 
