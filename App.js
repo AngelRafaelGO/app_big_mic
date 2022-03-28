@@ -1,17 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet} from 'react-native';
-import SearchMainStack from './app/navigation/SearchMainStack';
-
+import { RootNavigator } from './app/navigation/routesNavigator';
 
 export default function App() {
 
   return (
     <NavigationContainer>
-      <SearchMainStack />
+      <RootNavigator />
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
- 
-});
