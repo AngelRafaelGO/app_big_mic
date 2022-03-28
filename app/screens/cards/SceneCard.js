@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import SceneForm from './SceneForm';
+import SceneForm from '../SceneForm';
 import { ScrollView } from 'react-native-web';
 
 
