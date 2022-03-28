@@ -6,13 +6,13 @@ import {
     Image, ScrollView,
 } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons"
 
 import colors from "../config/colors";
 
 import Prestations from "./Prestations";
 
-const FirstTab = ( {navigation}) => (
+const FirstTab = ({navigation}) => (
     <View style={styles.tabScreen}>
         <View style={styles.tabScrArtCardCreate}>
             {/* <TouchableOpacity

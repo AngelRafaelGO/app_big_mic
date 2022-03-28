@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-//import { useNavigation } from '@react-navigation/native';
 import {Card, FAB} from 'react-native-paper';
 
 
 
-function Prestations( {navigation}) {
+function Prestations({navigation}) {
 
-  // const navigation = useNavigation();
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); 
@@ -70,17 +68,6 @@ function Prestations( {navigation}) {
           theme= {{colors:{accent:"rgb(255, 72, 88)"}}}
           onPress = {() => navigation.navigate('CreatePresta')}
           />
-          <View>
-            <Text>  </Text>
-          </View>
-        {/* <FAB
-          small={false}
-          icon="filter"
-          label='FILTERS'
-          color='white'
-          theme= {{colors:{accent:"rgb(255, 72, 88)"}}}
-          // onPress = {() => navigation.navigate('Filter')}
-          /> */}
         </View>
     </View>
   );

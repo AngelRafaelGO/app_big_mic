@@ -1,9 +1,12 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { LoginScreen, CreateAccount, CreateAccountS2, ProfilScreen, Loading, ProfilOptions, SceneForm, CreatePresta } from '../screens/screensIndex';
+import { LoginScreen, CreateAccount, CreateAccountS2, ProfilScreen, Loading, ProfilOptions, SceneForm } from '../screens/screensIndex';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { AuthContext } from '../config/context';
+import colors from '../config/colors';
+import { Ionicons } from "@expo/vector-icons";
+
 
 // Here we create objects to pass as parameters between screens
 export let routeParams = {
@@ -52,10 +55,6 @@ const ProfilStackScreen = () => (
         name='CreateScene'
         component={SceneForm}
         /> 
-        <ProfilStack.Screen 
-        name='CreatePresta'
-        component={CreatePresta}
-        /> 
     </ProfilStack.Navigator>
 );
 
@@ -65,8 +64,26 @@ const ProfilStackScreen = () => (
 const TabsMainStack = createBottomTabNavigator();
 const MainScreen = () => (
     <TabsMainStack.Navigator 
-    screenOptions={{ headerShown: false }}
-    >
+    screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Compte') {
+            iconName = focused
+              ? 'ios-person-circle-outline'
+              : 'ios-person-circle';
+          } else if (route.name === 'Settings') {
+            iconName = focused ? 'ios-location-outline' : 'ios-location';
+          } else {
+            iconName = 'ios-alert';
+
+          }
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.secondary,
+      })}    >
         <TabsMainStack.Screen 
         name='Compte'
         component={ProfilStackScreen}
