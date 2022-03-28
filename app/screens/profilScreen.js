@@ -10,7 +10,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
 
-const firstTab = () => (
+const FirstTab = () => (
     <View style={styles.tabScreen}>
         <TouchableOpacity style={styles.tabScrArtCardCreate}>
             <Ionicons 
@@ -23,9 +23,13 @@ const firstTab = () => (
         </Text>
     </View>
 );
-const secondTab = () => (
+
+const SecondTab = ({ navigation }) => (
     <View style={styles.tabScreen}>
-        <TouchableOpacity style={styles.tabScrSceneCardCreate}>
+        <TouchableOpacity 
+        style={styles.tabScrSceneCardCreate}
+        onPress={() => navigation.navigate('CreateScene')}
+        >
             <Ionicons
             name='ios-create-outline'
             size={24}
@@ -37,7 +41,8 @@ const secondTab = () => (
         </Text>
     </View>
 );
-const thirdTab = () => (
+
+const ThirdTab = () => (
     <View style={styles.tabScreen}>
         <TouchableOpacity style={styles.tabScrLocCardCreate}>
             <Ionicons 
@@ -51,11 +56,6 @@ const thirdTab = () => (
         </Text>
     </View>
 );
-const renderScene = SceneMap({
-    first: firstTab,
-    second: secondTab,
-    third: thirdTab,
-});
 
 const renderTabBar = props => (
     <TabBar 
@@ -66,7 +66,7 @@ const renderTabBar = props => (
 );
 
 function ProfilScreen({ navigation }) {
-        
+       
     const layout = useWindowDimensions();
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
@@ -74,6 +74,19 @@ function ProfilScreen({ navigation }) {
         {key: 'second', title: 'Orga'},
         {key: 'third', title: 'Exploitant'},
     ]);
+
+    const renderScene = ({ route }) => {
+        switch (route.key) {
+            case 'first':
+                return <FirstTab navigation={navigation} />;
+            case 'second':
+                return <SecondTab navigation={navigation} />;
+            case 'third' :
+                return <ThirdTab navigation={navigation} />;
+            default:
+                return null;
+        };
+    };
 
     return (
         <SafeAreaView style={styles.mainView}>
@@ -98,6 +111,7 @@ function ProfilScreen({ navigation }) {
                 </Text>
             </View>
             <TabView 
+            navigation={navigation}
             renderTabBar={renderTabBar}
             navigationState={{ index, routes }}
             renderScene={renderScene}
