@@ -15,19 +15,19 @@ function CreatePresta(props) {
                 </Text>
                 <TextInput 
                 defaultValue='Titre de votre prestation'
-                style={styles.loginText} 
+                // style={styles.loginText} 
                 />
                 <Text>
                     Description :
                 </Text>
                 <TextInput 
                 defaultValue='description ...'
-                style={styles.description} 
+                // style={styles.description} 
                 />
             </View>
             <View style={styles.imgContainer}>
                 <Text>Choisir une image :</Text>
-                <Image style={styles.img} source={require("../../assets/favicon.png")}/>
+                {/* <Image style={styles.img} source={require("../../assets/favicon.png")}/> */}
                 <TouchableOpacity style={styles.loginTouch}>
                     <Text style={styles.touchText}>
                         Charger votre image
@@ -37,10 +37,10 @@ function CreatePresta(props) {
             <View>
                 <TouchableOpacity 
                     style={styles.registerTouch} 
-                    onPress={() => navigation.navigate('Prestation')} 
+                    // onPress={() => navigation.navigate('Prestation')} 
                     >
                     <Text style={styles.touchText}>
-                        Créer la prestation
+                        Créer une Prestation
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -72,10 +72,6 @@ const styles = StyleSheet.create({
     img: {
         width: 200,
         height: 200,
-        stretch: {
-            height : 1,
-            width : 1,
-        },
     },
     imgContainer: {
         fontSize: 18,

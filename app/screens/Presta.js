@@ -16,9 +16,9 @@ function Presta(props) {
                 <Text style={styles.loginText}> 
                     votre description ...
                 </Text>
-                <View style={styles.imgContainer}>
+                {/* <View style={styles.imgContainer}>
                     <Image style={styles.img} source={require("../../assets/splash.png")} />
-                </View>
+                </View> */}
             </View>
         </SafeAreaView>
     );

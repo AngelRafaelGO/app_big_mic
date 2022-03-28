@@ -4,8 +4,8 @@ import { Presta, CreatePresta } from '../screens/screensIndex';
 
 // Here we create objects to pass as parameters between screens
 export let routeParams = {
-    Presta: undefined,
     CreatePresta: undefined,
+    Presta: undefined,
 };
 
 const Stack = createNativeStackNavigator ();
