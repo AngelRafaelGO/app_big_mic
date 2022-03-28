@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { LoginScreen, CreateAccount, CreateAccountS2, ProfilScreen, Loading, ProfilOptions, SceneForm } from '../screens/screensIndex';
+import { LoginScreen, CreateAccount, CreateAccountS2, ProfilScreen, Loading, ProfilOptions, SceneForm, CreatePresta } from '../screens/screensIndex';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { AuthContext } from '../config/context';
@@ -51,6 +51,10 @@ const ProfilStackScreen = () => (
         <ProfilStack.Screen 
         name='CreateScene'
         component={SceneForm}
+        /> 
+        <ProfilStack.Screen 
+        name='CreatePresta'
+        component={CreatePresta}
         /> 
     </ProfilStack.Navigator>
 );

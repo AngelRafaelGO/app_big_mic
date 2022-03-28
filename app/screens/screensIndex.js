@@ -5,3 +5,5 @@ export { default as ProfilScreen } from './profilScreen';
 export { default as Loading } from './Loading';
 export { default as ProfilOptions } from './ProfilOptions';
 export { default as SceneForm } from './forms/SceneForm';
+export { default as CreatePresta } from './forms/CreatePresta';
+export { default as Prestations } from './Prestations';
