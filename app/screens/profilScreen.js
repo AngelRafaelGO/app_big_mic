@@ -10,17 +10,22 @@ import { Ionicons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
 
-const FirstTab = () => (
+import Prestations from "./Prestations";
+
+const FirstTab = ( {navigation}) => (
     <View style={styles.tabScreen}>
-        <TouchableOpacity style={styles.tabScrArtCardCreate}>
-            <Ionicons 
-            name='ios-create-outline'
-            size={24} 
-            color={{ color: colors.white }} />
-        </TouchableOpacity>
-        <Text>
-            Hello, this is the artist profile
-        </Text>
+        <View style={styles.tabScrArtCardCreate}>
+            {/* <TouchableOpacity
+                style={styles.tabScrSceneCardCreate}
+                onPress={() => navigation.navigate('CreatePresta')}
+        >
+                <Ionicons 
+                name='ios-create-outline'
+                size={24} 
+                color={{ color: colors.white }} />
+            </TouchableOpacity> */}
+        </View>
+        < Prestations navigation= {navigation} />    
     </View>
 );
 

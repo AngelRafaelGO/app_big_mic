@@ -7,7 +7,9 @@ import { LoginScreen,
     Loading, 
     ProfilOptions, 
     SceneForm, 
-    SearchMainStack } from '../screens/screensIndex';
+    SearchMainStack,
+    SceneForm, 
+    CreatePresta  } from '../screens/screensIndex';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { AuthContext } from '../config/context';
@@ -58,6 +60,10 @@ const ProfilStackScreen = () => (
         <ProfilStack.Screen 
         name='CreateScene'
         component={SceneForm}
+        /> 
+        <ProfilStack.Screen 
+        name='CreatePresta'
+        component={CreatePresta}
         /> 
     </ProfilStack.Navigator>
 );
