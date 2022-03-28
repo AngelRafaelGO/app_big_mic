@@ -25,7 +25,7 @@ const FirstTab = ({navigation}) => (
                 color={{ color: colors.white }} />
             </TouchableOpacity> */}
         </View>
-        < Prestations navigation= {navigation} />    
+        < Prestations navigation = {navigation} />    
     </View>
 );
 

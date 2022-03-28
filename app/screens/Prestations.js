@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import {Card, FAB} from 'react-native-paper';
+import {Card, FAB, Avatar} from 'react-native-paper';
+import { AntDesign } from '@expo/vector-icons'; 
+import colors from '../config/colors';
+
 
 
 
@@ -32,17 +35,24 @@ function Prestations({navigation}) {
   
   const renderData = (item) => {
     return (
-    <Card style = {styles.cardStyle}>
-      <View style = {styles.cardView}>
+    <Card style = {styles.cardStyle} onPress = {() => clickedItem(item)}>
+      <Card.Title
+        title={item.titreprest}
+        subtitle={item.lienprest}
+        left={(props) => <Avatar.Image size={40} source={require('../assets/freebanner.png')} />}
+        right={(props) => <AntDesign name="hearto" size={20} color={colors.primary} style={{paddingRight:15}}/>
+        }
+      />
+      {/* <View style = {styles.cardView}>
         <View style = {styles.cardIndex}>
-          <Text style = {styles.cardText1} onPress = {() => clickedItem(item)}>
+          <Text style = {styles.cardText1}>
           {item.numprest}
           </Text>
         </View>
-          <Text style = {styles.cardText2} onPress = {() => clickedItem(item)}>
+          <Text style = {styles.cardText2}>
           {item.titreprest} 
           </Text>
-      </View>
+      </View> */}
     </Card>
     )
   }
@@ -62,7 +72,7 @@ function Prestations({navigation}) {
       <View style = {styles.fabView}>
       <FAB
           small={false}
-          icon="plus"
+          icon="pencil"
           color='white'
           // label='add'
           theme= {{colors:{accent:"rgb(255, 72, 88)"}}}
@@ -85,9 +95,9 @@ const styles = StyleSheet.create({
   fabView: {
     position: 'absolute',
     flexDirection: 'row',
-    margin: 16,
-    right: 0,
-    bottom: 10
+    // margin: 16,
+    right: 10,
+    top: 10
   },
   fabBtn: {
     margin: 50,

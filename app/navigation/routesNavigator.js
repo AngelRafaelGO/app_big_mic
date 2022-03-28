@@ -64,28 +64,26 @@ const ProfilStackScreen = () => (
 const TabsMainStack = createBottomTabNavigator();
 const MainScreen = () => (
     <TabsMainStack.Navigator 
-    screenOptions={{ headerShown: false }}
+    screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
-    // screenOptions={({ route }) => ({
-    //     headerShown: false,
-    //     tabBarIcon: ({ focused, color, size }) => {
-    //       let iconName;
+          if (route.name === 'Compte') {
+            iconName = focused
+              ? 'ios-person-circle-outline'
+              : 'ios-person-circle';
+          } else if (route.name === 'Settings') {
+            iconName = focused ? 'ios-location-outline' : 'ios-location';
+          } else {
+            iconName = 'ios-alert';
 
-    //       if (route.name === 'Compte') {
-    //         iconName = focused
-    //           ? 'ios-person-circle-outline'
-    //           : 'ios-person-circle';
-    //       } else if (route.name === 'Settings') {
-    //         iconName = focused ? 'ios-location-outline' : 'ios-location';
-    //       } else {
-    //         iconName = 'ios-alert';
-
-    //       }
-    //       return <Ionicons name={iconName} size={size} color={color} />;
-    //     },
-    //     tabBarActiveTintColor: colors.primary,
-    //     tabBarInactiveTintColor: colors.secondary,
-    //   })}
+          }
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.secondary,
+      })}
     >
         <TabsMainStack.Screen 
         name='Compte'
