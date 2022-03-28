@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SearchSceneScreen, SearchUserScreen } from '../screens/screensindex';
+import { SearchSceneScreen, SearchUserScreen } from './screensIndex';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import colors from '../config/colors';
 import {StatusBar} from 'react-native';

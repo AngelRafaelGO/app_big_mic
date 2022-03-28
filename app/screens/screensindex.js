@@ -5,3 +5,6 @@ export { default as ProfilScreen } from './profilScreen';
 export { default as Loading } from './Loading';
 export { default as ProfilOptions } from './ProfilOptions';
 export { default as SceneForm } from './forms/SceneForm';
+export { default as SearchSceneScreen } from './SearchSceneScreen';
+export { default as SearchUserScreen } from './SearchUserScreen';
+export { default as SearchMainStack } from './SearchMainStack';
