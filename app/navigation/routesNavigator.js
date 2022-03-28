@@ -61,7 +61,7 @@ const MainScreen = () => (
     screenOptions={{ headerShown: false }}
     >
         <TabsMainStack.Screen 
-        name='Profil'
+        name='Compte'
         component={ProfilStackScreen}
         />
     </TabsMainStack.Navigator>

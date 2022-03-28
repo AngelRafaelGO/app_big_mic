@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     },
     accountText: {
         color: colors.white,
+        marginBottom: 5,
     },
     profilOprionsTouchable: {
         position: 'absolute',
