@@ -9,7 +9,7 @@ function CreatePresta(props, {navigate}) {
     const [lienprest, setlienprest] = useState("")
 
     const insertData = () => {
-        fetch('http://64.225.72.25:5000/add', {
+        fetch('http://64.225.72.25:5000/addpresta', {
             method : 'POST',
             headers: {
                 'Content-Type' : 'application/json'
