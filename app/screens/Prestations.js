@@ -14,7 +14,7 @@ function Prestations({navigation}) {
   const [loading, setLoading] = useState(true); 
   
   const loadData = () => {
-    fetch('http://64.225.72.25:5000/get', {
+    fetch('http://64.225.72.25:5000/getpresta', {
         method : 'GET'
     })
     .then(resp => resp.json())

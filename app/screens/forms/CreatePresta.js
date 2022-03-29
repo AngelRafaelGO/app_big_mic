@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 
-function CreatePresta(props, {navigate}) {
+function CreatePresta(props, {navigation}) {
     const [numcompte, setnumcompte] = useState("")
     const [titreprest, settitreprest] = useState("")
     const [descprest, setdescprest] = useState("")
     const [lienprest, setlienprest] = useState("")
 
-    const insertData = () => {
-        fetch('http://64.225.72.25:5000/add', {
+    const insertData = (navigation) => {
+        fetch('http://64.225.72.25:5000/addpresta', {
             method : 'POST',
             headers: {
                 'Content-Type' : 'application/json'
