@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Image, TextInput,ScrollView, Button } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, useNavigation, ScrollView } from 'react-native';
+
+
 
 import colors from '../../config/colors';
 
-function SceneForm() {
+function SceneForm({navigation}) {
 
     const [sceneTitle, setSceneTitle] = useState('');
     const [sceneAdress, setSceneAdress] = useState('');
@@ -13,10 +15,13 @@ function SceneForm() {
     const [sceneDate, setSceneDate] = useState('');
     const [sceneImage, setSceneImage] = useState('');
 
+
     return (
-        <ScrollView> 
+        <ScrollView styles={styles.container}> 
+
+
             <Text> Création de ma scène  </Text>
-            <View styles={styles.container}>
+            <View>
                     <Text styles={styles.textOne}> Titre de la scène : </Text>
                     <TextInput style={styles.textInput}
                                 onChangeText={ (val) => setSceneTitle(val)} />
@@ -38,14 +43,20 @@ function SceneForm() {
                                 onChangeText={ (val) => setSceneDate(val)} 
                                 keyboardType='numeric' />
                     <Text styles={styles.textOne}> Charger une photo pour la scène :</Text>
-                    <Button title="Valider" color='red' borderRadius= '50' fontWeight="bold" padding='20'  
-                    onPress = { () => {
-                            if ( sceneTitle == '' ||  sceneAdress == '' ||  sceneDescription == '' || sceneTags== '' || sceneRequirement == '' || sceneDate== '' ) {
-                                alert('Vous n\'avez pas rentré toutes les données');
-                            };
+                    <TouchableOpacity   
+                    style = {styles.button}
+                    onPress = { () => {navigation.navigate('SceneCard');
+
+                            // if ( sceneTitle == '' ||  sceneAdress == '' ||  sceneDescription == '' || sceneTags== '' || sceneRequirement == '' || sceneDate== '' ) {
+                            //     alert('Vous n\'avez pas rentré toutes les données');
+                            // };
+                            // else {
+                            //     navigation.navigate('SceneCard');
                         }
-                    }
-                    />       
+                        }
+                    >
+                        <Text style={styles.textButton}> Valider </Text>   
+                        </TouchableOpacity>      
             </View>   
         </ScrollView>
     );
@@ -54,11 +65,9 @@ function SceneForm() {
 const styles = StyleSheet.create({
     container: { 
         flex:1,
+        justifyContent:"center",
         alignItems:"center",
-        padding:20,
-        margin:10,
-        marginTop: 10,
-        height: 100,  
+        
     },
     textOne: {
         fontWeight: 'bold',   
@@ -71,6 +80,19 @@ const styles = StyleSheet.create({
         padding: 5,
         margin:15,
     },
+    button: {
+        
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '40%',
+        height: 40, 
+        backgroundColor: colors.primary,
+        borderRadius: 5,
+        marginTop: 20,
+    },
+    textButton: {
+        color: colors.white,
+    }
 });
 
 export default SceneForm;
