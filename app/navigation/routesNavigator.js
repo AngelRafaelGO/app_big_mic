@@ -1,15 +1,6 @@
-//helo
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { LoginScreen, 
-    CreateAccount, 
-    CreateAccountS2, 
-    ProfilScreen, 
-    Loading, 
-    ProfilOptions, 
-    SceneForm, 
-    SearchMainStack,
-    CreatePresta  } from '../screens/screensIndex';
+import { LoginScreen, CreateAccount, CreateAccountS2, ProfilScreen, Loading, ProfilOptions, SceneForm, CreatePresta } from '../screens/screensIndex';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { AuthContext } from '../config/context';
@@ -79,10 +70,6 @@ const MainScreen = () => (
         <TabsMainStack.Screen 
         name='Compte'
         component={ProfilStackScreen}
-        />
-        <TabsMainStack.Screen 
-        name='Recherche'
-        component={SearchMainStack}
         />
     </TabsMainStack.Navigator>
 );
