@@ -7,8 +7,10 @@ import {
     } 
 from '../screens/screensIndex';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialCommunityIcons, AntDesign} from '@expo/vector-icons'; 
 
 import { AuthContext } from '../config/context';
+import colors from '../config/colors';
 
 // Here we create objects to pass as parameters between screens
 export let routeParams = {
@@ -70,15 +72,36 @@ const ProfilStackScreen = () => (
 const TabsMainStack = createBottomTabNavigator();
 const MainScreen = () => (
     <TabsMainStack.Navigator 
-    screenOptions={{ headerShown: false }}
+    screenOptions={{ 
+        tabBarActiveTintColor: colors.primary,
+        headerShown: false
+    }}
     >
         <TabsMainStack.Screen 
         name='Search'
         component={SearchMainStack}
+        options={{
+            tabBarLabel: 'Search',
+            tabBarIcon: ({ color }) => (
+            <AntDesign 
+            name="search1" 
+            color={color} 
+            size={24} />
+            ),
+        }}
         />
         <TabsMainStack.Screen 
         name='Compte'
         component={ProfilStackScreen}
+        options={{
+            tabBarLabel: 'Account',
+            tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons 
+                name="account" 
+                color={color} 
+                size={24} />
+            ),
+        }}
         />
     </TabsMainStack.Navigator>
 );
