@@ -1,13 +1,14 @@
-import { Text, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React from 'react'
 import colors from '../../config/colors';
-import { Card, FAB, Title, Paragraph, Subheading } from 'react-native-paper';
+import { Card, FAB, Paragraph, Subheading } from 'react-native-paper';
 
 
 
 const SceneCard = ( {route}) => {
   
   const {item} = route.params;
+  console.log(item);
   
   return (
   <Card style={styles.sceneCard}>

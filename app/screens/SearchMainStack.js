@@ -21,7 +21,7 @@ const SearchMainStack = () => {
           tabBarIndicatorStyle: {backgroundColor: colors.primary}
         }}
         >
-          <Tab.Screen name="Search"> 
+          <Tab.Screen name="Search Scene"> 
           {() => (
             <Stack.Navigator>
               <Stack.Screen name="Recherche de scène" component={SearchSceneScreen} />
@@ -31,7 +31,7 @@ const SearchMainStack = () => {
             )}
           </Tab.Screen>
           <Tab.Screen
-            name="Recherche de contact"
+            name="Search user"
             component={SearchUserScreen}
           />
         </Tab.Navigator>

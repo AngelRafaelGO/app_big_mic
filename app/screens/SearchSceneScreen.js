@@ -70,7 +70,6 @@ const SearchSceneScreen = ({navigation}) => {
   //Research result item structure and filling
   const renderData = (item) => {
   const date = item.datescene.split('-');
-  const year = date[0];
   const month = date[1];
   const day = date[2];
   return (
@@ -133,19 +132,6 @@ const styles = StyleSheet.create({
   itemContainer: {
     marginVertical:5,
     marginHorizontal: 20,
-  },
-  itemImage: {
-    borderRadius: 25,
-  },
-  itemTitle: {
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  shadowProp: {
-    shadowColor: colors.dark,
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
   },
   date: {
     fontSize: 14,

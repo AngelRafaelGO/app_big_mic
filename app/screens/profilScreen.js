@@ -10,7 +10,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
 
-import Prestations from "./Prestations";
+import {Prestations, Scenes} from "./screensIndex";
 
 const FirstTab = ( {navigation}) => (
     <View style={styles.tabScreen}>
@@ -31,7 +31,8 @@ const FirstTab = ( {navigation}) => (
 
 const SecondTab = ({ navigation }) => (
     <View style={styles.tabScreen}>
-        <TouchableOpacity 
+        <View style={styles.tabScrArtCardCreate}>
+       {/* <TouchableOpacity 
         style={styles.tabScrSceneCardCreate}
         onPress={() => navigation.navigate('CreateScene')}
         >
@@ -40,10 +41,10 @@ const SecondTab = ({ navigation }) => (
             size={24}
             color={{ color: colors.white }}
             />
-        </TouchableOpacity>
-        <Text>
-            Hello, here you can create a new scene
-        </Text>
+        </TouchableOpacity>*/}
+        </View>
+        <Scenes navigation= {navigation} />
+
     </View>
 );
 
