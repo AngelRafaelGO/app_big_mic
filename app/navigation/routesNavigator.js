@@ -3,8 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { 
     LoginScreen, CreateAccount, CreateAccountS2, 
     ProfilScreen, Loading, ProfilOptions, SceneForm, 
-    CreatePresta, SearchMainStack , SceneCard
-    } from '../screens/screensIndex';
+    CreatePresta, SearchMainStack 
+    } 
+from '../screens/screensIndex';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons, AntDesign} from '@expo/vector-icons'; 
 
@@ -57,10 +58,6 @@ const ProfilStackScreen = () => (
         <ProfilStack.Screen 
         name='CreateScene'
         component={SceneForm}
-        /> 
-         <ProfilStack.Screen 
-        name='SceneCard'
-        component={SceneCard}
         /> 
         <ProfilStack.Screen 
         name='CreatePresta'
