@@ -36,7 +36,11 @@ function CreatePresta(props, {navigation}) {
         // }   
         console.log(result);
 
-        if (!result.didCancel){
+        if (!result.cancelled){
+            setImage(result);
+        } else {
+            result.uri = '../../assets/No_Image_uploaded.png';
+            console.log('cancelled');
             setImage(result);
         }
     }
