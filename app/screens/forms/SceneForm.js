@@ -1,22 +1,43 @@
 import React, {useState} from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity,  ScrollView } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity,  ScrollView , Style} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 
 import colors from '../../config/colors';
 
 function SceneForm({navigation}) {
 
-    const [sceneTitle, setSceneTitle] = useState('');
-    const [sceneAdress, setSceneAdress] = useState('');
-    const [sceneDescription, setSceneDescription] = useState('');
-    const [sceneTags, setSceneTags] = useState('');
-    const [sceneRequirement, setSceneRequirement] = useState('');
-    const [sceneDate, setSceneDate] = useState('');
-    const [sceneImage, setSceneImage] = useState('');
+    const [titrescene, settitrescene] = useState('');
+    const [adrscene, setadrscene] = useState('');
+    const [descscene, setdescscene] = useState('');
+    const [criteres, setcriteres] = useState('');
+    const [datescene, setdatescene] = useState('');
+    const [recurrence, setrecurrence] = useState('');
+    const [numphoto, setnumphoto] = useState(1);
+    const [numcompte, setnumcompte] = useState(2);
+
+    const insertData = () => {
+        fetch('http://64.225.72.25:5000/addscene', {
+            method : 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({titrescene: titrescene, datescene: datescene, numphoto: numphoto, criteres: criteres, recurrence: recurrence, adrscene: adrscene, descscene: descscene, numcompte: numcompte})
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            props.navigation.navigate('Profil')
+        })
+        .catch(error => console.log("POST error: " + error))
+    }
+
 
 
     return (
         <ScrollView styles={styles.container}> 
+            <View style={{alignItems: 'center', marginTop: 50}} >
+            <Image source={require('../../assets/SceneImage.png')} />
+
+            </View>
 
 
             <Text> Création de ma scène  </Text>
@@ -24,47 +45,40 @@ function SceneForm({navigation}) {
                     
                     <TextInput style={styles.textInput}
                                 label = "Titre de la scène"
-                                value = {sceneTitle}
+                                value = {titrescene}
                                 mode="outlined"
-                                onChangeText={ (val) => setSceneTitle(val)}/>          
+                                onChangeText={ (val) => settitrescene(val)}/>          
                     <TextInput style={styles.textInput}
                             label = "Adresse de la scène"
-                            value = {sceneAdress}
+                            value = {adrscene}
                             mode="outlined"
-                            onChangeText={ (val) => setSceneAdress(val)} />
+                            onChangeText={ (val) => setadrscene(val)} />
                     <TextInput style={styles.textInput} multiline={true}
                                 label = "Description"
-                                value = {sceneDescription}
+                                value = {descscene}
                                 mode="outlined"
-                                onChangeText={ (val) => setSceneDescription(val)} />
-                    <TextInput style={styles.textInput}
+                                onChangeText={ (val) => setdescscene(val)} />
+                    {/* <TextInput style={styles.textInput}
                                 label = "Tags"
                                 value = {sceneTags}
                                 mode="outlined"
-                                onChangeText={ (val) => setSceneTags(val)} />
+                                onChangeText={ (val) => setSceneTags(val)} /> */}
                     <TextInput style={styles.textInput}
                                 multiline
                                 label = "Critères de participation"
-                                value = {sceneRequirement}
+                                value = {criteres}
                                 mode="outlined"
-                                onChangeText={ (val) => setSceneRequirement(val)} />
+                                onChangeText={ (val) => setcriteres(val)} />
                     <TextInput style={styles.textInput}
                                 label = "Dates de la scène"
-                                value = {sceneDate}
+                                value = {datescene}
                                 mode="outlined"
-                                onChangeText={ (val) => setSceneDate(val)} 
-                                keyboardType='numeric' />
+                                onChangeText={ (val) => setdatescene(val)} 
+                                 />
                     <TouchableOpacity   
                     style = {styles.button}
-                    onPress = { () => {navigation.navigate('SceneCard');
+                    onPress = { () => insertData()}
 
-                            // if ( sceneTitle == '' ||  sceneAdress == '' ||  sceneDescription == '' || sceneTags== '' || sceneRequirement == '' || sceneDate== '' ) {
-                            //     alert('Vous n\'avez pas rentré toutes les données');
-                            // };
-                            // else {
-                            //     navigation.navigate('SceneCard');
-                        }
-                        }
                     >
                         <Text style={styles.textButton}> Valider </Text>   
                         </TouchableOpacity>      
@@ -80,16 +94,19 @@ const styles = StyleSheet.create({
         alignItems:"center", 
     },
     textInput: { 
-        backgroundColor: colors.light,
-        borderRadius: 10,
-        height: 32,
-        width: '90%',
-        padding: 5,
-        margin:15,
+        // borderRadius: 10,
+        // height: 32,
+        // width: '90%',
+        // padding: 5,
+        marginLeft:10,
+        marginRight:10,
+        marginBottom:5,
+        
     },
     button: {
         margin: 30,
         backgroundColor: '#FF4858',
+        alignItems:'center'
         // justifyContent: 'center',
         // alignItems: 'center',
         // width: '40%',
@@ -101,6 +118,7 @@ const styles = StyleSheet.create({
     textButton: {
         margin: 10,
         color: colors.white,
+        
     }
 });
 
