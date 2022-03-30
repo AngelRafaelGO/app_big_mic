@@ -13,7 +13,6 @@ from datetime import date
 app = Flask(__name__)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://DBmanager:CQAZSdg2QqEHsZdV@db-mysql-fra1-37933-do-user-11172286-0.b.db.ondigitalocean.com:25060/bigmic'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
@@ -71,7 +70,7 @@ class scenes(db.Model):
     datescene = db.Column(db.DateTime, default = date.today())
     criteres = db.Column(db.String(255))
     recurrence = db.Column(db.String(255))
-    adrscne = db.Column(db.String(255))
+    adrscene = db.Column(db.String(255))
     numphoto = db.Column(db.Integer)
 
 
@@ -112,7 +111,7 @@ scenes_Schema = PrestaSchema(many=True)
 
 #________________________________
 # FUNCTIONS FOR PRESTATIONS TABLE
-@app.route('/prestfiltered/<numprest>', methods = ['GET'])
+@app.route('/prestafiltered/<numprest>', methods = ['GET'])
 def get_filtered_prestations(numprest):
     presta = prestations.query.filter(prestations.numprest == numprest).all()
     print("presta= ", presta)
@@ -120,20 +119,20 @@ def get_filtered_prestations(numprest):
 #    print("results= " , results)
     return jsonify(results)
 
-@app.route('/get', methods = ['GET'])
+@app.route('/getpresta', methods = ['GET'])
 def get_prestations():
     all_prestas = prestations.query.all()
     results = prestas_Schema.dump(all_prestas)
     return jsonify(results)
 
 
-@app.route('/get/<numprest>', methods = ['GET'])
+@app.route('/getpresta/<numprest>', methods = ['GET'])
 def get_prestation(numprest):
     presta = prestations.query.get(numprest)
     return presta_Schema.jsonify(presta)
 
 
-@app.route('/add', methods = ['POST'])
+@app.route('/addpresta', methods = ['POST'])
 def add_presta():
     numcompte = request.json['numcompte']
     titreprest = request.json['titreprest']
@@ -146,7 +145,7 @@ def add_presta():
     return presta_Schema.jsonify(presta)
 
 
-@app.route('/update/<numprest>', methods = ['PUT'])
+@app.route('/updatepresta/<numprest>', methods = ['PUT'])
 def update_presta(numprest):
     presta = prestations.query.get(numprest)
     numcompte = request.json['numcompte']
@@ -163,7 +162,7 @@ def update_presta(numprest):
     return presta_Schema.jsonify(presta)
 
 
-@app.route('/delete/<numprest>', methods = ['DELETE'])
+@app.route('/deletepresta/<numprest>', methods = ['DELETE'])
 def delete_presta(numprest):
     presta = prestations.query.get(numprest)
     try:

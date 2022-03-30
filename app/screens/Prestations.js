@@ -30,7 +30,7 @@ function Prestations({navigation}) {
   }, []);
 
   const clickedItem = (data) => {
-      props.navigation.navigate('Details', {data:data})
+      navigation.navigate('PrestaDetails', {data:data})
   }
   
   const renderData = (item) => {
