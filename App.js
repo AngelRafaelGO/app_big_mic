@@ -7,7 +7,9 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <RootNavigator />
+      {/* <RootNavigator />   */}
+      <SceneForm /> 
+     
     </NavigationContainer>
   );
 }

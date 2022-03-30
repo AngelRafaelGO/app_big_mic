@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, useNavigation, ScrollView } from 'react-native';
-
-
+import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity,  ScrollView } from 'react-native';
+import {TextInput, Button} from 'react-native-paper';
 
 import colors from '../../config/colors';
 
@@ -22,27 +21,39 @@ function SceneForm({navigation}) {
 
             <Text> Création de ma scène  </Text>
             <View>
-                    <Text styles={styles.textOne}> Titre de la scène : </Text>
+                    
                     <TextInput style={styles.textInput}
-                                onChangeText={ (val) => setSceneTitle(val)} />
-                    <Text styles={styles.textOne}> Adresse de la scène :</Text>
+                                label = "Titre de la scène"
+                                value = {sceneTitle}
+                                mode="outlined"
+                                onChangeText={ (val) => setSceneTitle(val)}/>          
                     <TextInput style={styles.textInput}
-                                onChangeText={ (val) => setSceneAdress(val)} />
-                    <Text styles={styles.textOne}> Description :</Text>
+                            label = "Adresse de la scène"
+                            value = {sceneAdress}
+                            mode="outlined"
+                            onChangeText={ (val) => setSceneAdress(val)} />
                     <TextInput style={styles.textInput} multiline={true}
+                                label = "Description"
+                                value = {sceneDescription}
+                                mode="outlined"
                                 onChangeText={ (val) => setSceneDescription(val)} />
-                    <Text styles={styles.textOne}> Tags :</Text>
                     <TextInput style={styles.textInput}
+                                label = "Tags"
+                                value = {sceneTags}
+                                mode="outlined"
                                 onChangeText={ (val) => setSceneTags(val)} />
-                    <Text styles={styles.textOne}> Critères de participation :</Text>
                     <TextInput style={styles.textInput}
                                 multiline
+                                label = "Critères de participation"
+                                value = {sceneRequirement}
+                                mode="outlined"
                                 onChangeText={ (val) => setSceneRequirement(val)} />
-                    <Text styles={styles.textOne}> Dates de la scène</Text>
                     <TextInput style={styles.textInput}
+                                label = "Dates de la scène"
+                                value = {sceneDate}
+                                mode="outlined"
                                 onChangeText={ (val) => setSceneDate(val)} 
                                 keyboardType='numeric' />
-                    <Text styles={styles.textOne}> Charger une photo pour la scène :</Text>
                     <TouchableOpacity   
                     style = {styles.button}
                     onPress = { () => {navigation.navigate('SceneCard');
@@ -66,11 +77,7 @@ const styles = StyleSheet.create({
     container: { 
         flex:1,
         justifyContent:"center",
-        alignItems:"center",
-        
-    },
-    textOne: {
-        fontWeight: 'bold',   
+        alignItems:"center", 
     },
     textInput: { 
         backgroundColor: colors.light,
@@ -81,16 +88,18 @@ const styles = StyleSheet.create({
         margin:15,
     },
     button: {
-        
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '40%',
-        height: 40, 
-        backgroundColor: colors.primary,
-        borderRadius: 5,
-        marginTop: 20,
+        margin: 30,
+        backgroundColor: '#FF4858',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        // width: '40%',
+        // height: 40, 
+        // backgroundColor: colors.primary,
+        // borderRadius: 5,
+        // marginTop: 20,
     },
     textButton: {
+        margin: 10,
         color: colors.white,
     }
 });
