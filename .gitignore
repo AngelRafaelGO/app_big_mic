@@ -11,5 +11,9 @@ npm-debug.*
 *.orig.*
 web-build/
 
+# ajout Cyrille
+backend/
+.vscode/
+
 # macOS
 .DS_Store

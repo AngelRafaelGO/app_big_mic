@@ -7,7 +7,7 @@ from sqlalchemy import select
 from flask_marshmallow import Marshmallow
 import pymysql
 pymysql.install_as_MySQLdb()
-import datetime
+from datetime import date
 
 
 app = Flask(__name__)
@@ -67,12 +67,12 @@ class scenes(db.Model):
     numcompte = db.Column(db.Integer, db.ForeignKey('compte.numcompte'))
     titrescene = db.Column(db.String(255), nullable=False)
     descscene = db.Column(db.Text())
-    datescene = db.Column(db.DateTime, default = datetime.now)
+    datescene = db.Column(db.DateTime, default = date.today())
     criteres = db.Column(db.String(255))
     recurrence = db.Column(db.String(255))
-    adrscne = db.Column(db.String(255))
+    adrscene = db.Column(db.String(255))
     numphoto = db.Column(db.Integer)
-                    
+
 
 
     def __init__(self, numcompte, titrescene, descscene, datescene, criteres, recurrence, adrscene, numphoto):
@@ -106,33 +106,33 @@ class SceneSchema(ma.Schema):
                   'datescene', 'criteres', 'recurrence', 'adrscene', 'numphoto')
 
 
-scene_Schema = PrestaSchema()
-scenes_Schema = PrestaSchema(many=True)
+scene_Schema = SceneSchema()
+scenes_Schema = SceneSchema(many=True)
 
 #________________________________
 # FUNCTIONS FOR PRESTATIONS TABLE
-@app.route('/getfiltered/<numprest>', methods = ['GET'])
-def get_filtered_articles(numprest):
+@app.route('/prestafiltered/<numprest>', methods = ['GET'])
+def get_filtered_prestations(numprest):
     presta = prestations.query.filter(prestations.numprest == numprest).all()
     print("presta= ", presta)
     results = prestas_Schema.dump(presta, many = True)
 #    print("results= " , results)
     return jsonify(results)
 
-@app.route('/get', methods = ['GET'])
-def get_articles():
+@app.route('/getpresta', methods = ['GET'])
+def get_prestations():
     all_prestas = prestations.query.all()
     results = prestas_Schema.dump(all_prestas)
     return jsonify(results)
 
 
-@app.route('/get/<numprest>', methods = ['GET'])
-def get_details(numprest):
+@app.route('/getpresta/<numprest>', methods = ['GET'])
+def get_prestation(numprest):
     presta = prestations.query.get(numprest)
     return presta_Schema.jsonify(presta)
 
 
-@app.route('/add', methods = ['POST'])
+@app.route('/addpresta', methods = ['POST'])
 def add_presta():
     numcompte = request.json['numcompte']
     titreprest = request.json['titreprest']
@@ -145,7 +145,7 @@ def add_presta():
     return presta_Schema.jsonify(presta)
 
 
-@app.route('/update/<numprest>', methods = ['PUT'])
+@app.route('/updatepresta/<numprest>', methods = ['PUT'])
 def update_presta(numprest):
     presta = prestations.query.get(numprest)
     numcompte = request.json['numcompte']
@@ -162,7 +162,7 @@ def update_presta(numprest):
     return presta_Schema.jsonify(presta)
 
 
-@app.route('/delete/<numprest>', methods = ['DELETE'])
+@app.route('/deletepresta/<numprest>', methods = ['DELETE'])
 def delete_presta(numprest):
     presta = prestations.query.get(numprest)
     try:
@@ -174,7 +174,8 @@ def delete_presta(numprest):
 
 #________________________________
 # FUNCTIONS FOR SCENES TABLE
-def get_filtered_articles(params):
+@app.route('/scenefiltered/<params>', methods = ['GET'])
+def get_filtered_sceneslong(params):
     if params.index == 1: scene = scenes.query.filter(scenes.numscene == int(params.test)).all()
     elif params.index == 2: scene = scenes.query.filter(scenes.titrescene == params.test).all()
     elif params.index == 3: scene = scenes.query.filter(scenes.descscene == params.test).all()
@@ -192,7 +193,7 @@ def get_filtered_articles(params):
     return jsonify(results)
 
 @app.route('/getfilteredscene/<numscene>', methods = ['GET'])
-def get_filtered_articles(numscene):
+def get_filtered_scenes(numscene):
     scene = scenes.query.filter(scenes.numscene == numscene).all()
     print("scene= ", scene)
     results = scenes_Schema.dump(scene, many = True)
@@ -200,17 +201,15 @@ def get_filtered_articles(numscene):
     return jsonify(results)
 
 @app.route('/getscene', methods = ['GET'])
-def get_articles():
+def get_scenes():
     all_scenes = scenes.query.all()
     results = scenes_Schema.dump(all_scenes)
     return jsonify(results)
 
-
 @app.route('/getscene/<numscene>', methods = ['GET'])
-def get_details(numscene):
+def get_scene(numscene):
     scene = scenes.query.get(numscene)
     return scene_Schema.jsonify(scene)
-
 
 @app.route('/addscene', methods = ['POST'])
 def add_scene():
@@ -222,7 +221,6 @@ def add_scene():
     recurrence = request.json['recurrence']
     adrscene  = request.json['adrscene']
     numphoto  = request.json['numphoto']
-    
     scene = scenes(numcompte, titrescene, descscene, datescene, criteres, recurrence, adrscene, numphoto)
     db.session.add(scene)
     db.session.commit()
