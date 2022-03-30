@@ -66,7 +66,7 @@ class scenes(db.Model):
     numscene = db.Column(db.Integer, primary_key=True)
     numcompte = db.Column(db.Integer, db.ForeignKey('compte.numcompte'))
     titrescene = db.Column(db.String(255), nullable=False)
-    descscene = db.Column(db.Text())
+    descscene = db.Column(db.String(255))
     datescene = db.Column(db.DateTime, default = date.today())
     criteres = db.Column(db.String(255))
     recurrence = db.Column(db.String(255))
@@ -80,8 +80,8 @@ class scenes(db.Model):
         self.titrescene = titrescene
         self.descscene = descscene
         self.datescene = datescene
-        self.criteres=criteres
-        self.recurrence=recurrence
+        self.criteres = criteres
+        self.recurrence = recurrence
         self.adrscene=adrscene
         self.numphoto=numphoto
     def __repr__(self):
@@ -206,10 +206,20 @@ def get_scenes():
     results = scenes_Schema.dump(all_scenes)
     return jsonify(results)
 
+#@app.route('/getsceneordered', methods = ['GET'])
+#def get_scenes():
+#    all_scenes = (scenes.query.all()
+#                 .order_by(scenes.Entry.amount.desc())
+#    results = scenes_Schema.dump(all_scenes)
+#    print("results: ", results)
+#    return jsonify(results)
+
+
 @app.route('/getscene/<numscene>', methods = ['GET'])
 def get_scene(numscene):
     scene = scenes.query.get(numscene)
     return scene_Schema.jsonify(scene)
+
 
 @app.route('/addscene', methods = ['POST'])
 def add_scene():
@@ -221,6 +231,7 @@ def add_scene():
     recurrence = request.json['recurrence']
     adrscene  = request.json['adrscene']
     numphoto  = request.json['numphoto']
+
     scene = scenes(numcompte, titrescene, descscene, datescene, criteres, recurrence, adrscene, numphoto)
     db.session.add(scene)
     db.session.commit()
