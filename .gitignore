@@ -12,7 +12,7 @@ npm-debug.*
 web-build/
 
 # ajout Cyrille
-backend/
+#backend/
 .vscode/
 
 # macOS
