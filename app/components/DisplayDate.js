@@ -17,6 +17,7 @@ const DisplayDate = (props) => {
 
 const styles = StyleSheet.create({
     container: {
+        textAlign: 'center',
         width: '100%',
         borderRadius: 10,
         backgroundColor: colors.dark,

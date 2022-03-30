@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {  View, StyleSheet, FlatList, Alert } from 'react-native';
+import {  View, StyleSheet, FlatList } from 'react-native';
 import colors from '../config/colors';
-import {Search_bar, DisplayDate, Button_filter_Tag, Button_filter_Date} from './../components/componentsIndex'; 
-import { Card, Avatar } from 'react-native-paper';
+import {Search_bar, Button_filter_Tag, Button_filter_Date} from './../components/componentsIndex'; 
+import { Card, Badge, IconButton } from 'react-native-paper';
 
 
 
@@ -63,6 +63,10 @@ const SearchSceneScreen = () => {
 
   //Research result item structure and filling
 const renderData = (item) => {
+  const date = item.datescene.split('-');
+  const year = date[0];
+  const month = date[1];
+  const day = date[2];
   return (
   //Remplacer avec une Card de Card paper ??
   <Card
@@ -71,9 +75,16 @@ const renderData = (item) => {
     <Card.Title
       title={item.titrescene}
       subtitle={item.descscene}
-      left={(props) => <Avatar.Image size={40} source={require('../assets/itemCat.png')} />}
-      right={(props) => <DisplayDate day={4} month= {'juin'}/>
-      }
+      left={(props) => <Badge 
+        size={50} 
+        style= {styles.date}>{day}/{month}</Badge>}
+      right={(props) => <IconButton
+        style={styles.fab}
+        small
+        color={colors.white}
+        icon="eye"
+        onPress={() => alert('Pressed')}
+      />}
     />
   </Card>
   );
@@ -139,6 +150,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 3,
   },
+  date: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    backgroundColor: colors.secondary, 
+    color: colors.dark,
+  },
+  fab: {
+    backgroundColor: colors.primary,
+    marginRight: 20,
+  }
 })
 
 export default SearchSceneScreen;
