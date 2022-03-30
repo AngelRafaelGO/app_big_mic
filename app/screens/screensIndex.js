@@ -1,8 +1,8 @@
-export { default as LoginScreen } from './LogInScreen';
-export { default as CreateAccount } from './CreateAccount';
-export { default as CreateAccountS2 } from './CreateAccountS2';
+export { default as LoginScreen } from './login/LogInScreen';
+export { default as CreateAccount } from './login/CreateAccount';
+export { default as CreateAccountS2 } from './login/CreateAccountS2';
 export { default as ProfilScreen } from './profilScreen';
-export { default as Loading } from './Loading';
+export { default as Loading } from './login/Loading';
 export { default as ProfilOptions } from './ProfilOptions';
 export { default as SceneForm } from './forms/SceneForm';
 export { default as SearchSceneScreen } from './SearchSceneScreen';
@@ -10,3 +10,4 @@ export { default as SearchUserScreen } from './SearchUserScreen';
 export { default as SearchMainStack } from './SearchMainStack';
 export { default as CreatePresta } from './forms/CreatePresta';
 export { default as Prestations } from './Prestations';
+export { default as WelcomeScreen } from './login/WelcomeScreen'

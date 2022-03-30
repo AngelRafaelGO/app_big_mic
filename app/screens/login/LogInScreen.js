@@ -1,13 +1,11 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { Image, SafeAreaView, StyleSheet, View, TextInput, Text, TouchableOpacity } from 'react-native';
 
-import { AuthContext } from '../config/context';
-import colors from '../config/colors';
+import { AuthContext } from '../../config/context';
+import colors from '../../config/colors';
 
 function LoginScreen() {
 
-    const navigation = useNavigation();
     const { signIn } = React.useContext(AuthContext);
 
     const [password, setPassword] = React.useState();
@@ -17,7 +15,7 @@ function LoginScreen() {
 
         <SafeAreaView style={styles.background}>
             <View style={styles.logoTitleContainer}>
-                <Image style={styles.logo} source={require("../assets/microImage.jpg")}/>
+                <Image style={styles.logo} source={require("../../assets/microImage.jpg")}/>
                 <Text>BIG MIC</Text>
             </View>
             <View style={styles.inputContainer}>
@@ -39,14 +37,6 @@ function LoginScreen() {
                 >
                     <Text style={styles.touchText}>
                         Connexion
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                style={styles.registerTouch} 
-                onPress={() => navigation.navigate('CreateAccoun1')} 
-                >
-                    <Text style={styles.touchText}>
-                        Créer une compte
                     </Text>
                 </TouchableOpacity>
             </View>

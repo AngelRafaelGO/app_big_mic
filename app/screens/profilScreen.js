@@ -75,9 +75,9 @@ function ProfilScreen({ navigation }) {
     const layout = useWindowDimensions();
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-        {key: 'first', title: 'Artist'},
-        {key: 'second', title: 'Orga'},
-        {key: 'third', title: 'Exploitant'},
+        {key: 'first', title: 'Prestations'},
+        {key: 'second', title: 'Scènes'},
+        {key: 'third', title: 'Lieux'},
     ]);
 
     const renderScene = ({ route }) => {
