@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 
-import colors from "../config/colors";
+import colors from '../../config/colors';
 
 function CreateAccount({ navigation }) {
 

@@ -2,8 +2,8 @@ import { NavigationContext } from '@react-navigation/native';
 import React from 'react';
 import { TouchableOpacity, Text, View, SafeAreaView, TextInput, StyleSheet } from "react-native";
 
-import colors from "../config/colors";
-import { AuthContext } from '../config/context';
+import colors from "../../config/colors";
+import { AuthContext } from '../../config/context';
 
 function CreateAccountS2({ navigation, route }) {
 

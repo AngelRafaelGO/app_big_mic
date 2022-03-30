@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { 
     LoginScreen, CreateAccount, CreateAccountS2, 
     ProfilScreen, Loading, ProfilOptions, SceneForm, 
-    CreatePresta, SearchMainStack 
+    CreatePresta, SearchMainStack, WelcomeScreen
     } 
 from '../screens/screensIndex';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -23,6 +23,13 @@ export let routeParams = {
 const LoginStack = createNativeStackNavigator();
 const LoginStackScreen = () => (
     <LoginStack.Navigator>
+        <LoginStack.Screen 
+        name='Welcome'
+        component={WelcomeScreen}
+        options={{
+            headerShown: false
+        }}
+        />
         <LoginStack.Screen 
         name='Login'
         component={LoginScreen}
@@ -74,7 +81,7 @@ const MainScreen = () => (
     <TabsMainStack.Navigator 
     screenOptions={{ 
         tabBarActiveTintColor: colors.primary,
-        headerShown: false
+        headerShown: false,
     }}
     >
         <TabsMainStack.Screen 
