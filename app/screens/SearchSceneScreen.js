@@ -81,7 +81,7 @@ const SearchSceneScreen = ({navigation}) => {
       subtitle={item.descscene}
       left={(props) => <Badge 
         size={50} 
-        style= {styles.date}>{day}.{month}</Badge>}
+        style= {styles.itemDate}>{day}.{month}</Badge>}
       />
     </Card>
     );
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     marginVertical:5,
     marginHorizontal: 20,
   },
-  date: {
+  itemDate: {
     fontSize: 14,
     fontWeight: 'bold',
     backgroundColor: colors.primary, 
