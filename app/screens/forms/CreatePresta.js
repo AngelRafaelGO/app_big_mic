@@ -1,9 +1,11 @@
 import React, { useState, useLayoutEffect } from 'react'
 import {View, Text, StyleSheet, SafeAreaView, Image, ScrollView} from 'react-native';
 import {TextInput, Button, Surface, IconButton} from 'react-native-paper';
-import ImagePicker from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+//import * as ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker';
 // import { useLayoutEffect } from 'react/cjs/react.production.min';
-import { Dimensions } from 'react-native-web';
+import { Dimensions, StatusBar } from 'react-native-web';
 import colors from '../../config/colors';
 
 function CreatePresta(props, {navigation}) {
@@ -13,13 +15,37 @@ function CreatePresta(props, {navigation}) {
     const [lienprest, setlienprest] = useState("")
 
     // const [images, setImages] = useState([]);
-    const [image, setImage] = useState([]);
+    const [image, setImage] = useState("");
+    
+    const pick = async () => {
+        
+        // const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        // if(granted){
+        //     console.log('access granted')
+        //     let result = await ImagePicker.launchImageLibraryAsync({
+        //     mediaTypes:ImagePicker.MediaTypeOptions.Images,
+        //     allowsEditing: true,
+        //     aspect:[1,1],
+        //     quality:1,
+        // })
+        // } else {
+            let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            quality: 1,
+            });
+        // }   
+        console.log(result);
+
+        if (!result.didCancel){
+            setImage(result);
+        }
+    }
 
     // useLayoutEffect(() => {
     const handleUpLoad = () => {
-        ImagePicker.showImagePicker({ maxWidth: 500, maxHeight: 500}, (response) => {
+        launchImageLibrary({ maxWidth: 500, maxHeight: 500}, (response) => {
             if (response.didCancel){
-                return '../../assets/No_Image_uploaded.png';
+                return;
             }
             const img = {
                 uri: response.uri,
@@ -28,6 +54,7 @@ function CreatePresta(props, {navigation}) {
                     response.fileName ||
                     response.uri.substr(response.uri.lastIndexOf('/') +1),
             };
+
             setImage(img);
             // setImages(prevImages => prevImages.concat(img));
         });
@@ -59,7 +86,7 @@ function CreatePresta(props, {navigation}) {
 
   return (
     <SafeAreaView style = {styles.safeAreaStyle}>
-    <ScrollView style = {styles.viewStyle}>
+    <ScrollView style = {styles.ScrollviewStyle}>
         <TextInput style = {styles.textInputStyle}
             label = "Titre"
             value = {titreprest}
@@ -71,7 +98,7 @@ function CreatePresta(props, {navigation}) {
             value = {descprest}
             mode="outlined"
             multiline
-            numberOfLines={10}
+            numberOfLines={5}
             onChangeText = {text => setdescprest(text)}
         />
         <TextInput style = {styles.textInputStyle}
@@ -86,62 +113,76 @@ function CreatePresta(props, {navigation}) {
             mode="outlined"
             onChangeText = {text => setnumcompte(text)}
         />
-        <View>
+        <View style = {styles.imgView}>
+            <Text> Image :</Text>
             <Image source={{ uri : image.uri}} style = {styles.img} />
         </View>
-        <Button style = {styles.btnStyle}
-            icon = "plus"
-            mode='contained'
-            onPress={() => handleUpLoad()}
-            >
-            Insérer une Image
-        </ Button>
-        <Button style = {styles.btnStyle}
-            icon = "pencil"
-            mode='contained'
-            onPress={() => insertData()}>
-            Insérer une Prestation
-        </ Button>
+        <View style = {styles.btnStyle} >
+            <Button style = {styles.btnInside}
+                icon = "image"
+                mode='contained'
+                onPress={() => pick()}
+                // onPress={() => handleUpLoad()}
+                >
+                Image
+            </ Button>
+            <Button style = {styles.btnInside}
+                icon = "pencil"
+                mode='contained'
+                onPress={() => insertData()}>
+                Valider
+            </ Button>
+        </View>
     </ScrollView>
     </SafeAreaView>
-  );
+  ); 
 };
 
 const styles = StyleSheet.create ({
     safeAreaStyle: {
         // flex: 1,
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // width: '100%',
+        paddingTop: StatusBar.currentHeight,
     },
-    viewStyle: {
+    ScrollviewStyle: {
         // flex: 1,
         // justifyContent: 'center',
         // alignItems: 'center',
         // // marginTop: 30,
         // padding: 10,
         // width: '100%',
-        // height: '100%',
+        // height: 500,
     },
     textInputStyle: {
-        margin: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 5,
         // width: '100%',
         // height: 40,
     },
     btnStyle: {
         margin: 30,
-        backgroundColor: '#FF4858'
         // height: 60,
         // width: '100%'
+        flexDirection:"row",
+        justifyContent:"space-around",
+        // margin: 10,
+        // padding: 5,
+    },
+    btnInside: {
+        backgroundColor: '#FF4858',
+    },
+    imgView: {
+        borderStyle: 'solid',
+        borderColor: colors.secondary,
+        height: 300,
     },
     img: {
-        width: Dimensions.get('window').width * 0.9,
+        // width: Dimensions.get('window').width * 0.9,
+        width: 300,
         height: '100%',
         resizeMode: 'contain',
         padding: 10,
         margin: 10,
-        borderStyle: 'solid',
-        borderColor: colors.secondary,
     },
 });
 

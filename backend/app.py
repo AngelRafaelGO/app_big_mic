@@ -106,8 +106,8 @@ class SceneSchema(ma.Schema):
                   'datescene', 'criteres', 'recurrence', 'adrscene', 'numphoto')
 
 
-scene_Schema = PrestaSchema()
-scenes_Schema = PrestaSchema(many=True)
+scene_Schema = SceneSchema()
+scenes_Schema = SceneSchema(many=True)
 
 #________________________________
 # FUNCTIONS FOR PRESTATIONS TABLE
@@ -206,12 +206,10 @@ def get_scenes():
     results = scenes_Schema.dump(all_scenes)
     return jsonify(results)
 
-
 @app.route('/getscene/<numscene>', methods = ['GET'])
 def get_scene(numscene):
     scene = scenes.query.get(numscene)
     return scene_Schema.jsonify(scene)
-
 
 @app.route('/addscene', methods = ['POST'])
 def add_scene():

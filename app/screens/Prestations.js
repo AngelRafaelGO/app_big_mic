@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import {Card, FAB, Avatar} from 'react-native-paper';
+import {Card, FAB, Avatar, Title, Paragraph} from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons'; 
 import colors from '../config/colors';
 
@@ -38,11 +38,13 @@ function Prestations({navigation}) {
     <Card style = {styles.cardStyle} onPress = {() => clickedItem(item)}>
       <Card.Title
         title={item.titreprest}
-        subtitle={item.lienprest}
-        left={(props) => <Avatar.Image size={40} source={require('../assets/freebanner.png')} />}
-        right={(props) => <AntDesign name="hearto" size={20} color={colors.primary} style={{paddingRight:15}}/>
-        }
-      />
+        subtitle={item.lienprest} />
+
+        <Card.Cover source= {{ uri: 'https://picsum.photos/700'}} />
+         {/* left={(props) => <Avatar.Image size={40} source={require('../assets/freebanner.png')} />}
+         right={(props) => <AntDesign name="hearto" size={20} color={colors.primary} style={{paddingRight:15}}/>
+         }
+      /> */}
       {/* <View style = {styles.cardView}>
         <View style = {styles.cardIndex}>
           <Text style = {styles.cardText1}>
@@ -72,7 +74,7 @@ function Prestations({navigation}) {
       <View style = {styles.fabView}>
       <FAB
           small={false}
-          icon="pencil"
+          icon="plus"
           color='white'
           // label='add'
           theme= {{colors:{accent:"rgb(255, 72, 88)"}}}
