@@ -1,11 +1,11 @@
 import React, { useState, useLayoutEffect } from 'react'
-import {View, Text, StyleSheet, SafeAreaView, Image, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar} from 'react-native';
 import {TextInput, Button, Surface, IconButton} from 'react-native-paper';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 //import * as ImagePicker from 'react-native-image-picker';
 import * as ImagePicker from 'expo-image-picker';
 // import { useLayoutEffect } from 'react/cjs/react.production.min';
-import { Dimensions, StatusBar } from 'react-native-web';
+//import { Dimensions, StatusBar } from 'react-native-web';
 import colors from '../../config/colors';
 
 function CreatePresta(props, {navigation}) {
