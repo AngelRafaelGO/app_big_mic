@@ -13,7 +13,6 @@ import datetime
 app = Flask(__name__)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://DBmanager:CQAZSdg2QqEHsZdV@db-mysql-fra1-37933-do-user-11172286-0.b.db.ondigitalocean.com:25060/bigmic'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
