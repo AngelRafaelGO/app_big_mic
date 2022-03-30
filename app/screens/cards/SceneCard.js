@@ -1,29 +1,50 @@
-import { View, Text } from 'react-native'
+import { Text, StyleSheet } from 'react-native'
 import React from 'react'
-import SceneForm from '../SceneForm';
-import { ScrollView } from 'react-native-web';
+import colors from '../../config/colors';
+import { Card, FAB, Title, Paragraph, Subheading } from 'react-native-paper';
 
 
 
-const SceneCard = () => {
+const SceneCard = ( {route}) => {
+  
+  const {item} = route.params;
+  
   return (
+  <Card style={styles.sceneCard}>
+    <Card.Title title={item.titrescene} />
+    <Card.Content>
+      <Subheading>Description</Subheading>
+      <Paragraph>{item.descscene}</Paragraph>
+      <Subheading>Critères</Subheading>
+      <Paragraph>{item.criteres}</Paragraph>
 
-  <ScrollView>
-    <View>
-      <Text> Ma scène </Text>
+    </Card.Content>
+    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+    <Card.Actions>
+      <FAB 
+      label='Contacter'
+      style= {styles.fab}
+      icon="email"
+      color={colors.white}
+      onPress={()=>alert("Envoyer une message à l'organisateur")}
+        />
+    </Card.Actions>
 
-      <Text style={{fontWeight: 'bold'}}> {SceneForm.sceneTitle} </Text>
 
-      <View >
-         <Button title="Modifier" color='red' borderRadius= '20' fontWeight="bold" padding='10' />
-      </View>
-
-    </View>
-
-  </ScrollView>
+  </Card>
 
   )
 };
+
+const styles = StyleSheet.create({
+  fab: {
+    backgroundColor: colors.primary,
+  },
+  sceneCard: {
+    margin: 20,
+  },
+})
+
 export default SceneCard;
 
 

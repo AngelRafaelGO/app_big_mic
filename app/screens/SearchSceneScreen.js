@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {  View, StyleSheet, FlatList } from 'react-native';
 import colors from '../config/colors';
 import {Search_bar, Button_filter_Tag, Button_filter_Date} from './../components/componentsIndex'; 
-import { Card, Badge, IconButton } from 'react-native-paper';
+import { Card, Badge } from 'react-native-paper';
 
 
 
@@ -39,10 +39,16 @@ const set_filter = () => {
   Alert.alert('Selectionner les paramètres du filtre + rafraichir');
 };
 
-const SearchSceneScreen = () => {
+
+
+
+//Main component of this file
+const SearchSceneScreen = ({navigation}) => {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); 
+
+  
 
   const getScenesFromApi = async () => {
     try {
@@ -51,7 +57,7 @@ const SearchSceneScreen = () => {
       });
       const scenes = await response.json();
       setData(scenes),
-        setLoading(false);
+      setLoading(false);
     } catch (error) {
       console.error("ERROR in query:" + error);
     }
@@ -62,35 +68,25 @@ const SearchSceneScreen = () => {
   }, []);
 
   //Research result item structure and filling
-const renderData = (item) => {
+  const renderData = (item) => {
   const date = item.datescene.split('-');
   const year = date[0];
   const month = date[1];
   const day = date[2];
   return (
-  //Remplacer avec une Card de Card paper ??
   <Card
   style={styles.itemContainer}
-  onPress={set_action}>
+  onPress={()=>navigation.navigate("Détails", {item: item})}>
     <Card.Title
       title={item.titrescene}
       subtitle={item.descscene}
       left={(props) => <Badge 
         size={50} 
-        style= {styles.date}>{day}/{month}</Badge>}
-      right={(props) => <IconButton
-        style={styles.fab}
-        small
-        color={colors.white}
-        icon="eye"
-        onPress={() => alert('Pressed')}
-      />}
-    />
-  </Card>
-  );
-}
-
-  console.log(data);
+        style= {styles.date}>{day}.{month}</Badge>}
+      />
+    </Card>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -105,6 +101,7 @@ const renderData = (item) => {
       </View>
       {/* Results of the research */}
       <FlatList
+        style = {styles.listContainer}
         data = {data}
         renderItem = {({item}) => {
           // console.log(data)
@@ -153,13 +150,9 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 14,
     fontWeight: 'bold',
-    backgroundColor: colors.secondary, 
-    color: colors.dark,
+    backgroundColor: colors.primary, 
+    color: colors.white,
   },
-  fab: {
-    backgroundColor: colors.primary,
-    marginRight: 20,
-  }
 })
 
 export default SearchSceneScreen;

@@ -28,6 +28,21 @@ const tagList = [
   },
 ];
 
+const roleList = [
+  {
+    id: 1,
+    name: "Organisateur"
+  },
+  {
+    id: 2,
+    name: "Exploitant"
+  },
+  {
+    id: 3,
+    name: "Artiste"
+  }
+];
+
 //Generation of the item's data
 const getItem = (data, index) => ({
   id: Math.random().toString(12).substring(0),
@@ -70,7 +85,7 @@ const SearchSceneScreen = () => {
         set_action= {set_filter}
         tagList={tagList} />
         <Button_filter_Tag name="Rôle"
-        tagList={tagList}
+        tagList={roleList}
         set_action= {set_filter}
          />
       </View>
