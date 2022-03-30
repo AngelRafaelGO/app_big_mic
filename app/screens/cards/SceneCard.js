@@ -1,30 +1,30 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import SceneForm from '../SceneForm';
-import { ScrollView } from 'react-native-web';
+import React, {useState} from 'react'
+import { View, Text , ScrollView, Button, StyleSheet, TouchableOpacity, ScroolView } from 'react-native'
+
+
+function SceneCard () {
+
+  return ( 
+    <ScrollView>
+      <View>
+
+        <Text> scène </Text>
+
+        <Image source={require('../../assets/SceneImage.png')} />
+
+        <Text> Description: </Text>
+
+        <Text> Adresse: </Text>
+
+        <Text> Date: </Text>
+
+        <Text> Tags: </Text>
 
 
 
-const SceneCard = () => {
-  return (
-
-  <ScrollView>
-    <View>
-      <Text> Ma scène </Text>
-
-      <Text style={{fontWeight: 'bold'}}> {SceneForm.sceneTitle} </Text>
-
-      <View >
-         <Button title="Modifier" color='red' borderRadius= '20' fontWeight="bold" padding='10' />
       </View>
-
-    </View>
-
-  </ScrollView>
-
+    </ScrollView>
   )
 };
+
 export default SceneCard;
-
-
-

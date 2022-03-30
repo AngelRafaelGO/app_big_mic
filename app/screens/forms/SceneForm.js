@@ -1,51 +1,87 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Image, TextInput,ScrollView, Button } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity,  ScrollView , Style} from 'react-native';
+import {TextInput, Button} from 'react-native-paper';
 
 import colors from '../../config/colors';
 
-function SceneForm() {
+function SceneForm({navigation}) {
 
-    const [sceneTitle, setSceneTitle] = useState('');
-    const [sceneAdress, setSceneAdress] = useState('');
-    const [sceneDescription, setSceneDescription] = useState('');
-    const [sceneTags, setSceneTags] = useState('');
-    const [sceneRequirement, setSceneRequirement] = useState('');
-    const [sceneDate, setSceneDate] = useState('');
-    const [sceneImage, setSceneImage] = useState('');
+    const [titrescene, settitrescene] = useState('');
+    const [adrscene, setadrscene] = useState('');
+    const [descscene, setdescscene] = useState('');
+    const [criteres, setcriteres] = useState('');
+    const [datescene, setdatescene] = useState('');
+    const [recurrence, setrecurrence] = useState('');
+    const [numphoto, setnumphoto] = useState(1);
+    const [numcompte, setnumcompte] = useState(2);
+
+    const insertData = () => {
+        fetch('http://64.225.72.25:5000/addscene', {
+            method : 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({titrescene: titrescene, datescene: datescene, numphoto: numphoto, criteres: criteres, recurrence: recurrence, adrscene: adrscene, descscene: descscene, numcompte: numcompte})
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            props.navigation.navigate('Profil')
+        })
+        .catch(error => console.log("POST error: " + error))
+    }
+
+
 
     return (
-        <ScrollView> 
+        <ScrollView styles={styles.container}> 
+            <View style={{alignItems: 'center', marginTop: 50}} >
+            <Image source={require('../../assets/SceneImage.png')} />
+
+            </View>
+
+
             <Text> Création de ma scène  </Text>
-            <View styles={styles.container}>
-                    <Text styles={styles.textOne}> Titre de la scène : </Text>
+            <View>
+                    
                     <TextInput style={styles.textInput}
-                                onChangeText={ (val) => setSceneTitle(val)} />
-                    <Text styles={styles.textOne}> Adresse de la scène :</Text>
+                                label = "Titre de la scène"
+                                value = {titrescene}
+                                mode="outlined"
+                                onChangeText={ (val) => settitrescene(val)}/>          
                     <TextInput style={styles.textInput}
-                                onChangeText={ (val) => setSceneAdress(val)} />
-                    <Text styles={styles.textOne}> Description :</Text>
+                            label = "Adresse de la scène"
+                            value = {adrscene}
+                            mode="outlined"
+                            onChangeText={ (val) => setadrscene(val)} />
                     <TextInput style={styles.textInput} multiline={true}
-                                onChangeText={ (val) => setSceneDescription(val)} />
-                    <Text styles={styles.textOne}> Tags :</Text>
-                    <TextInput style={styles.textInput}
-                                onChangeText={ (val) => setSceneTags(val)} />
-                    <Text styles={styles.textOne}> Critères de participation :</Text>
+                                label = "Description"
+                                value = {descscene}
+                                mode="outlined"
+                                onChangeText={ (val) => setdescscene(val)} />
+                    {/* <TextInput style={styles.textInput}
+                                label = "Tags"
+                                value = {sceneTags}
+                                mode="outlined"
+                                onChangeText={ (val) => setSceneTags(val)} /> */}
                     <TextInput style={styles.textInput}
                                 multiline
-                                onChangeText={ (val) => setSceneRequirement(val)} />
-                    <Text styles={styles.textOne}> Dates de la scène</Text>
+                                label = "Critères de participation"
+                                value = {criteres}
+                                mode="outlined"
+                                onChangeText={ (val) => setcriteres(val)} />
                     <TextInput style={styles.textInput}
-                                onChangeText={ (val) => setSceneDate(val)} 
-                                keyboardType='numeric' />
-                    <Text styles={styles.textOne}> Charger une photo pour la scène :</Text>
-                    <Button title="Valider" color='red' borderRadius= '50' fontWeight="bold" padding='20'  
-                    onPress = { () => {
-                            if ( sceneTitle == '' ||  sceneAdress == '' ||  sceneDescription == '' || sceneTags== '' || sceneRequirement == '' || sceneDate== '' ) {
-                                alert('Vous n\'avez pas rentré toutes les données');
-                            };
-                        }
-                    }
-                    />       
+                                label = "Dates de la scène"
+                                value = {datescene}
+                                mode="outlined"
+                                onChangeText={ (val) => setdatescene(val)} 
+                                 />
+                    <TouchableOpacity   
+                    style = {styles.button}
+                    onPress = { () => insertData()}
+
+                    >
+                        <Text style={styles.textButton}> Valider </Text>   
+                        </TouchableOpacity>      
             </View>   
         </ScrollView>
     );
@@ -54,23 +90,36 @@ function SceneForm() {
 const styles = StyleSheet.create({
     container: { 
         flex:1,
-        alignItems:"center",
-        padding:20,
-        margin:10,
-        marginTop: 10,
-        height: 100,  
-    },
-    textOne: {
-        fontWeight: 'bold',   
+        justifyContent:"center",
+        alignItems:"center", 
     },
     textInput: { 
-        backgroundColor: colors.light,
-        borderRadius: 10,
-        height: 32,
-        width: '90%',
-        padding: 5,
-        margin:15,
+        // borderRadius: 10,
+        // height: 32,
+        // width: '90%',
+        // padding: 5,
+        marginLeft:10,
+        marginRight:10,
+        marginBottom:5,
+        
     },
+    button: {
+        margin: 30,
+        backgroundColor: '#FF4858',
+        alignItems:'center'
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        // width: '40%',
+        // height: 40, 
+        // backgroundColor: colors.primary,
+        // borderRadius: 5,
+        // marginTop: 20,
+    },
+    textButton: {
+        margin: 10,
+        color: colors.white,
+        
+    }
 });
 
 export default SceneForm;
