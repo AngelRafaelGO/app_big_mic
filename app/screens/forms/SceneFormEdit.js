@@ -20,12 +20,7 @@ function SceneFormEdit ({navigation, route}, props) {
 
     const deleteData = () => {
         fetch(`http://64.225.72.25:5000/deletescene/${item.numscene}`,{
-            method: 'DELETE',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({titrescene: titrescene, datescene: datescene, numphoto: numphoto, criteres: criteres, recurrence: recurrence, adrscene: adrscene, descscene: descscene, numcompte: numcompte})
-
+            method: 'DELETE'
         })
         .then(data => {
             navigation.navigate('Profil')

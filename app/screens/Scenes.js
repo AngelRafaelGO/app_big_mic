@@ -4,7 +4,6 @@ import { Card , Badge, FAB} from 'react-native-paper';
 import colors from '../config/colors';
 
 
-
 const Scenes = ({navigation}) => {
 
     const [data, setData] = useState([]);
@@ -12,9 +11,17 @@ const Scenes = ({navigation}) => {
 
     //Item scene structure and filling
     const renderSceneList = (item) => {
-    const date = item.datescene.split('-');
-    const month = date[1];
-    const day = date[2];
+      
+      // if(Object.keys(item.datescene).length != 0 ){
+      //   const date = item.datescene.split('-');
+      //   const month = date[1];
+      //   const day = date[2];
+      // }
+      // else {
+      //   const month = '00';
+      //   const day = '00';
+      // }
+    
     return (
     <Card
     style={styles.itemContainer}
@@ -24,7 +31,7 @@ const Scenes = ({navigation}) => {
         subtitle={item.descscene}
         left={(props) => <Badge 
           size={50} 
-          style= {styles.itemDate}>{day}.{month}</Badge>}
+          style= {styles.itemDate}></Badge>}
         />
       </Card>
       );

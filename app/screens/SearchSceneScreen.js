@@ -69,9 +69,9 @@ const SearchSceneScreen = ({navigation}) => {
 
   //Research result item structure and filling
   const renderData = (item) => {
-  const date = item.datescene.split('-');
-  const month = date[1];
-  const day = date[2];
+  // const date = item.datescene.split('-');
+  // const month = date[1];
+  // const day = date[2];
   return (
   <Card
   style={styles.itemContainer}
@@ -81,7 +81,7 @@ const SearchSceneScreen = ({navigation}) => {
       subtitle={item.descscene}
       left={(props) => <Badge 
         size={50} 
-        style= {styles.itemDate}>{day}.{month}</Badge>}
+        style= {styles.itemDate}></Badge>}
       />
     </Card>
     );
