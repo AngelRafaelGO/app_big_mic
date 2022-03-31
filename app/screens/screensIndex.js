@@ -14,3 +14,5 @@ export { default as Prestations } from './Prestations';
 export { default as WelcomeScreen } from './login/WelcomeScreen';
 export { default as Scenes } from './Scenes';
 export { default as ChangeProImage } from './ChangeProImage';
+export { default as Lieux } from './Lieux';
+export { default as CreateLieu } from './forms/CreateLieu';

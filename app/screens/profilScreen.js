@@ -9,7 +9,7 @@ import { TabView, TabBar } from "react-native-tab-view";
 import { Ionicons, AntDesign, EvilIcons } from "@expo/vector-icons"
 
 import colors from "../config/colors";
-import {Prestations, Scenes} from "./screensIndex";
+import {Prestations, Scenes, Lieux} from "./screensIndex";
 
 const FirstTab = ({navigation}) => (
     <View style={styles.tabScreen}>
@@ -28,18 +28,11 @@ const SecondTab = ({ navigation }) => (
     </View>
 );
 
-const ThirdTab = () => (
+const ThirdTab = ({ navigation }) => (
     <View style={styles.tabScreen}>
-        <TouchableOpacity style={styles.tabScrLocCardCreate}>
-            <Ionicons 
-            name='ios-create-outline'
-            size={24}
-            color={{ color: colors.white }}
-            />
-        </TouchableOpacity>
-        <Text>
-            Hello, add a new place to host events!
-        </Text>
+        <View style={styles.tabScrArtCardCreate}>
+        </View>
+        < Lieux navigation = {navigation} />    
     </View>
 );
 
