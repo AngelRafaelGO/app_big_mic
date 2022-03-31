@@ -6,13 +6,13 @@ import {
     Image, ScrollView,
 } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons"
 
 import colors from "../config/colors";
 
 import {Prestations, Scenes} from "./screensIndex";
 
-const FirstTab = ( {navigation}) => (
+const FirstTab = ({navigation}) => (
     <View style={styles.tabScreen}>
         <View style={styles.tabScrArtCardCreate}>
             {/* <TouchableOpacity
@@ -25,7 +25,7 @@ const FirstTab = ( {navigation}) => (
                 color={{ color: colors.white }} />
             </TouchableOpacity> */}
         </View>
-        < Prestations navigation= {navigation} />    
+        < Prestations navigation = {navigation} />    
     </View>
 );
 
@@ -76,9 +76,9 @@ function ProfilScreen({ navigation }) {
     const layout = useWindowDimensions();
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-        {key: 'first', title: 'Artist'},
-        {key: 'second', title: 'Orga'},
-        {key: 'third', title: 'Exploitant'},
+        {key: 'first', title: 'Prestations'},
+        {key: 'second', title: 'Scènes'},
+        {key: 'third', title: 'Lieux'},
     ]);
 
     const renderScene = ({ route }) => {

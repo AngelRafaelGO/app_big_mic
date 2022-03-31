@@ -1,5 +1,5 @@
+import React, {useState} from 'react'
 import { StyleSheet } from 'react-native'
-import React from 'react'
 import colors from '../../config/colors';
 import { Card, FAB, Paragraph, Subheading } from 'react-native-paper';
 
@@ -12,12 +12,16 @@ const SceneCard = ( {route}) => {
   
   return (
   <Card style={styles.sceneCard}>
-    <Card.Title title={item.titrescene} />
+    <Card.Title title={item.titrescene} subtitle= {item.datescene}/>
     <Card.Content>
       <Subheading>Description</Subheading>
       <Paragraph>{item.descscene}</Paragraph>
       <Subheading>Critères</Subheading>
       <Paragraph>{item.criteres}</Paragraph>
+      <Subheading>Adresse</Subheading>
+      <Paragraph>{item.adrscene}</Paragraph>
+      <Subheading>Tags</Subheading>
+      <Paragraph>Liste des tags</Paragraph>
 
     </Card.Content>
     <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
@@ -47,6 +51,3 @@ const styles = StyleSheet.create({
 })
 
 export default SceneCard;
-
-
-
