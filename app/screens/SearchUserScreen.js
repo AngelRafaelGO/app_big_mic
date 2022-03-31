@@ -42,7 +42,7 @@ const roleList = [
   }
 ];
 
-const SearchUserScreen = () => {
+const SearchUserScreen = ({navigation}) => {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); 
@@ -71,7 +71,7 @@ const SearchUserScreen = () => {
     return (
     <Card
       style={styles.itemContainer}
-      onPress={()=>navigation.navigate("Compte", {item: item})}>
+      onPress={()=>navigation.navigate("Détails compte", {item: item})}>
         <Card.Title
           title={item.nom + " "+ item.prenom}
           subtitle={item.ville}

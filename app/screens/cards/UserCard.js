@@ -1,37 +1,31 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Text, FlatList } from 'react-native'
 import React from 'react'
 import colors from '../../config/colors';
 import { Card, FAB, Paragraph, Subheading } from 'react-native-paper';
 
 
-
-const UserCard = ( {route}) => {
+const UserCard = ({route}) => {
   
   const {item} = route.params;
   console.log(item);
   
   return (
   <Card style={styles.sceneCard}>
-    <Card.Title title={item.titrescene} />
+    <Card.Title title={item.nom + " " + item.prenom} subtitle={item.ville}/>
     <Card.Content>
-      <Subheading>Description</Subheading>
-      <Paragraph>{item.descscene}</Paragraph>
-      <Subheading>Critères</Subheading>
-      <Paragraph>{item.criteres}</Paragraph>
-
+      <Subheading>Activités</Subheading>
+      <FlatList />
+      <Text>Liste des cartes valables du compte</Text>
     </Card.Content>
-    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
     <Card.Actions>
       <FAB 
       label='Contacter'
       style= {styles.fab}
       icon="email"
       color={colors.white}
-      onPress={()=>alert("Envoyer une message à l'organisateur")}
+      onPress={()=>alert("Envoyer un message à la personne")}
         />
     </Card.Actions>
-
-
   </Card>
 
   )

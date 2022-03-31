@@ -16,4 +16,3 @@ export { default as Scenes } from './Scenes'
 export { default as UserCard} from './cards/UserCard';
 export { default as SceneCard} from './cards/SceneCard';
 export { default as WelcomeScreen } from './login/WelcomeScreen'
-export { default as Scenes } from './Scenes'
