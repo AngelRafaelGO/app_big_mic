@@ -38,12 +38,12 @@ const LoginStackScreen = () => (
         <LoginStack.Screen 
         name='CreateAccoun1'
         component={CreateAccount} 
-        options={{ title: 'Création de compte' }}
+        options={{ title: '' }}
         />
         <LoginStack.Screen 
         name='CreateAccount2'
         component={CreateAccountS2}
-        options={{ title: 'Création de compte' }}
+        options={{ title: '' }}
         />
     </LoginStack.Navigator>
 );
@@ -55,7 +55,9 @@ const ProfilStackScreen = () => (
         <ProfilStack.Screen 
         name='Profil'
         component={ProfilScreen}
-        options={{ title: 'Compte' }}
+        options={{ 
+            headerShown: false
+         }}
         />
         <TabsMainStack.Screen 
         name='ProfilOptions'

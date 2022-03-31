@@ -3,27 +3,18 @@ import {
     Text, SafeAreaView, 
     View, TouchableOpacity, 
     StyleSheet, useWindowDimensions,
-    Image, ScrollView,
+    Image
 } from "react-native";
-import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import { Ionicons } from "@expo/vector-icons"
+import { TabView, TabBar } from "react-native-tab-view";
+import { Ionicons, AntDesign, EvilIcons } from "@expo/vector-icons"
+
 
 import colors from "../config/colors";
-
 import Prestations from "./Prestations";
 
 const FirstTab = ({navigation}) => (
     <View style={styles.tabScreen}>
         <View style={styles.tabScrArtCardCreate}>
-            {/* <TouchableOpacity
-                style={styles.tabScrSceneCardCreate}
-                onPress={() => navigation.navigate('CreatePresta')}
-        >
-                <Ionicons 
-                name='ios-create-outline'
-                size={24} 
-                color={{ color: colors.white }} />
-            </TouchableOpacity> */}
         </View>
         < Prestations navigation = {navigation} />    
     </View>
@@ -102,18 +93,28 @@ function ProfilScreen({ navigation }) {
                 >
                     <Ionicons name='settings-outline' size={24} color='white' />
                 </TouchableOpacity>
-                <Image 
-                style={styles.accountImage}
-                source={{
-                    uri: 'https://avatars.githubusercontent.com/u/53479682?v=4'
-                }}
-                />
-                <Text style={styles.accountText}>
-                    Hello, my name is Angel
-                </Text>
-                <Text style={styles.accountText}>
-                    Paris
-                </Text>
+                <TouchableOpacity style={styles.tchChangePImage}>
+                    <Image 
+                    style={styles.accountImage}
+                    source={{
+                        uri: 'https://avatars.githubusercontent.com/u/53479682?v=4'
+                    }}
+                    />                    
+                </TouchableOpacity>
+                <View style={styles.accountDescriptionView}>
+                    <View style={styles.profileTxtView}>
+                        <AntDesign style={styles.profileTxtIcon} name='user' size={24} color={colors.white} />
+                        <Text style={styles.accountText}>
+                            Angel Rafael
+                        </Text>
+                    </View>
+                    <View style={styles.profileTxtView}>
+                        <EvilIcons style={styles.profileTxtIcon} name='location' size={24} color={colors.white} />
+                        <Text style={styles.accountText}>
+                            Paris
+                        </Text>
+                    </View>
+                </View>
             </View>
             <TabView 
             navigation={navigation}
@@ -130,22 +131,33 @@ function ProfilScreen({ navigation }) {
 const styles = StyleSheet.create({
     accountInfoView: {
         justifyContent: 'center',
-        alignItems: "center",
         width: '100%',
         height: '30%',
         backgroundColor: colors.primary,
     },
+    accountDescriptionView: {
+        left: 10,
+    },
     accountImage: {
-        position: 'absolute',
-        top: 40,
-        left: 20,
         width: 75,
         height: 75,
         borderRadius: 75,
     },
     accountText: {
+        fontSize: 16,
         color: colors.white,
         marginBottom: 5,
+    },
+    mainView: {
+        flex: 1,
+    },
+    profileTxtIcon: {
+        marginRight: 10,
+    },
+    profileTxtView: {
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'row',
     },
     profilOprionsTouchable: {
         position: 'absolute',
@@ -178,8 +190,11 @@ const styles = StyleSheet.create({
     tabViewStyle: {
         backgroundColor: colors.primary,
     },
-    mainView: {
-        flex: 1,
+    tchChangePImage: {
+        top: 10,
+        width: 100,
+        height: 100,
+        left: 10,
     },
 });
 
