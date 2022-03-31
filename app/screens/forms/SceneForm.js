@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity,  ScrollView , Style} from 'react-native';
-import {TextInput, Button} from 'react-native-paper';
+import {TextInput, Button, Dialog} from 'react-native-paper';
+import {Button_filter_Date, SelectDate }from '../../components/componentsIndex';
+
 
 import colors from '../../config/colors';
 
@@ -30,7 +32,7 @@ function SceneForm({navigation}) {
         .catch(error => console.log("POST error: " + error))
     }
 
-
+    const [selectedDate, setSelectedDate] = useState('');
 
     return (
         <ScrollView styles={styles.container}> 
@@ -38,7 +40,6 @@ function SceneForm({navigation}) {
             <Image source={require('../../assets/SceneImage.png')} />
 
             </View>
-
 
             <Text style={{fontWeight: 'bold', margin: 20, fontSize: 20, alignItems:'center', textAlign:'center' }}> Création de ma scène  </Text>
             <View>
@@ -69,12 +70,10 @@ function SceneForm({navigation}) {
                                 value = {criteres}
                                 mode="outlined"
                                 onChangeText={ (val) => setcriteres(val)} />
-                    <TextInput style={styles.textInput}
-                                label = "Dates de la scène"
-                                value = {datescene}
-                                mode="outlined"
-                                onChangeText={ (val) => setdatescene(val)} 
+                    <Button_filter_Date 
+                                name= {'choisissez la date'}
                                  />
+                                 <Text>{selectedDate}</Text>
                     <TouchableOpacity   
                     style = {styles.button}
                     onPress = { () => insertData()}
@@ -82,7 +81,8 @@ function SceneForm({navigation}) {
                     >
                         <Text style={styles.textButton}> Valider </Text>   
                         </TouchableOpacity>      
-            </View>   
+            </View>  
+
         </ScrollView>
     );
 };
