@@ -107,6 +107,7 @@ const MainScreen = () => (
             ),
         }}
         />
+        
         <TabsMainStack.Screen 
         name='Compte'
         component={ProfilStackScreen}
