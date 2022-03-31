@@ -4,19 +4,38 @@ import {TextInput, Button} from 'react-native-paper';
 
 import colors from '../../config/colors';
 
-function SceneFormEdit ({navigation}) {
+function SceneFormEdit ({navigation, route}, props) {
 
-    const [titrescene, settitrescene] = useState('');
-    const [adrscene, setadrscene] = useState('');
-    const [descscene, setdescscene] = useState('');
-    const [criteres, setcriteres] = useState('');
-    const [datescene, setdatescene] = useState('');
-    const [recurrence, setrecurrence] = useState('');
+    const {item} = route.params;
+    console.log(item);
+
+    const [titrescene, settitrescene] = useState(item.titrescene);
+    const [adrscene, setadrscene] = useState(item.adrscene);
+    const [descscene, setdescscene] = useState(item.descscene);
+    const [criteres, setcriteres] = useState(item.criteres);
+    const [datescene, setdatescene] = useState(item.datescene);
+    const [recurrence, setrecurrence] = useState(item.recurrence);
     const [numphoto, setnumphoto] = useState(1);
     const [numcompte, setnumcompte] = useState(2);
 
-    const insertData = () => {
-        fetch('http://64.225.72.25:5000/updatescene/${data.numscene}', {
+    const deleteData = () => {
+        fetch(`http://64.225.72.25:5000/deletescene/${item.numscene}`,{
+            method: 'DELETE',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({titrescene: titrescene, datescene: datescene, numphoto: numphoto, criteres: criteres, recurrence: recurrence, adrscene: adrscene, descscene: descscene, numcompte: numcompte})
+
+        })
+        .then(data => {
+            navigation.navigate('Profil')
+            })
+
+        .catch(error => console.log('delete error' + error)) 
+    }
+
+    const updateData = () => {
+        fetch(`http://64.225.72.25:5000/updatescene/${item.numscene}`, {
             method : 'PUT',
             headers: {
                 'Content-Type' : 'application/json'
@@ -76,13 +95,13 @@ function SceneFormEdit ({navigation}) {
                     <View style={{flex:1, alignItems: 'center'}}>
                         <TouchableOpacity   
                         style = {styles.button}
-                        onPress = { () => insertData()}>
+                        onPress = { () => updateData()}>
                         <Text style={styles.textButton}> Modifier </Text>   
                         </TouchableOpacity>   
 
                         <TouchableOpacity   
                         style = {styles.button}
-                        onPress = { () => insertData()}>
+                        onPress = { () => deleteData()}>
                         <Text style={styles.textButton}> Supprimer </Text>   
                         </TouchableOpacity>  
                     </View>   

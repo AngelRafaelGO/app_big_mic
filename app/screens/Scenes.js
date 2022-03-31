@@ -18,7 +18,7 @@ const Scenes = ({navigation}) => {
     return (
     <Card
     style={styles.itemContainer}
-    onPress={()=>navigation.navigate("CreateScene", {item: item})}>
+    onPress={()=>navigation.navigate("SceneFormEdit", {item: item})}>
       <Card.Title
         title={item.titrescene}
         subtitle={item.descscene}
@@ -57,7 +57,7 @@ const Scenes = ({navigation}) => {
             // console.log(data)
             return renderSceneList(item)
           }}
-          onRefresh = {() => loadData()}
+          onRefresh = {() => getScenesFromApi()}
           refreshing = {loading}
           keyExtractor = {item => `${item.numscene}`}
         />
