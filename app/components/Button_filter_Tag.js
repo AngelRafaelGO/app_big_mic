@@ -7,9 +7,8 @@ import {SwitchFilter} from './componentsIndex';
 
 
 const Button_filter_Tag = (props) => {
-  //
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  //const [isEnabled, setIsEnabled] = useState(false);
+  //const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   //Toogle Dialog box for filters
   const [visible, setVisible] = useState(false);
