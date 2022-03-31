@@ -1,5 +1,5 @@
 import React , {useState, useEffect}from 'react';
-import { SafeAreaView, View, StyleSheet, FlatList, Alert, Image, alert } from 'react-native';
+import { View, StyleSheet, FlatList, Alert, Image} from 'react-native';
 import colors from '../config/colors';
 import {Button_filter_Tag, Search_bar} from '../components/componentsIndex';
 import { IconButton, Card } from 'react-native-paper';
@@ -79,7 +79,7 @@ const SearchUserScreen = () => {
           source={require('../assets/default-avatar-profile-icon.jpeg')}/>}
           right={(props) => <IconButton 
             icon="email" 
-            onPress={() => {alert("Envoyer un message à la personne")}}
+            onPress={() => Alert.alert("Envoyer un message à la personne")}
             color={colors.primary} />}
           />
       </Card>
