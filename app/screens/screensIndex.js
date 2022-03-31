@@ -10,4 +10,5 @@ export { default as SearchUserScreen } from './SearchUserScreen';
 export { default as SearchMainStack } from './SearchMainStack';
 export { default as CreatePresta } from './forms/CreatePresta';
 export { default as Prestations } from './Prestations';
-export { default as WelcomeScreen } from './login/WelcomeScreen'
+export { default as WelcomeScreen } from './login/WelcomeScreen';
+export { default as SceneFormEdit } from './forms/SceneFormEdit';

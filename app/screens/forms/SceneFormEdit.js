@@ -4,7 +4,7 @@ import {TextInput, Button} from 'react-native-paper';
 
 import colors from '../../config/colors';
 
-function SceneForm({navigation}) {
+function SceneFormEdit ({navigation}) {
 
     const [titrescene, settitrescene] = useState('');
     const [adrscene, setadrscene] = useState('');
@@ -16,8 +16,8 @@ function SceneForm({navigation}) {
     const [numcompte, setnumcompte] = useState(2);
 
     const insertData = () => {
-        fetch('http://64.225.72.25:5000/addscene', {
-            method : 'POST',
+        fetch('http://64.225.72.25:5000/updatescene/${data.numscene}', {
+            method : 'PUT',
             headers: {
                 'Content-Type' : 'application/json'
             },
@@ -27,10 +27,8 @@ function SceneForm({navigation}) {
         .then(data => {
             props.navigation.navigate('Profil')
         })
-        .catch(error => console.log("POST error: " + error))
+        .catch(error => console.log("PUT error: " + error))
     }
-
-
 
     return (
         <ScrollView styles={styles.container}> 
@@ -40,7 +38,7 @@ function SceneForm({navigation}) {
             </View>
 
 
-            <Text style={{fontWeight: 'bold', margin: 20, fontSize: 20, alignItems:'center', textAlign:'center' }}> Création de ma scène  </Text>
+            <Text style={{fontWeight: 'bold', margin: 20, fontSize: 20, alignItems:'center', textAlign:'center' }}> Editer ma scène  </Text>
             <View>
                     
                     <TextInput style={styles.textInput}
@@ -75,13 +73,20 @@ function SceneForm({navigation}) {
                                 mode="outlined"
                                 onChangeText={ (val) => setdatescene(val)} 
                                  />
-                    <TouchableOpacity   
-                    style = {styles.button}
-                    onPress = { () => insertData()}
+                    <View style={{flex:1, alignItems: 'center'}}>
+                        <TouchableOpacity   
+                        style = {styles.button}
+                        onPress = { () => insertData()}>
+                        <Text style={styles.textButton}> Modifier </Text>   
+                        </TouchableOpacity>   
 
-                    >
-                        <Text style={styles.textButton}> Valider </Text>   
-                        </TouchableOpacity>      
+                        <TouchableOpacity   
+                        style = {styles.button}
+                        onPress = { () => insertData()}>
+                        <Text style={styles.textButton}> Supprimer </Text>   
+                        </TouchableOpacity>  
+                    </View>   
+
             </View>   
         </ScrollView>
     );
@@ -124,4 +129,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SceneForm;
+export default SceneFormEdit;
