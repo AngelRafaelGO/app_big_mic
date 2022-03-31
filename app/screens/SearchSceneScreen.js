@@ -30,16 +30,9 @@ const tagList = [
 ];
 
 
-//Action when user clicks on an item of the resulted search
-const set_action = () => {
-  Alert.alert('Aller vers la fiche selectionnée');
-};
-
 const set_filter = () => {
   Alert.alert('Selectionner les paramètres du filtre + rafraichir');
 };
-
-
 
 
 //Main component of this file
@@ -47,8 +40,6 @@ const SearchSceneScreen = ({navigation}) => {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); 
-
-  
 
   const getScenesFromApi = async () => {
     try {
