@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { SearchSceneScreen, SearchUserScreen } from './screensIndex';
+import { SearchSceneScreen, SearchUserScreen, SceneForm } from './screensIndex';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import colors from '../config/colors';
 import {StatusBar, StyleSheet} from 'react-native';
+import SceneCard from './cards/SceneCard';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 const SearchMainStack = () => {
     const Tab = createMaterialTopTabNavigator();
+    const Stack = createNativeStackNavigator();
     //Set status bar color to light mode
     StatusBar.setBarStyle( 'light-content',true)
 
@@ -18,12 +21,17 @@ const SearchMainStack = () => {
           tabBarIndicatorStyle: {backgroundColor: colors.primary}
         }}
         >
+          <Tab.Screen name="Search Scene"> 
+          {() => (
+            <Stack.Navigator>
+              <Stack.Screen name="Recherche de scène" component={SearchSceneScreen} />
+              <Stack.Screen name="Détails" component={SceneCard} />
+              <Stack.Screen name="Modification" component={SceneForm} />
+            </Stack.Navigator>
+            )}
+          </Tab.Screen>
           <Tab.Screen
-              name="Recherche de scène"
-              component={SearchSceneScreen}
-          />
-          <Tab.Screen
-            name="Recherche de contact"
+            name="Search user"
             component={SearchUserScreen}
           />
         </Tab.Navigator>

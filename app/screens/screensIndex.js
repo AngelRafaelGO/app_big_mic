@@ -13,3 +13,4 @@ export { default as PrestaDetails } from './forms/PrestaDetails';
 export { default as EditPresta } from './forms/EditPresta';
 export { default as Prestations } from './Prestations';
 export { default as WelcomeScreen } from './login/WelcomeScreen'
+export { default as Scenes } from './Scenes'
