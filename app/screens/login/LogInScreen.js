@@ -16,7 +16,7 @@ function LoginScreen() {
         <SafeAreaView style={styles.background}>
             <View style={styles.logoTitleContainer}>
                 <Image style={styles.logo} source={require("../../assets/microImage.jpg")}/>
-                <Text>BIG MIC</Text>
+                <Text style={styles.loginTitle}>BIG MIC</Text>
             </View>
             <View style={styles.inputContainer}>
                 <TextInput 
@@ -75,6 +75,10 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         marginTop: 80,
+    },
+    loginTitle: {
+        fontSize: 30,
+        color: colors.primary,
     },
     logo: {
         width: 125,

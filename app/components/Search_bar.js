@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
-
 import { Feather } from '@expo/vector-icons';
 import colors from '../config/colors';
 

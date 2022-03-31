@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import { SafeAreaView, View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from "react-native";
 
 import colors from '../../config/colors';
 
@@ -9,36 +9,33 @@ function CreateAccount({ navigation }) {
 
     return (
         <SafeAreaView style={styles.background}>
+            <Image 
+            style={styles.creationImage}
+            source={require('../../assets/pablita-523.png')}
+            />
+            <Text style={styles.creationTitle}>
+                Création de compte
+            </Text>
             <View style={styles.formView}>
-              <Text style={styles.textInfo}>
-                  Nom
-              </Text>
-              <TextInput style={styles.inputText} />
-              <Text style={styles.textInfo}>
-                  Prenom
-              </Text>
-              <TextInput style={styles.inputText} />
-              <Text style={styles.textInfo}>
-                  Email
-              </Text>
-              <TextInput style={styles.inputText} />
-              <Text style={styles.textInfo}>
-                  Mot de passe
-              </Text>
-              <TextInput 
-              textContentType='password'
-              secureTextEntry={true}
-              style={styles.inputText} 
-              onChangeText={(createPassword) => setCreatePassword(createPassword)}
-              />
-              <Text style={styles.textInfo}>
-                  Téléphone
-              </Text>
-              <TextInput style={styles.inputText} />
-              <Text style={styles.textInfo}>
-                  Ville
-              </Text>
-              <TextInput style={styles.inputText} />
+                <TextInput 
+                placeholder='Nom'
+                style={styles.inputText} 
+                />
+                <TextInput 
+                placeholder='Prenom'
+                style={styles.inputText} 
+                />
+                <TextInput 
+                placeholder='Email'
+                style={styles.inputText} 
+                />
+                <TextInput 
+                placeholder='Mot de passe'
+                textContentType='password'
+                secureTextEntry={true}
+                style={styles.inputText} 
+                onChangeText={(createPassword) => setCreatePassword(createPassword)}
+                />
                 <TouchableOpacity 
                 style={styles.createAccountTouchable} 
                 onPress={() => navigation.navigate('CreateAccount2', {
@@ -68,6 +65,16 @@ const styles = StyleSheet.create({
         height: 40, 
         backgroundColor: colors.primary,
         borderRadius: 5,
+        marginTop: 40,
+    },
+    creationImage: {
+        width: 200,
+        height: 100,
+        marginTop: 30,
+    },
+    creationTitle: {
+        fontSize: 30,
+        color: colors.primary,
         marginTop: 20,
     },
     nextScreenTouchable: {
@@ -85,7 +92,7 @@ const styles = StyleSheet.create({
         width: '70%',
         height: 40,
         borderRadius: 5,
-        margin: 5,
+        marginTop: 25,
         padding: 10,
     },
     textInfo: {

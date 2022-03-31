@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { 
     LoginScreen, CreateAccount, CreateAccountS2, 
     ProfilScreen, Loading, ProfilOptions, SceneForm, 
-    CreatePresta, SearchMainStack, WelcomeScreen
+    CreatePresta, SearchMainStack, WelcomeScreen, PrestaDetails, EditPresta 
     } 
 from '../screens/screensIndex';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -38,12 +38,12 @@ const LoginStackScreen = () => (
         <LoginStack.Screen 
         name='CreateAccoun1'
         component={CreateAccount} 
-        options={{ title: 'Création de compte' }}
+        options={{ title: '' }}
         />
         <LoginStack.Screen 
         name='CreateAccount2'
         component={CreateAccountS2}
-        options={{ title: 'Création de compte' }}
+        options={{ title: '' }}
         />
     </LoginStack.Navigator>
 );
@@ -55,7 +55,9 @@ const ProfilStackScreen = () => (
         <ProfilStack.Screen 
         name='Profil'
         component={ProfilScreen}
-        options={{ title: 'Compte' }}
+        options={{ 
+            headerShown: false
+         }}
         />
         <TabsMainStack.Screen 
         name='ProfilOptions'
@@ -69,6 +71,14 @@ const ProfilStackScreen = () => (
         <ProfilStack.Screen 
         name='CreatePresta'
         component={CreatePresta}
+        /> 
+        <ProfilStack.Screen 
+        name='PrestaDetails'
+        component={PrestaDetails}
+        /> 
+        <ProfilStack.Screen 
+        name='EditPresta'
+        component={EditPresta}
         /> 
     </ProfilStack.Navigator>
 );
@@ -97,6 +107,7 @@ const MainScreen = () => (
             ),
         }}
         />
+        
         <TabsMainStack.Screen 
         name='Compte'
         component={ProfilStackScreen}

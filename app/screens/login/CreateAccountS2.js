@@ -5,7 +5,7 @@ import { TouchableOpacity, Text, View, SafeAreaView, TextInput, StyleSheet } fro
 import colors from "../../config/colors";
 import { AuthContext } from '../../config/context';
 
-function CreateAccountS2({ navigation, route }) {
+function CreateAccountS2({ route }) {
 
     const { signUp } = React.useContext(AuthContext);
     const { password } = route.params;
@@ -13,13 +13,10 @@ function CreateAccountS2({ navigation, route }) {
     return (
         <SafeAreaView style={styles.background}>
             <View style={styles.formView}>
-                <Text style={styles.textInfo}>
-                    Choisissez une photo
-                </Text>
-                <Text style={styles.textInfo}>
-                Choisissez un pseudo
-                </Text>
-                <TextInput style={styles.inputText} />
+                <TextInput 
+                placeholder='Psudo'
+                style={styles.inputText} 
+                />
                 <TouchableOpacity 
                 style={styles.createAccountTouchable}
                 onPress={() => signUp(password)}
