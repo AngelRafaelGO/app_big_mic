@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { 
     LoginScreen, CreateAccount, CreateAccountS2, 
     ProfilScreen, Loading, ProfilOptions, SceneForm, 
-    CreatePresta, SearchMainStack, WelcomeScreen, PrestaDetails, EditPresta 
+    CreatePresta, SearchMainStack, WelcomeScreen, PrestaDetails, EditPresta, ChangeProImage
     } 
 from '../screens/screensIndex';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -40,11 +40,6 @@ const LoginStackScreen = () => (
         component={CreateAccount} 
         options={{ title: '' }}
         />
-        <LoginStack.Screen 
-        name='CreateAccount2'
-        component={CreateAccountS2}
-        options={{ title: '' }}
-        />
     </LoginStack.Navigator>
 );
 
@@ -63,6 +58,11 @@ const ProfilStackScreen = () => (
         name='ProfilOptions'
         component={ProfilOptions}
         options={{ title: 'Options de compte' }}
+        />
+        <TabsMainStack.Screen 
+        name='ChangerImage'
+        component={ChangeProImage}
+        options={{ title: 'Modifier photo profil'}}
         />
         <ProfilStack.Screen 
         name='CreateScene'

@@ -1,4 +1,5 @@
-import { NavigationContext } from '@react-navigation/native';
+// This screen has been depreceated!
+
 import React from 'react';
 import { TouchableOpacity, Text, View, SafeAreaView, TextInput, StyleSheet } from "react-native";
 

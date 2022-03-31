@@ -2,10 +2,12 @@ import React from 'react';
 import { SafeAreaView, View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from "react-native";
 
 import colors from '../../config/colors';
+import { AuthContext } from '../../config/context';
 
 function CreateAccount({ navigation }) {
 
     const [createPassword, setCreatePassword] = React.useState();
+    const { signUp } = React.useContext(AuthContext);
 
     return (
         <SafeAreaView style={styles.background}>
@@ -38,9 +40,7 @@ function CreateAccount({ navigation }) {
                 />
                 <TouchableOpacity 
                 style={styles.createAccountTouchable} 
-                onPress={() => navigation.navigate('CreateAccount2', {
-                    password: createPassword,
-                })}
+                onPress={() => signUp(createPassword)}
                 >
                     <Text style={styles.nextScreenTouchable}>
                         Suivant
