@@ -30,6 +30,7 @@ const tagList = [
 ];
 
 
+
 const set_filter = () => {
   Alert.alert('Selectionner les paramètres du filtre + rafraichir');
 };
@@ -38,8 +39,8 @@ const set_filter = () => {
 //Main component of this file
 const SearchSceneScreen = ({navigation}) => {
   
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  //const [data, setData] = useState([]);
+  //const [loading, setLoading] = useState(true);
 
   //Get selectedDate on Calendar picker
   const getSelectedDate = async () => {
@@ -56,7 +57,7 @@ const SearchSceneScreen = ({navigation}) => {
   //Set blank space
   const removeValue = async () => {
     try {
-      await AsyncStorage.removeItem('@selectedDate')
+      await AsyncStorage.setItem('@selectedDate', "")
     } catch(e) {
       console.log("ASYNC Removal error: " + e);
     }
@@ -76,8 +77,8 @@ const SearchSceneScreen = ({navigation}) => {
         method: 'GET',
       });
       const scenes = await response.json();
-      setData(scenes),
-      setLoading(false);
+      setFilteredDataSource(scenes);
+      setMasterDataSource(scenes);
     } catch (error) {
       console.error("ERROR in query:" + error);
     }
@@ -111,15 +112,42 @@ const SearchSceneScreen = ({navigation}) => {
     );
   }
   //Search bar variables
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const onChangeSearch = query => setSearchQuery(query);
+  //const [searchQuery, setSearchQuery] = React.useState('');
+  //const onChangeSearch = query => setSearchQuery(query);
+  const [search, setSearch] = useState('');
+  const [filteredDataSource, setFilteredDataSource] = useState([]);
+  const [masterDataSource, setMasterDataSource] = useState([]);
+
+  const searchFilterFunction = (text) => {
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource and update FilteredDataSource
+      const newData = masterDataSource.filter(function (item) {
+        // Applying filter for the inserted text in search bar
+        const searchtext = item.descscene + " " + item.titrescene + " " + item.criteres;
+        const itemData = searchtext
+          ? searchtext.toUpperCase()
+          : ''.toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredDataSource(newData);
+      setSearch(text);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilteredDataSource(masterDataSource);
+      setSearch(text);
+    }
+  };
 
   return (
     <View style={styles.container}>
       <Searchbar
       placeholder="Entrez votre recherche"
-      onChangeText={onChangeSearch}
-      value={searchQuery}
+      onChangeText={(text) => searchFilterFunction(text)}
+      value={search}
       iconColor={colors.primary}
       inputStyle={styles.searchinputStyle}
     />
@@ -142,13 +170,11 @@ const SearchSceneScreen = ({navigation}) => {
       {/* Results of the research */}
       <FlatList
         style = {styles.listContainer}
-        data = {data}
+        data = {filteredDataSource}
         renderItem = {({item}) => {
           // console.log(data)
           return renderData(item)
         }}
-        onRefresh = {() => getScenesFromApi()}
-        refreshing = {loading}
         keyExtractor = {item => `${item.numscene}`}
       />
     </View>
