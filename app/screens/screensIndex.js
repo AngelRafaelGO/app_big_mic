@@ -15,3 +15,4 @@ export { default as Prestations } from './Prestations';
 export { default as WelcomeScreen } from './login/WelcomeScreen';
 export { default as SceneFormEdit } from './forms/SceneFormEdit';
 export { default as Scenes } from './Scenes';
+export { default as SceneDetails} from './forms/SceneDetails';

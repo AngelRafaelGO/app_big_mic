@@ -4,10 +4,11 @@ import {TextInput, Button} from 'react-native-paper';
 
 import colors from '../../config/colors';
 
-function SceneFormEdit ({navigation, route}, props) {
+function SceneFormEdit (props,{navigation}) {
 
-    const {item} = route.params;
-    console.log(item);
+    // const {item} = route.params;
+    // console.log(item);
+    const item = props.route.params.data;
 
     const [titrescene, settitrescene] = useState(item.titrescene);
     const [adrscene, setadrscene] = useState(item.adrscene);
@@ -46,14 +47,10 @@ function SceneFormEdit ({navigation, route}, props) {
 
     return (
         <ScrollView styles={styles.container}> 
-            <View style={{alignItems: 'center', marginTop: 50}} >
-            <Image source={require('../../assets/SceneImage.png')} />
+            
 
-            </View>
-
-
-            <Text style={{fontWeight: 'bold', margin: 20, fontSize: 20, alignItems:'center', textAlign:'center' }}> Editer ma scène  </Text>
-            <View>
+            <Text style={{fontWeight: 'bold', margin: 20, fontSize: 20, alignItems:'center', textAlign:'center', marginTop:15 }}> Editer ma scène  </Text>
+            
                     
                     <TextInput style={styles.textInput}
                                 label = "Titre de la scène"
@@ -87,21 +84,13 @@ function SceneFormEdit ({navigation, route}, props) {
                                 mode="outlined"
                                 onChangeText={ (val) => setdatescene(val)} 
                                  />
-                    <View style={{flex:1, alignItems: 'center'}}>
+                    <Image style= {{marginLeft: 'auto',marginRight: 'auto', margin: 20}} source={require('../../assets/SceneImage.png')} />                 
                         <TouchableOpacity   
                         style = {styles.button}
+                        icon="pencil"
                         onPress = { () => updateData()}>
                         <Text style={styles.textButton}> Modifier </Text>   
-                        </TouchableOpacity>   
-
-                        <TouchableOpacity   
-                        style = {styles.button}
-                        onPress = { () => deleteData()}>
-                        <Text style={styles.textButton}> Supprimer </Text>   
-                        </TouchableOpacity>  
-                    </View>   
-
-            </View>   
+                        </TouchableOpacity>                           
         </ScrollView>
     );
 };
@@ -123,7 +112,8 @@ const styles = StyleSheet.create({
         
     },
     button: {
-        margin: 30,
+        
+        margin: 20,
         backgroundColor: '#FF4858',
         alignItems:'center'
         // justifyContent: 'center',

@@ -5,8 +5,9 @@ import {Button_filter_Date, SelectDate }from '../../components/componentsIndex';
 
 
 import colors from '../../config/colors';
+import { AuthContext } from '../../config/context';
 
-function SceneForm({navigation}) {
+function SceneForm(props,{navigation}) {
 
     const [titrescene, settitrescene] = useState('');
     const [adrscene, setadrscene] = useState('');
@@ -36,8 +37,7 @@ function SceneForm({navigation}) {
 
     return (
         <ScrollView styles={styles.container}> 
-            <View style={{alignItems: 'center', marginTop: 50}} >
-            <Image source={require('../../assets/SceneImage.png')} />
+            <View style={{alignItems: 'center', marginTop: 15}} >
 
             </View>
 
@@ -74,6 +74,9 @@ function SceneForm({navigation}) {
                                 name= {'choisissez la date'}
                                  />
                                  <Text>{selectedDate}</Text>
+                    <View>
+                    <Image style= {{marginLeft: 'auto',marginRight: 'auto', margin: 20}} source={require('../../assets/SceneImage.png')} />     
+                    </View>        
                     <TouchableOpacity   
                     style = {styles.button}
                     onPress = { () => insertData()}
