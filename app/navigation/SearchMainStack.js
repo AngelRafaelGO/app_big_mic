@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SearchSceneScreen, SearchUserScreen } from '../screens/screensIndex';
+import { PrestaDetails, SearchSceneScreen, SearchUserScreen } from '../screens/screensIndex';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import colors from '../config/colors';
 import {StatusBar} from 'react-native';
@@ -36,6 +36,7 @@ const SearchMainStack = () => {
             <Stack.Navigator>
               <Stack.Screen name="Recherche d'utilisateur" component={SearchUserScreen} />
               <Stack.Screen name="Détails compte" component={UserCard} />
+              <Stack.Screen name="PrestaDetails" component={PrestaDetails} />
             </Stack.Navigator>
             )}
           </Tab.Screen>

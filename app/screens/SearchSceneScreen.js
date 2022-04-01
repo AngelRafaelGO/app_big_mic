@@ -84,6 +84,8 @@ const SearchSceneScreen = ({navigation}) => {
     }
   };
 
+  console.log(filteredDataSource);
+
   useEffect(() =>{ 
     getScenesFromApi();
   }, []);
