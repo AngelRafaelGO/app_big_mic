@@ -4,7 +4,7 @@ import {TextInput, Button} from 'react-native-paper';
 
 import colors from '../../config/colors';
 
-function SceneForm({navigation}) {
+function SceneForm(props, {navigation}) {
 
     const [titrescene, settitrescene] = useState('');
     const [adrscene, setadrscene] = useState('');
@@ -12,7 +12,7 @@ function SceneForm({navigation}) {
     const [criteres, setcriteres] = useState('');
     const [datescene, setdatescene] = useState('');
     const [recurrence, setrecurrence] = useState('');
-    const [numphoto, setnumphoto] = useState('');
+    const [numphoto, setnumphoto] = useState(1);
     const [numcompte, setnumcompte] = useState(2);
 
     const insertData = () => {
