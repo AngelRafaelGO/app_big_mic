@@ -34,7 +34,7 @@ const SearchMainStack = () => {
           >
             {() => (
             <Stack.Navigator>
-              <Stack.Screen name="Recherche d'utilisateur'" component={SearchUserScreen} />
+              <Stack.Screen name="Recherche d'utilisateur" component={SearchUserScreen} />
               <Stack.Screen name="Détails compte" component={UserCard} />
             </Stack.Navigator>
             )}

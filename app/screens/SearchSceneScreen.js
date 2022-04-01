@@ -37,7 +37,7 @@ const set_filter = () => {
 
 //Main component of this file
 const SearchSceneScreen = ({navigation}) => {
-
+  
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -53,10 +53,21 @@ const SearchSceneScreen = ({navigation}) => {
     }
   }
 
+  //Set blank space
+  const removeValue = async () => {
+    try {
+      await AsyncStorage.removeItem('@selectedDate')
+    } catch(e) {
+      console.log("ASYNC Removal error: " + e);
+    }
+    console.log('Done.')
+  }
+  removeValue();
 
-  const [selectedDate, setSelectedDate] = useState(getSelectedDate());
+  const [selectedDate, setSelectedDate] = useState('');
   console.log("Selected Date: " + selectedDate);
 
+  
 
   // Query to display the list of all scenes
   const getScenesFromApi = async () => {
@@ -106,21 +117,26 @@ const SearchSceneScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Searchbar
-      placeholder="Search"
+      placeholder="Entrez votre recherche"
       onChangeText={onChangeSearch}
       value={searchQuery}
+      iconColor={colors.primary}
+      inputStyle={styles.searchinputStyle}
     />
      
       <View style={styles.filterContainer}>
           
-        <Button_filter_Date name="Date" />
+        <Button_filter_Date name="Date" 
+        />
         <Button_filter_Tag name="Tag"
         tagList={tagList}
         set_action= {set_filter} />
         <Button 
         icon= "filter"
-        mode="contained" 
         onPress={() => getSelectedDate()}
+        color = {colors.primary}
+        labelStyle={{color:colors.primary}}
+        compact={true}
         > Appliquer </Button>
       </View>
       {/* Results of the research */}
@@ -163,6 +179,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     backgroundColor: colors.primary, 
     color: colors.white,
+  },
+  searchinputStyle: {
+    margin: 5,
+    backgroundColor: colors.light,
+    borderRadius:5,
   },
 })
 

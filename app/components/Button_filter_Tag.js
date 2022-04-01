@@ -3,6 +3,8 @@ import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import colors from '../config/colors';
 import Dialog from "react-native-dialog";
 import SwitchFilter from './SwitchFilter';
+import { Chip } from 'react-native-paper';
+
 
 
 const Button_filter_Tag = (props) => {
@@ -10,30 +12,13 @@ const Button_filter_Tag = (props) => {
   //Toogle Dialog box for filters
   const [visible, setVisible] = useState(false);
 
-  const initialList = [
-    {
-      id: 12,
-      name: "Chant",
-    },
-    {
-      id: 23,
-      name: "Danse",
-    },
-    {
-      id: 34,
-      name: "Musique",
-    },
-    {
-      id: 45,
-      name: "Théâtre",
-    },
-    {
-      id: 56,
-      name: "Stand-up",
-    },
-  ];
+  const initialList = props.tagList;
   
   const buttonsListArr = initialList.map(buttonInfo => (
+/*     <Chip style= {styles.filterList} key={buttonInfo.id} 
+    onPress={() => console.log(buttonInfo.name + ' Pressed')}
+    >{buttonInfo.name}</Chip> */
+
     <SwitchFilter 
     style={styles.filterList}
     key={buttonInfo.id}
@@ -59,7 +44,7 @@ const Button_filter_Tag = (props) => {
     <View >
       <Dialog.Container visible={visible} >
           <Dialog.Title>Tags</Dialog.Title>
-          <Dialog.Description >
+          <Dialog.Description>
               {buttonsListArr}
           </Dialog.Description>
           <Dialog.Button label="Annuler" onPress={handleCancel} color={colors.primary}/>

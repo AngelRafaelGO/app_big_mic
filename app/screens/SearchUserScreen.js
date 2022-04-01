@@ -2,7 +2,7 @@ import React , {useState, useEffect}from 'react';
 import { View, StyleSheet, FlatList, Alert, Image} from 'react-native';
 import colors from '../config/colors';
 import {Button_filter_Tag, Search_bar} from '../components/componentsIndex';
-import { IconButton, Card } from 'react-native-paper';
+import { IconButton, Card, Searchbar, Button } from 'react-native-paper';
 
 const tagList = [
   {
@@ -47,7 +47,9 @@ const SearchUserScreen = ({navigation}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); 
 
-  
+  //Search bar variables
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const onChangeSearch = query => setSearchQuery(query);
 
   const getScenesFromApi = async () => {
     try {
@@ -100,7 +102,13 @@ const set_filter = () => {
 
   return (
     <View style={styles.container}>
-      <Search_bar />
+      <Searchbar
+      placeholder="Entrez votre recherche"
+      onChangeText={onChangeSearch}
+      value={searchQuery}
+      iconColor={colors.primary}
+      inputStyle={styles.searchinputStyle}
+    />
       <View style={styles.filterContainer}>  
         <Button_filter_Tag name="Tag"
         set_action= {set_filter}
@@ -109,6 +117,13 @@ const set_filter = () => {
         tagList={roleList}
         set_action= {set_filter}
          />
+          <Button 
+        icon= "filter"
+        onPress={() => console.log("Filters applied")}
+        color = {colors.primary}
+        labelStyle={{color:colors.primary}}
+        compact={true}
+        > Appliquer </Button>
       </View>
       {/* Results of the research */}
       <FlatList
@@ -144,17 +159,16 @@ const styles = StyleSheet.create({
     marginVertical:5,
     marginHorizontal: 20,
   },
-  shadowProp: {
-    shadowColor: colors.dark,
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-  },
   thumbnail: {
     width: 50,
     height: 50,
     borderRadius: 25,
-  }
+  },
+  searchinputStyle: {
+    margin: 5,
+    backgroundColor: colors.light,
+    borderRadius:5,
+  },
 })
 
 export default SearchUserScreen;
