@@ -3,46 +3,52 @@ import {View, Text, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, Touc
 import {TextInput, Button} from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import colors from '../../config/colors';
-import Pick_image from '../../components/Pick_image';
-import { withNavigation } from '@react-navigation/native-stack';
 
 function CreatePresta(props, {navigation}) {
     const [numcompte, setnumcompte] = useState("")
     const [titreprest, settitreprest] = useState("")
     const [descprest, setdescprest] = useState("")
     const [lienprest, setlienprest] = useState("")
+    const [numphoto, setnumphoto] = useState("")
+
+    const [fichierphoto, setFichierphoto] = useState("")
 
     const [image, setImage] = useState("");
     
-    const [loading, setLoading] = useState(true); 
+    const pick = async (props) => {        
+        let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
+        });
 
-    const [refreshing, setRefreshing] = useState(false);
-    const onRefresh = React.useCallback(() => {
-        setRefreshing(true);
-        console.log("refresh it")
-        wait(2000).then(() => setRefreshing(false))
-    })
+        console.log("ImagePicker returns: " + result.uri);
 
-    const pick = async (navigation) => {
-        
-            let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            quality: 1,
-            });
-
-        console.log("ImagePicker returns: " + Object.keys.name);
-
-        if (!result.cancelled){
-            setImage(result);
-        } else {
-            result.uri = '../../assets/No_Image_uploaded.png';
+        if (result.cancelled){
+            result.uri = '';
             console.log('cancelled');
-            setImage(result);
         }
+        setImage(result);
+        setFichierphoto(result.uri);
     }
 
     const insertData = (navigation) => {
-        console.log("image sélectionnée: " + image);
+        console.log("image sélectionnée: " + image.uri);
+        if(image.uri != ''){
+            console.log(image.uri);
+            fetch('http://64.225.72.25:5000/addphoto', {
+                method : 'POST',
+                headers: {
+                    'Content-Type' : 'multipart/form-data'
+                },
+                body: JSON.stringify({fichierphoto: fichierphoto})
+            })
+            .then(resp => resp.json())
+            .then(data => {
+                console.log('numero: ' + data.numphoto)
+                setnumphoto(data.numphoto)
+            })
+            .catch(error => console.log("Image couldn't be stored properly: " + error))
+        }
 
         fetch('http://64.225.72.25:5000/addpresta', {
             method : 'POST',
@@ -90,8 +96,7 @@ function CreatePresta(props, {navigation}) {
         <TouchableOpacity 
             style={styles.imgView} 
             onPress={() => pick()}>
-                {/* <Image source={ require('../../assets/No_Image_uploaded.png')} style = {styles.img} /> */}
-                <Image source={{ uri : image.uri !== null ? image.uri: '../../assets/No_Image_uploaded.png'}} style = {styles.img} />
+                <Image source={{ uri : image.uri !== null ? image.url: '../../assets/No_Image_uploaded.png'}} style = {styles.img} />
         </TouchableOpacity>
 
         <View style = {styles.btnStyle} >
