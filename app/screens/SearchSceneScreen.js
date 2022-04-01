@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {  View, StyleSheet, FlatList, Alert } from 'react-native';
 import colors from '../config/colors';
-import {Search_bar, Button_filter_Tag, Button_filter_Date} from './../components/componentsIndex'; 
-import { Card, Badge } from 'react-native-paper';
+import { Button_filter_Tag, Button_filter_Date} from './../components/componentsIndex'; 
+import { Card, Badge, Searchbar, Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -57,6 +57,8 @@ const SearchSceneScreen = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState(getSelectedDate());
   console.log("Selected Date: " + selectedDate);
 
+
+  // Query to display the list of all scenes
   const getScenesFromApi = async () => {
     try {
       const response = await fetch('http://64.225.72.25:5000/getscene', {
@@ -97,10 +99,17 @@ const SearchSceneScreen = ({navigation}) => {
     </Card>
     );
   }
+  //Search bar variables
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const onChangeSearch = query => setSearchQuery(query);
 
   return (
     <View style={styles.container}>
-      <Search_bar />
+      <Searchbar
+      placeholder="Search"
+      onChangeText={onChangeSearch}
+      value={searchQuery}
+    />
      
       <View style={styles.filterContainer}>
           
@@ -108,6 +117,11 @@ const SearchSceneScreen = ({navigation}) => {
         <Button_filter_Tag name="Tag"
         tagList={tagList}
         set_action= {set_filter} />
+        <Button 
+        icon= "filter"
+        mode="contained" 
+        onPress={() => getSelectedDate()}
+        > Appliquer </Button>
       </View>
       {/* Results of the research */}
       <FlatList
