@@ -8,13 +8,19 @@ import colors from '../config/colors';
 const Scenes = ({navigation}) => {
 
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
+
+    const [userId, setUserId] = useState('4')
 
     //Item scene structure and filling
     const renderSceneList = (item) => {
-    const date = item.datescene.split('-');
-    const month = date[1];
-    const day = date[2];
+      var month = '00';
+      var day = '00';
+      if(item.datescene !== null){
+        const date = item.datescene.split('-');
+        month = date[1];
+        day = date[2];
+      }
     return (
     <Card
     style={styles.itemContainer}
@@ -57,7 +63,7 @@ const Scenes = ({navigation}) => {
             // console.log(data)
             return renderSceneList(item)
           }}
-          onRefresh = {() => loadData()}
+          onRefresh = {() => getScenesFromApi()}
           refreshing = {loading}
           keyExtractor = {item => `${item.numscene}`}
         />

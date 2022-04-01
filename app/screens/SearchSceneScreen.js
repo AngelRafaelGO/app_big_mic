@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {  View, StyleSheet, FlatList } from 'react-native';
+import {  View, StyleSheet, FlatList, Alert } from 'react-native';
 import colors from '../config/colors';
 import {Search_bar, Button_filter_Tag, Button_filter_Date} from './../components/componentsIndex'; 
 import { Card, Badge } from 'react-native-paper';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const tagList = [
@@ -30,25 +30,32 @@ const tagList = [
 ];
 
 
-//Action when user clicks on an item of the resulted search
-const set_action = () => {
-  Alert.alert('Aller vers la fiche selectionnée');
-};
-
 const set_filter = () => {
   Alert.alert('Selectionner les paramètres du filtre + rafraichir');
 };
-
-
 
 
 //Main component of this file
 const SearchSceneScreen = ({navigation}) => {
 
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
-  
+  //Get selectedDate on Calendar picker
+  const getSelectedDate = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@selectedDate')
+      if(value !== null) {
+        setSelectedDate(value) ;
+      }
+    } catch(e) {
+      console.log("ASYNC Reading Storage error: " + e);
+    }
+  }
+
+
+  const [selectedDate, setSelectedDate] = useState(getSelectedDate());
+  console.log("Selected Date: " + selectedDate);
 
   const getScenesFromApi = async () => {
     try {
@@ -64,14 +71,18 @@ const SearchSceneScreen = ({navigation}) => {
   };
 
   useEffect(() =>{ 
-    getScenesFromApi()
+    getScenesFromApi();
   }, []);
 
   //Research result item structure and filling
   const renderData = (item) => {
-  const date = item.datescene.split('-');
-  const month = date[1];
-  const day = date[2];
+    var month = '00';
+    var day = '00';
+    if(item.datescene !== null){
+      const date = item.datescene.split('-');
+      month = date[1];
+      day = date[2];
+    }
   return (
   <Card
   style={styles.itemContainer}
@@ -106,7 +117,7 @@ const SearchSceneScreen = ({navigation}) => {
           // console.log(data)
           return renderData(item)
         }}
-        onRefresh = {() => loadData()}
+        onRefresh = {() => getScenesFromApi()}
         refreshing = {loading}
         keyExtractor = {item => `${item.numscene}`}
       />

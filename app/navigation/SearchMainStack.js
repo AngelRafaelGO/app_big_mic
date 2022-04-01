@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { SearchSceneScreen, SearchUserScreen, SceneForm } from './screensIndex';
+import { SearchSceneScreen, SearchUserScreen } from '../screens/screensIndex';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import colors from '../config/colors';
-import {StatusBar, StyleSheet} from 'react-native';
-import SceneCard from './cards/SceneCard';
+import {StatusBar} from 'react-native';
+import {SceneCard, UserCard}from '../screens/screensIndex';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
@@ -26,14 +26,19 @@ const SearchMainStack = () => {
             <Stack.Navigator>
               <Stack.Screen name="Recherche de scène" component={SearchSceneScreen} />
               <Stack.Screen name="Détails" component={SceneCard} />
-              <Stack.Screen name="Modification" component={SceneForm} />
             </Stack.Navigator>
             )}
           </Tab.Screen>
           <Tab.Screen
             name="Search user"
-            component={SearchUserScreen}
-          />
+          >
+            {() => (
+            <Stack.Navigator>
+              <Stack.Screen name="Recherche d'utilisateur'" component={SearchUserScreen} />
+              <Stack.Screen name="Détails compte" component={UserCard} />
+            </Stack.Navigator>
+            )}
+          </Tab.Screen>
         </Tab.Navigator>
     );
   }
