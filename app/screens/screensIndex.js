@@ -7,7 +7,6 @@ export { default as ProfilOptions } from './ProfilOptions';
 export { default as SceneForm } from './forms/SceneForm';
 export { default as SearchSceneScreen } from './SearchSceneScreen';
 export { default as SearchUserScreen } from './SearchUserScreen';
-export { default as SearchMainStack } from './SearchMainStack';
 export { default as CreatePresta } from './forms/CreatePresta';
 export { default as PrestaDetails } from './forms/PrestaDetails';
 export { default as EditPresta } from './forms/EditPresta';

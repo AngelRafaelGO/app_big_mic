@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {  View, StyleSheet, FlatList } from 'react-native';
+import {  View, StyleSheet, FlatList, Alert } from 'react-native';
 import colors from '../config/colors';
 import {Search_bar, Button_filter_Tag, Button_filter_Date} from './../components/componentsIndex'; 
 import { Card, Badge } from 'react-native-paper';
@@ -42,7 +42,6 @@ const SearchSceneScreen = ({navigation}) => {
   const [loading, setLoading] = useState(true);
 
   //Get selectedDate on Calendar picker
-  
   const getSelectedDate = async () => {
     try {
       const value = await AsyncStorage.getItem('@selectedDate')
@@ -53,7 +52,9 @@ const SearchSceneScreen = ({navigation}) => {
       console.log("ASYNC Reading Storage error: " + e);
     }
   }
-  const [selectedDate, setSelectedDate] = useState(getSelectedDate);
+
+
+  const [selectedDate, setSelectedDate] = useState(getSelectedDate());
   console.log("Selected Date: " + selectedDate);
 
   const getScenesFromApi = async () => {
@@ -71,7 +72,6 @@ const SearchSceneScreen = ({navigation}) => {
 
   useEffect(() =>{ 
     getScenesFromApi();
-    getSelectedDate();
   }, []);
 
   //Research result item structure and filling

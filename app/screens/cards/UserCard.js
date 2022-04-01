@@ -2,9 +2,11 @@ import { StyleSheet, Text, FlatList } from 'react-native'
 import React from 'react'
 import colors from '../../config/colors';
 import { Card, FAB, Paragraph, Subheading } from 'react-native-paper';
+import { sendEmail } from './../../config/sendemail';
 
 
 const UserCard = ({route}) => {
+
   
   const {item} = route.params;
   console.log(item);

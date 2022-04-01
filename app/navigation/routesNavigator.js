@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { 
     LoginScreen, CreateAccount, CreateAccountS2, 
     ProfilScreen, Loading, ProfilOptions, SceneForm, 
-    CreatePresta, SearchMainStack, WelcomeScreen, PrestaDetails, EditPresta 
+    CreatePresta, WelcomeScreen, PrestaDetails, EditPresta 
     } 
 from '../screens/screensIndex';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -11,6 +11,7 @@ import { MaterialCommunityIcons, AntDesign} from '@expo/vector-icons';
 
 import { AuthContext } from '../config/context';
 import colors from '../config/colors';
+import SearchMainStack from './SearchMainStack';
 
 // Here we create objects to pass as parameters between screens
 export let routeParams = {

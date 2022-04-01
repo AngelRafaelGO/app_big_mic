@@ -5,7 +5,10 @@ import { Card, FAB, Paragraph, Subheading } from 'react-native-paper';
 
 
 
+
 const SceneCard = ( {route}) => {
+
+
   
   const {item} = route.params;
   console.log(item);
@@ -20,8 +23,6 @@ const SceneCard = ( {route}) => {
       <Paragraph>{item.criteres}</Paragraph>
       <Subheading>Adresse</Subheading>
       <Paragraph>{item.adrscene}</Paragraph>
-      <Subheading>Tags</Subheading>
-      <Paragraph>Liste des tags</Paragraph>
 
     </Card.Content>
     <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
@@ -31,7 +32,7 @@ const SceneCard = ( {route}) => {
       style= {styles.fab}
       icon="email"
       color={colors.white}
-      onPress={()=>alert("Envoyer une message à l'organisateur")}
+      onPress={()=>alert("Envoyer un message à l'organisateur")}
         />
     </Card.Actions>
 
