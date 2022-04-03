@@ -6,7 +6,7 @@ import { Card, Badge, Searchbar, Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const tagList = [
+/* const tagList = [
   {
     id: 1,
     name: "Musique"
@@ -27,13 +27,13 @@ const tagList = [
     id: 5,
     name: "Stand-up"
   },
-];
+]; */
 
 
 
-const set_filter = () => {
+/* const set_filter = () => {
   Alert.alert('Selectionner les paramètres du filtre + rafraichir');
-};
+}; */
 
 
 //Main component of this file
@@ -111,8 +111,6 @@ const SearchSceneScreen = ({navigation}) => {
     );
   }
   //Search bar variables
-  //const [searchQuery, setSearchQuery] = React.useState('');
-  //const onChangeSearch = query => setSearchQuery(query);
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);

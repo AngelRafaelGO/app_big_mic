@@ -2,7 +2,7 @@ import { StyleSheet, Text, FlatList } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import colors from '../../config/colors';
 import { Card, FAB, Subheading } from 'react-native-paper';
-import { sendEmail } from './../../config/sendemail';
+import { sendEmail } from './../../functions/sendemail';
 
 
 const UserCard = ({route, navigation}) => {

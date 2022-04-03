@@ -1,8 +1,7 @@
 import React , {useState, useEffect}from 'react';
-import { View, StyleSheet, FlatList, Alert, Image} from 'react-native';
+import { View, StyleSheet, FlatList, Image} from 'react-native';
 import colors from '../config/colors';
-import {Button_filter_Tag, Search_bar} from '../components/componentsIndex';
-import { IconButton, Card, Searchbar, Button } from 'react-native-paper';
+import { Card, Searchbar} from 'react-native-paper';
 
 /* const tagList = [
   {
@@ -44,12 +43,38 @@ const roleList = [
 
 const SearchUserScreen = ({navigation}) => {
 
+  //Search artist function
+  //Search bar variables
+  const [search, setSearch] = useState('');
+  const [filteredDataSource, setFilteredDataSource] = useState([]);
+  const [masterDataSource, setMasterDataSource] = useState([]);
+
+  const searchFilterFunction = (text) => {
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource and update FilteredDataSource
+      const newData = masterDataSource.filter(function (item) {
+        // Applying filter for the inserted text in search bar
+        const searchtext = item.descprest + " " + item.titreprest;
+        const itemData = searchtext
+          ? searchtext.toUpperCase()
+          : ''.toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredDataSource(newData);
+      setSearch(text);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilteredDataSource(masterDataSource);
+      setSearch(text);
+    }
+  };
+
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); 
-
-  //Search bar variables
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const onChangeSearch = query => setSearchQuery(query);
 
   const getPrestasFromApi = async () => {
     try {
@@ -57,8 +82,8 @@ const SearchUserScreen = ({navigation}) => {
         method: 'GET',
       });
       const prestas = await response.json();
-      setData(prestas),
-      setLoading(false);
+      setFilteredDataSource(prestas);
+      setMasterDataSource(prestas);
     } catch (error) {
       console.error("ERROR in query:" + error);
     }
@@ -92,8 +117,8 @@ const SearchUserScreen = ({navigation}) => {
     <View style={styles.container}>
       <Searchbar
       placeholder="Entrez votre recherche"
-      onChangeText={onChangeSearch}
-      value={searchQuery}
+      onChangeText={(text) => searchFilterFunction(text)}
+      value={search}
       iconColor={colors.primary}
       inputStyle={styles.searchinputStyle}
     />
@@ -116,7 +141,7 @@ const SearchUserScreen = ({navigation}) => {
       {/* Results of the research */}
       <FlatList
         style = {styles.listContainer}
-        data = {data}
+        data = {filteredDataSource}
         renderItem = {({item}) => {
           // console.log(data)
           return renderData(item)
