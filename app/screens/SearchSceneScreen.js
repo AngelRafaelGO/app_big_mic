@@ -38,9 +38,6 @@ const set_filter = () => {
 
 //Main component of this file
 const SearchSceneScreen = ({navigation}) => {
-  
-  //const [data, setData] = useState([]);
-  //const [loading, setLoading] = useState(true);
 
   //Get selectedDate on Calendar picker
   const getSelectedDate = async () => {
@@ -54,7 +51,7 @@ const SearchSceneScreen = ({navigation}) => {
     }
   }
 
-  //Set blank space
+  //Reset selectedDate of calendar
   const removeValue = async () => {
     try {
       await AsyncStorage.setItem('@selectedDate', "")
@@ -158,9 +155,9 @@ const SearchSceneScreen = ({navigation}) => {
           
         <Button_filter_Date name="Date" 
         />
-        <Button_filter_Tag name="Tag"
+        {/* <Button_filter_Tag name="Tag"
         tagList={tagList}
-        set_action= {set_filter} />
+        set_action= {set_filter} /> */}
         <Button 
         icon= "filter"
         onPress={() => getSelectedDate()}

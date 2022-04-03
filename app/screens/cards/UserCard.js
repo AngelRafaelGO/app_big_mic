@@ -11,11 +11,11 @@ const UserCard = ({route, navigation}) => {
   const {item} = route.params;
   console.log(item);
 
-
   // Datas for flatslists
-  const [scenes, setScenes] = useState([]);
   const [prestas, setPrestas] = useState([]);
   const [loading, setLoading] = useState(true); 
+  const [artist, setArtist] = useState([]);
+  console.log(artist);
   
   //Fetch prestas from database
   const loadPrestas = () => {
@@ -27,17 +27,29 @@ const UserCard = ({route, navigation}) => {
       setPrestas(prestations),
       setLoading(false) 
     })
-    .catch(error => console.log("ERROR caught:\n" + error))
+    .catch(error => console.log("ERROR caught getting artist's prestations:\n" + error))
   }
 
-  console.log(prestas);
+  //Fetch Artist's information
+  const getArtistInfo = () => {
+    fetch(`http://64.225.72.25:5000/getcompte/${item.numcompte}`, {
+        method : 'GET'
+    })
+    .then(resp => resp.json())
+    .then(information => {
+      setArtist(information),
+      setLoading(false) 
+    })
+    .catch(error => console.log("ERROR caught getting artist's info:\n" + error))
+  }
   
   useEffect(() =>{
+    getArtistInfo();
     loadPrestas();
   }, []);
   
   const clickedItem = (prestas) => {
-    navigation.navigate('PrestaDetails', {data:prestas})
+    navigation.navigate('Détails de la prestation', {data:prestas})
   }
 
   // Render prestas
@@ -52,14 +64,12 @@ const UserCard = ({route, navigation}) => {
     )
   };
 
-
-
-
+  
   
   return (
 
   <Card style={styles.sceneCard}>
-    <Card.Title title={item.nom + " " + item.prenom} subtitle={item.ville}/>
+    <Card.Title title={artist.nom + " " + artist.prenom} subtitle={artist.ville}/>
     <Card.Content>
       <Subheading>Activités</Subheading>
       {/* <FlatList 
@@ -108,6 +118,3 @@ const styles = StyleSheet.create({
 })
 
 export default UserCard;
-
-
-

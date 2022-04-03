@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { PrestaDetails, SearchSceneScreen, SearchUserScreen } from '../screens/screensIndex';
+import React from 'react';
+import { SearchSceneScreen, SearchArtistScreen, PrestaCard } from '../screens/screensIndex';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import colors from '../config/colors';
 import {StatusBar} from 'react-native';
@@ -21,28 +21,34 @@ const SearchMainStack = () => {
           tabBarIndicatorStyle: {backgroundColor: colors.primary}
         }}
         >
-          <Tab.Screen name="Search Scene"> 
+          <Tab.Screen name="Rechercher une scène"> 
           {() => (
             <Stack.Navigator>
-              <Stack.Screen name="Recherche de scène" component={SearchSceneScreen} />
+              <Stack.Screen name="Recherche de scène" component={SearchSceneScreen}
+              options={{ 
+                headerShown: false
+             }} />
               <Stack.Screen name="Détails" component={SceneCard} />
             </Stack.Navigator>
             )}
           </Tab.Screen>
           <Tab.Screen
-            name="Search user"
+            name="Rechercher un artiste"
           >
             {() => (
             <Stack.Navigator>
-              <Stack.Screen name="Recherche d'utilisateur" component={SearchUserScreen} />
+              <Stack.Screen name="Recherche d'artiste" component={SearchArtistScreen}
+              options={{ 
+                headerShown: false
+             }} />
+
               <Stack.Screen name="Détails compte" component={UserCard} />
-              <Stack.Screen name="PrestaDetails" component={PrestaDetails} />
+              <Stack.Screen name="Détails de la prestation" component={PrestaCard} />
             </Stack.Navigator>
             )}
           </Tab.Screen>
         </Tab.Navigator>
     );
   }
-
 
   export default SearchMainStack;

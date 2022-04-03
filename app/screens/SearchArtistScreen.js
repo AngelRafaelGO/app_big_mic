@@ -4,7 +4,7 @@ import colors from '../config/colors';
 import {Button_filter_Tag, Search_bar} from '../components/componentsIndex';
 import { IconButton, Card, Searchbar, Button } from 'react-native-paper';
 
-const tagList = [
+/* const tagList = [
   {
     id: 1,
     name: "Musique"
@@ -40,7 +40,7 @@ const roleList = [
     id: 3,
     name: "Artiste"
   }
-];
+]; */
 
 const SearchUserScreen = ({navigation}) => {
 
@@ -51,21 +51,23 @@ const SearchUserScreen = ({navigation}) => {
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = query => setSearchQuery(query);
 
-  const getScenesFromApi = async () => {
+  const getPrestasFromApi = async () => {
     try {
-      const response = await fetch('http://64.225.72.25:5000/getcompte', {
+      const response = await fetch('http://64.225.72.25:5000/getpresta', {
         method: 'GET',
       });
-      const scenes = await response.json();
-      setData(scenes),
+      const prestas = await response.json();
+      setData(prestas),
       setLoading(false);
     } catch (error) {
       console.error("ERROR in query:" + error);
     }
   };
 
+  console.log(data);
+
   useEffect(() =>{ 
-    getScenesFromApi()
+    getPrestasFromApi()
   }, []);
 
   //Research result item structure and filling
@@ -75,28 +77,14 @@ const SearchUserScreen = ({navigation}) => {
       style={styles.itemContainer}
       onPress={()=>navigation.navigate("Détails compte", {item: item})}>
         <Card.Title
-          title={item.nom + " "+ item.prenom}
-          subtitle={item.ville}
+          title={item.titreprest}
+          subtitle={item.descprest}
           left={(props) => <Image style={styles.thumbnail}
           source={require('../assets/default-avatar-profile-icon.jpeg')}/>}
-          right={(props) => <IconButton 
-            icon="email" 
-            onPress={() => Alert.alert("Envoyer un message à la personne")}
-            color={colors.primary} />}
           />
       </Card>
       );
     }
-
-
-//Action when user clicks on an item of the resulted search
-const set_action = () => {
-  Alert.alert('Aller vers la fiche selectionnée');
-};
-
-const set_filter = () => {
-  Alert.alert('Selectionner les paramètres du filtre + rafraichir');
-};
 
 
 
@@ -110,9 +98,9 @@ const set_filter = () => {
       inputStyle={styles.searchinputStyle}
     />
       <View style={styles.filterContainer}>  
-        <Button_filter_Tag name="Tag"
+        {/* <Button_filter_Tag name="Tag"
         set_action= {set_filter}
-        tagList={tagList} />
+        tagList={tagList} /> 
         <Button_filter_Tag name="Rôle"
         tagList={roleList}
         set_action= {set_filter}
@@ -123,7 +111,7 @@ const set_filter = () => {
         color = {colors.primary}
         labelStyle={{color:colors.primary}}
         compact={true}
-        > Appliquer </Button>
+        > Appliquer </Button>*/}
       </View>
       {/* Results of the research */}
       <FlatList
@@ -135,7 +123,7 @@ const set_filter = () => {
         }}
         onRefresh = {() => loadData()}
         refreshing = {loading}
-        keyExtractor = {item => `${item.numcompte}`}
+        keyExtractor = {item => `${item.numprest}`}
       />
     </View>
   );
