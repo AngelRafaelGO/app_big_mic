@@ -11,47 +11,23 @@ import { Ionicons, AntDesign, EvilIcons } from "@expo/vector-icons"
 
 import colors from "../config/colors";
 
-import {Prestations, Scenes} from "./screensIndex";
+import {Prestations, Scenes, Lieux} from "./screensIndex";
 
-const FirstTab = ({navigation}) => (
+const FirstTab = ({ navigation }) => (
     <View style={styles.tabScreen}>
-        <View style={styles.tabScrArtCardCreate}>
-        </View>
         < Prestations navigation = {navigation} />    
     </View>
 );
 
 const SecondTab = ({ navigation }) => (
     <View style={styles.tabScreen}>
-        <View style={styles.tabScrArtCardCreate}>
-       {/* <TouchableOpacity 
-        style={styles.tabScrSceneCardCreate}
-        onPress={() => navigation.navigate('CreateScene')}
-        >
-            <Ionicons
-            name='ios-create-outline'
-            size={24}
-            color={{ color: colors.white }}
-            />
-        </TouchableOpacity>*/}
-        </View>
         <Scenes navigation= {navigation} />
-
     </View>
 );
 
-const ThirdTab = () => (
+const ThirdTab = ({ navigation }) => (
     <View style={styles.tabScreen}>
-        <TouchableOpacity style={styles.tabScrLocCardCreate}>
-            <Ionicons 
-            name='ios-create-outline'
-            size={24}
-            color={{ color: colors.white }}
-            />
-        </TouchableOpacity>
-        <Text>
-            Hello, add a new place to host events!
-        </Text>
+        < Lieux navigation = {navigation} />    
     </View>
 );
 
