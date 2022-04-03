@@ -65,8 +65,6 @@ const SearchSceneScreen = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState('');
   console.log("Selected Date: " + selectedDate);
 
-  
-
   // Query to display the list of all scenes
   const getScenesFromApi = async () => {
     try {
@@ -151,7 +149,7 @@ const SearchSceneScreen = ({navigation}) => {
      
       <View style={styles.filterContainer}>
           
-        <Button_filter_Date name="Date" 
+        <Button_filter_Date name={"Date "+selectedDate} 
         />
         {/* <Button_filter_Tag name="Tag"
         tagList={tagList}

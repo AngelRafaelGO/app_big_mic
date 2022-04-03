@@ -53,6 +53,7 @@ const SearchUserScreen = ({navigation}) => {
     // Check if searched text is not blank
     if (text) {
       // Inserted text is not blank
+      const keywords = text.split(" ");
       // Filter the masterDataSource and update FilteredDataSource
       const newData = masterDataSource.filter(function (item) {
         // Applying filter for the inserted text in search bar
@@ -73,9 +74,6 @@ const SearchUserScreen = ({navigation}) => {
     }
   };
 
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true); 
-
   const getPrestasFromApi = async () => {
     try {
       const response = await fetch('http://64.225.72.25:5000/getpresta', {
@@ -89,7 +87,6 @@ const SearchUserScreen = ({navigation}) => {
     }
   };
 
-  console.log(data);
 
   useEffect(() =>{ 
     getPrestasFromApi()
@@ -146,8 +143,6 @@ const SearchUserScreen = ({navigation}) => {
           // console.log(data)
           return renderData(item)
         }}
-        onRefresh = {() => loadData()}
-        refreshing = {loading}
         keyExtractor = {item => `${item.numprest}`}
       />
     </View>
