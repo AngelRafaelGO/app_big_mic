@@ -3,7 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { 
     LoginScreen, CreateAccount, CreateAccountS2, 
     ProfilScreen, Loading, ProfilOptions, SceneForm, 
-    CreatePresta, WelcomeScreen, PrestaDetails, EditPresta 
+    CreatePresta, WelcomeScreen, PrestaDetails, EditPresta, 
+    CreateLieu, EditLieu, LieuDetails
     } 
 from '../screens/screensIndex';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -80,6 +81,18 @@ const ProfilStackScreen = () => (
         <ProfilStack.Screen 
         name='EditPresta'
         component={EditPresta}
+        /> 
+        <ProfilStack.Screen 
+        name='CreateLieu'
+        component={CreateLieu}
+        /> 
+        <ProfilStack.Screen 
+        name='EditLieu'
+        component={EditLieu}
+        /> 
+        <ProfilStack.Screen 
+        name='LieuDetails'
+        component={LieuDetails}
         /> 
     </ProfilStack.Navigator>
 );

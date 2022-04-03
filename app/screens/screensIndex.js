@@ -11,7 +11,11 @@ export { default as CreatePresta } from './forms/CreatePresta';
 export { default as PrestaDetails } from './forms/PrestaDetails';
 export { default as EditPresta } from './forms/EditPresta';
 export { default as Prestations } from './Prestations';
-export { default as Scenes } from './Scenes'
+export { default as Scenes } from './Scenes';
+export { default as Lieux } from './Lieux';
+export { default as CreateLieu} from './forms/CreateLieu';
+export { default as EditLieu} from './forms/EditLieu';
+export { default as LieuDetails} from './forms/LieuDetails';
 export { default as UserCard} from './cards/UserCard';
 export { default as SceneCard} from './cards/SceneCard';
 export { default as WelcomeScreen } from './login/WelcomeScreen'

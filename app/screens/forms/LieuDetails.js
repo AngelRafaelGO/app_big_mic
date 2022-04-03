@@ -1,15 +1,18 @@
-import React from 'react';
-import {View, Text, ScrollView, StyleSheet, Image, TouchableOpacity, Alert} from 'react-native';
-import { Button, FAB} from 'react-native-paper';
+import React, {useState, useEffect} from 'react';
+import {View, Text, ScrollView, StyleSheet, Image, TouchableOpacity, Alert, Linking} from 'react-native';
+import { Button, FAB } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+// import { blue400 } from 'react-native-paper/lib/typescript/styles/colors';
 import colors from '../../config/colors';
 
-function PrestaDetails(props, {navigation}) {
+function LieuDetails(props, {navigation}) {
     const data = props.route.params.data;
+
+    const [materiel, setMateriel] = useState('');
 
     const confirmDeletion = () =>
     Alert.alert(
-      "Supprimer une prestation",
+      "Supprimer un lieu",
       "confirmer la suppression",
       [
         {
@@ -22,7 +25,7 @@ function PrestaDetails(props, {navigation}) {
     );
 
     const deleteData =  (data) => {
-        fetch(`http://64.225.72.25:5000/deletepresta/${data.numprest}`, {
+        fetch(`http://64.225.72.25:5000/deletelieu/${data.numlieu}`, {
             method : 'DELETE',
         })
         .then(data => {
@@ -34,47 +37,89 @@ function PrestaDetails(props, {navigation}) {
         })
     };
 
+    const getmateriel = () => {
+        fetch(`http://64.225.72.25:5000/getmateriel/${data.nummateriel}`, {
+            method : 'GET'
+        })
+        .then(resp => resp.json())
+        .then(materiel => {
+          setMateriel(materiel)
+          console.log(materiel)
+        //   setLoading(false) 
+        })
+        .catch(error => console.log("ERROR caught:\n" + error))
+    }
+
+    useEffect(() =>{ 
+        getmateriel();
+      }, []);
+    
+
   return (
-      <View>
+    <View>
         <ScrollView>
             <View style = {styles.viewStyle}>
-                <Text style= {styles.txtChamp}>
+            <Text style= {styles.txtChamp}>
                         Titre:
                 </Text>
                 <Text style = {styles.txtTitre}>
-                    {data.titreprest}
+                    {data.nomlieu}
                 </Text>
                 <TouchableOpacity 
                     style={styles.imgView} 
-                    onPress={() => Alert.alert("go to full screen image")}>
+                    onPress={() => Alert.alert("go to full screen image \nnot implemented yet")}>
                     <Image source={{ uri: 'https://picsum.photos/700'}} style = {styles.img} />
                     {/* <Image source={{ uri : fichierphoto}} style = {styles.img} /> */}
                 </TouchableOpacity>
                 <Text style= {styles.txtChamp}>
-                    Description:
+                    Description
                 </Text>
                 <Text style = {styles.txtImportant}>
-                    {data.descprest}
+                    {data.desclieu}
                 </Text>
                 <Text style= {styles.txtChamp}>
                     Site WEB:
                 </Text>
                 <Text style={styles.txtlien}
-                    onPress={() => Linking.openURL(data.lienprest.toString())}>
-                    {data.lienprest}
+                    onPress={() => Linking.openURL(data.lienlieu.toString())}>
+                    {data.lienlieu}
+                </Text>
+                <Text style= {styles.txtChamp}>
+                    Règles à suivre:
                 </Text>
                 <Text style = {styles.txtSecondaire}>
-                    Ref: {data.numcompte} - {data.numprest}
+                    {data.contraintelieu}
+                </Text>
+                <Text style= {styles.txtChamp}>
+                    Adresse:
+                </Text>
+                <Text style = {styles.txtSecondaire}>
+                    {data.adrlieu}
+                </Text>
+                <Text style= {styles.txtChamp}>
+                    Matériel:
+                </Text>
+                <Text style = {styles.txtSecondaire}>
+                    {materiel.nommateriel}
+                </Text>
+                <Text style= {styles.txtChamp}>
+                    Description du Matériel:
+                </Text>
+                <Text style = {styles.txtSecondaire}>
+                    {materiel.descmateriel}
+                </Text>
+                <Text style = {styles.txtSecondaire}>
+                    Ref: {data.numcompte} - {data.numlieu}
                 </Text>
             </View>
         </ScrollView>
         <View  style = {styles.fabView}>
-            <FAB
+        <FAB
                 small={true}
                 icon="pencil"
                 color='white'
                 theme= {{colors:{accent:"rgb(255, 72, 88)"}}}
-                onPress = {() => props.navigation.navigate("EditPresta", {data:data})}
+                onPress = {() => props.navigation.navigate("EditLieu", {data:data})}
             />
             <Text>
                 
@@ -92,57 +137,33 @@ function PrestaDetails(props, {navigation}) {
 };
 
 const styles = StyleSheet.create ({
+    safeArea:{
+        margin: 0,
+        padding: 0,
+    },
     viewStyle: {
          padding: 1,
          marginRight: 10,
          marginLeft: 15,
     },
-    // btnStyle: {
-    //     flexDirection:"row",
-    //     justifyContent:"space-around",
-    //     margin: 10,
-    //     padding: 5,
-    // },
-    // btnInside: {
-    //     backgroundColor: '#FF4858',
-
-    // },
     imgView: {
         alignItems: 'center',
         margin: 10,
-        // borderWidth: 1,
-        // backgroundColor: colors.secondary,
         height: 200,
-        // borderRadius: 5,
     },
     img: {
-        // width: Dimensions.get('window').width * 0.8,
         height: 200,
         aspectRatio: 1,
         resizeMode: 'stretch',
-        // padding: 10,
-        // marginTop: 8,
     },
-    fabView: {
-        position: 'absolute',
-        flexDirection: 'column',
-        right: 10,
-        top: 10
-      },
-      fabBtn: {
-        // margin: 50,
-        // padding: 50,
-      },
     txtTitre:{
         fontSize: 25,
     },
     txtImportant:{
         fontSize: 16, 
-        marginTop: 15,
     },
     txtSecondaire:{
-        fontSize: 12, 
-        marginTop: 12,
+        fontSize: 14, 
     },
     txtlien:{
         textDecorationLine: 'underline',
@@ -154,6 +175,16 @@ const styles = StyleSheet.create ({
         fontSize: 10,
         marginTop: 10,
     },
+    fabView: {
+        position: 'absolute',
+        flexDirection: 'column',
+        right: 10,
+        top: 10,
+      },
+      fabBtn: {
+        margin: 50,
+        padding: 50,
+      },
 })
 
-export default PrestaDetails
+export default LieuDetails;

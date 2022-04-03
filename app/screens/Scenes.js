@@ -69,7 +69,7 @@ const Scenes = ({navigation}) => {
         />
         <View style = {styles.fabView}>
             <FAB
-            small={false}
+            small={true}
             icon="plus"
             color='white'
             theme= {{colors:{accent:colors.primary}}}
