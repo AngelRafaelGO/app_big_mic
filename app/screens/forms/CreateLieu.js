@@ -17,6 +17,10 @@ function CreateLieu(props, {navigation}) {
     const [adrlieu, setadrlieu] = useState(null);
     const [nummateriel, setnummateriel] = useState(null);
 
+
+    const [nommateriel, setnommateriel] = useState(null);
+    const [descmateriel, setdescmateriel] = useState(null);
+
     const[fichierphoto, setFichierphoto] = useState(""); 
 
     const pickImage = async (props) => {        
@@ -32,7 +36,29 @@ function CreateLieu(props, {navigation}) {
         }
       }
 
+      function insertMateriel(){
+        fetch('http://64.225.72.25:5000/addmateriel', {
+            method : 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({nommateriel:nommateriel, descmateriel:descmateriel})
+        })
+        .then(resp => resp.json())
+        .then(materiel => {
+            console.log("nouveau materiel ajouté" + materiel);
+            setnummateriel(materiel.nummateriel.toString());
+        })
+        .catch(error => console.log("Materiel: POST error: " + error))
+    }
+
     const insertData = (navigation) => {
+        if(nommateriel !=""){
+            insertMateriel();
+            console.log(nummateriel+" - "+ nommateriel);
+        } else {
+            setnummateriel('');
+        }
         fetch('http://64.225.72.25:5000/addlieu', {
             method : 'POST',
             headers: {
@@ -88,12 +114,25 @@ function CreateLieu(props, {navigation}) {
             mode="outlined"
             onChangeText = {text => setnumcompte(text)}
         />
-        <TextInput style = {styles.textInputStyle}
+        {/* <TextInput style = {styles.textInputStyle}
             label = "Materiel"
             value = {nummateriel}
             mode="outlined"
             onChangeText = {text => setnummateriel(text)}
+        /> */}
+        <TextInput style = {styles.textInputStyle}
+            label = "Dénomination matériel"
+            value = {nommateriel}
+            mode="outlined"
+            onChangeText = {text => setnommateriel(text)}
         />
+        <TextInput style = {styles.textInputStyle}
+            label = "Description matériel"
+            value = {descmateriel}
+            mode="outlined"
+            onChangeText = {text => setdescmateriel(text)}
+        />
+        
         <TouchableOpacity 
             style={styles.imgView} 
             onPress={() => pickImage()}>

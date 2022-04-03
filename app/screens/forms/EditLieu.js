@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity, Alert, Dimensions, ScrollView} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import colors from '../../config/colors';
@@ -17,11 +17,66 @@ function EditLieu(props, {navigation}) {
     const [adrlieu, setadrlieu] = useState(data.adrlieu);
     const [nummateriel, setnummateriel] = useState(data.nummateriel);
 
+    const [materiel, setMateriel] = useState('');
     const [nommateriel, setnommateriel] = useState('');
     const [descmateriel, setdescmateriel] = useState('');
     
+    const getmateriel = () => {
+        fetch(`http://64.225.72.25:5000/getmateriel/${data.nummateriel}`, {
+            method : 'GET'
+        })
+        .then(resp => resp.json())
+        .then(materiel => {
+          setMateriel(materiel)
+          setnommateriel(materiel.nommateriel);
+          setdescmateriel(materiel.descmateriel);
+          console.log(materiel)
+        })
+        .catch(error => console.log("ERROR caught:\n" + error))
+    }
+
+    useEffect(() =>{ 
+        getmateriel();
+      }, []);
+    
+    function insertMateriel(){
+        fetch('http://64.225.72.25:5000/addmateriel', {
+            method : 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({nommateriel:nommateriel, descmateriel:descmateriel})
+        })
+        .then(resp => resp.json())
+        .then(materiel => {
+            console.log("nouveau materiel ajouté: " + materiel.nummateriel);
+            setnummateriel(materiel.nummateriel);
+        })
+        .catch(error => console.log("Materiel: POST error: " + error))
+    }
+
+    function modifMateriel(){
+        fetch(`http://64.225.72.25:5000/updatemateriel/${data.nummateriel}`, {
+            method : 'PUT',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({nommateriel:nommateriel, descmateriel:descmateriel})
+        })
+        .then(resp => resp.json())
+        .then(materiel => {
+            console.log("materiel modifié: " + materiel.nommateriel);
+        })
+        .catch(error => console.log("Materiel: POST error: " + error))
+    }
 
     const updateData = (navigation) => {
+        if(nummateriel == null || nummateriel == 1){
+            insertMateriel();
+        } else {
+           modifMateriel(); 
+        }
+
         fetch(`http://64.225.72.25:5000/updatelieu/${data.numlieu}`, { 
             method : 'PUT',
             headers: {
@@ -82,12 +137,26 @@ function EditLieu(props, {navigation}) {
                 mode="outlined"
                 onChangeText = {text => setadrlieu(text)}
             />
-            <TextInput style = {styles.textInputStyle}
+            {/* <TextInput style = {styles.textInputStyle}
                 label = "Materiel"
                 keyboardType='numeric'
-                value = {nummateriel.toString()}
+                value = {nummateriel}
                 mode="outlined"
                 onChangeText = {text => setnummateriel(parseInt(text))}
+            /> */}
+            <TextInput style = {styles.textInputStyle}
+                label = "Dénomination matériel:"
+                value = {nommateriel}
+                mode="outlined"
+                onChangeText = {text => setnommateriel(text)}
+            />
+            <TextInput style = {styles.textInputStyle}
+                label = "Description matériel:"
+                value = {descmateriel}
+                mode="outlined"
+                multiline
+                minHeight= {30}
+                onChangeText = {text => setdescmateriel(text)}
             />
             <TextInput style = {styles.textInputStyle}
                 label = "Compte"
