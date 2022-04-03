@@ -49,7 +49,7 @@ const UserCard = ({route, navigation}) => {
   }, []);
   
   const clickedItem = (prestas) => {
-    navigation.navigate('Détails de la prestation', {data:prestas})
+    navigation.navigate('Détails de la prestation', {prestas:prestas})
   }
 
   // Render prestas

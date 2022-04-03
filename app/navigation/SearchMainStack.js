@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { SearchSceneScreen, SearchArtistScreen } from '../screens/screensIndex';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import colors from '../config/colors';
@@ -42,9 +42,8 @@ const SearchMainStack = () => {
               options={{ 
                 headerShown: false
              }} />
-
               <Stack.Screen name="Détails compte" component={UserCard} />
-              {/* <Stack.Screen name="Détails de la prestation" component={PrestaCard} /> */}
+              <Stack.Screen name="Détails de la prestation" component={PrestaCard} />
             </Stack.Navigator>
             )}
           </Tab.Screen>

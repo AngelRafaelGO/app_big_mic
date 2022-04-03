@@ -1,30 +1,27 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { StyleSheet, ScrollView } from "react-native";
-import { Paragraph } from "react-native-paper";
-import { Subheading } from "react-native-paper";
-import { Card } from "react-native-paper";
-import { render } from "react-native/Libraries/Renderer/implementations/ReactNativeRenderer-prod";
+import { Paragraph, Subheading, Card } from "react-native-paper";
 
 const PrestaCard = ({route}) =>{
 
-    const {props} = route.params;
-    console.log(props);
+    const {prestas} = route.params;
+    console.log(prestas);
 
-    render(
+    return(
 
         <ScrollView style = {styles.container}>
             <Card>
                 <Card.Title 
-                title={props.titreprest} 
+                title={prestas.titreprest} 
                 />
                 <Card.Content>
                     <Subheading>Description</Subheading>
                     <Paragraph>
-                        {props.descprest}
+                        {prestas.descprest}
                     </Paragraph>
                     <Subheading>Lien</Subheading>
                     <Paragraph>
-                        {props.lienprest}
+                        {prestas.lienprest}
                     </Paragraph>
                 </Card.Content>
             </Card>
