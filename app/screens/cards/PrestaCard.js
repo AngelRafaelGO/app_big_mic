@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { StyleSheet, ScrollView } from "react-native";
 import { Paragraph } from "react-native-paper";
 import { Subheading } from "react-native-paper";

@@ -1,10 +1,11 @@
 import React from 'react';
-import { SearchSceneScreen, SearchArtistScreen, PrestaCard } from '../screens/screensIndex';
+import { SearchSceneScreen, SearchArtistScreen } from '../screens/screensIndex';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import colors from '../config/colors';
 import {StatusBar} from 'react-native';
 import {SceneCard, UserCard}from '../screens/screensIndex';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import PrestaCard from '../screens/cards/PrestaCard';
 
 
 const SearchMainStack = () => {
@@ -43,7 +44,7 @@ const SearchMainStack = () => {
              }} />
 
               <Stack.Screen name="Détails compte" component={UserCard} />
-              <Stack.Screen name="Détails de la prestation" component={PrestaCard} />
+              {/* <Stack.Screen name="Détails de la prestation" component={PrestaCard} /> */}
             </Stack.Navigator>
             )}
           </Tab.Screen>
