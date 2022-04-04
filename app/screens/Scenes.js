@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { View, FlatList , StyleSheet} from "react-native";
+import { View, FlatList , StyleSheet, SafeAreaView} from "react-native";
 import { Card , Badge, FAB} from 'react-native-paper';
 import colors from '../config/colors';
 
@@ -58,7 +58,7 @@ const Scenes = ({navigation}) => {
   
   
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <FlatList
           style = {styles.listContainer}
           data = {data}
@@ -72,14 +72,14 @@ const Scenes = ({navigation}) => {
         />
         <View style = {styles.fabView}>
             <FAB
-            small={false}
+            small={true}
             icon="plus"
             color='white'
             theme= {{colors:{accent:colors.primary}}}
             onPress = {() => navigation.navigate('CreateScene')}
             />
           </ View>
-        </View>
+        </SafeAreaView>
     );
   }
   

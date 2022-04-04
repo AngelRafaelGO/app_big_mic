@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
-import {Card, FAB, Avatar, Title, Paragraph} from 'react-native-paper';
-import { AntDesign } from '@expo/vector-icons'; 
-import colors from '../config/colors';
+import { StyleSheet, View, FlatList } from 'react-native';
+import {Card, FAB } from 'react-native-paper';
 
 
 
 
-function Prestations({navigation}) {
-
+function Lieux({navigation}) {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); 
   
   const loadData = () => {
-    fetch('http://64.225.72.25:5000/getpresta', {
+    fetch('http://64.225.72.25:5000/getlieu', {
         method : 'GET'
     })
     .then(resp => resp.json())
-    .then(prestations => {
-      setData(prestations),
+    .then(lieux => {
+      setData(lieux),
       setLoading(false) 
     })
     .catch(error => console.log("ERROR caught:\n" + error))
@@ -30,16 +27,16 @@ function Prestations({navigation}) {
   }, []);
 
   const clickedItem = (data) => {
-      navigation.navigate('PrestaDetails', {data:data})
+      navigation.navigate('LieuDetails', {data:data});
+      setLoading(false);
   }
   
   const renderData = (item) => {
     return (
     <Card style = {styles.cardStyle} onPress = {() => clickedItem(item)}>
       <Card.Title
-        title={item.titreprest}
-        subtitle={item.lienprest} />
-
+        title={item.nomlieu}
+        subtitle={item.lienlieu} />
         <Card.Cover source= {{ uri: 'https://picsum.photos/700'}} />
     </Card>
     );
@@ -55,16 +52,15 @@ function Prestations({navigation}) {
         }}
         onRefresh = {() => loadData()}
         refreshing = {loading}
-        keyExtractor = {item => `${item.numprest}`}
+        keyExtractor = {item => `${item.numlieu}`}
       />
       <View style = {styles.fabView}>
       <FAB
           small={true}
           icon="plus"
           color='white'
-          // label='add'
           theme= {{colors:{accent:"rgb(255, 72, 88)"}}}
-          onPress = {() => navigation.navigate('CreatePresta')}
+          onPress = {() => navigation.navigate('CreateLieu')}
           />
         </View>
     </View>
@@ -104,7 +100,7 @@ const styles = StyleSheet.create({
     width: 50,
   },
   cardText1: {color : 'white', fontSize :18, alignItems:'center', justifyContent: 'center'},
-  cardText2: {fontSize :18, paddingRight:5, paddingLeft: 5},
+  cardText2: {fontSize :18, paddingRight:5, paddingLeft: 5}
 });
 
-export default Prestations;
+export default Lieux;
