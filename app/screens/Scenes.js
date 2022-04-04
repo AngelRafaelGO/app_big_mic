@@ -10,8 +10,6 @@ const Scenes = ({navigation}) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const [userId, setUserId] = useState('4')
-
     //Item scene structure and filling
     const renderSceneList = (item) => {
       var month = '00';
