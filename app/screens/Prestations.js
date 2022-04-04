@@ -41,22 +41,8 @@ function Prestations({navigation}) {
         subtitle={item.lienprest} />
 
         <Card.Cover source= {{ uri: 'https://picsum.photos/700'}} />
-         {/* left={(props) => <Avatar.Image size={40} source={require('../assets/freebanner.png')} />}
-         right={(props) => <AntDesign name="hearto" size={20} color={colors.primary} style={{paddingRight:15}}/>
-         }
-      /> */}
-      {/* <View style = {styles.cardView}>
-        <View style = {styles.cardIndex}>
-          <Text style = {styles.cardText1}>
-          {item.numprest}
-          </Text>
-        </View>
-          <Text style = {styles.cardText2}>
-          {item.titreprest} 
-          </Text>
-      </View> */}
     </Card>
-    )
+    );
   }
 
   return (

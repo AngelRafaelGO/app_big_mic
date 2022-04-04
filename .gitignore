@@ -12,9 +12,9 @@ npm-debug.*
 web-build/
 
 # ajout Cyrille
-#backend/
+backend/
 .vscode/
+.gitignore
 
 # macOS
 .DS_Store
-us
