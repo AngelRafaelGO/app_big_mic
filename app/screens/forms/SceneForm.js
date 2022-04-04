@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity,  ScrollView , Style} from 'react-native';
-import {TextInput, Button} from 'react-native-paper';
+import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity,  ScrollView} from 'react-native';
+import {TextInput, Button, Title} from 'react-native-paper';
+import Button_filter_Date from '../../components/Button_filter_Date';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import colors from '../../config/colors';
 
@@ -37,7 +39,37 @@ function SceneForm(props, {navigation}) {
         .catch(error => console.log("POST error: " + error))
     }
 
+      //Get selectedDate on Calendar picker
+    const getSelectedDate = async () => {
+        try {
+        const value = await AsyncStorage.getItem('@selectedDate')
+        if(value !== null) {
+            setSelectedDate(value) ;
+        }
+        } catch(e) {
+        console.log("ASYNC Reading Storage error: " + e);
+        }
+    }
 
+    //Reset selectedDate of calendar
+    const removeValue = async () => {
+        try {
+        await AsyncStorage.setItem('@selectedDate', "")
+        } catch(e) {
+        console.log("ASYNC Removal error: " + e);
+        }
+        console.log('Done.')
+    }
+    
+    //Calendar action
+    const calendarAction = () =>{
+        getSelectedDate();
+        setdatescene(selectedDate);
+        removeValue;
+    }
+
+    const [selectedDate, setSelectedDate] = useState('');
+    console.log("Selected Date: " + selectedDate);
 
     return (
         console.log({titrescene: titrescene, 
@@ -55,7 +87,8 @@ function SceneForm(props, {navigation}) {
             </View>
 
 
-            <Text> Création de ma scène  </Text>
+            <Title
+            style={{textAlign:'center'}}>Création de ma scène</Title>
             <View>
                     
                     <TextInput style={styles.textInput}
@@ -73,29 +106,35 @@ function SceneForm(props, {navigation}) {
                                 value = {descscene}
                                 mode="outlined"
                                 onChangeText={ (val) => setdescscene(val)} />
-                    {/* <TextInput style={styles.textInput}
-                                label = "Tags"
-                                value = {sceneTags}
-                                mode="outlined"
-                                onChangeText={ (val) => setSceneTags(val)} /> */}
                     <TextInput style={styles.textInput}
                                 multiline
                                 label = "Critères de participation"
                                 value = {criteres}
                                 mode="outlined"
                                 onChangeText={ (val) => setcriteres(val)} />
+                    <View style={styles.dateButtonContainer}>
+                        <Button_filter_Date
+                            name={"Choisir une date"}
+                            style={styles.button}/>
+                        <Text
+                        style={{width:90}}>{datescene}</Text>
+                        <Button
+                        color={colors.primary}
+                        onPress={()=> calendarAction()}>Valider</Button>
+                    </View>
+{/* 
                     <TextInput style={styles.textInput}
                                 label = "Dates de la scène"
                                 value = {datescene}
                                 mode="outlined"
                                 onChangeText={ (val) => setdatescene(val)} 
-                                 />
+                                 /> */}
                     <TouchableOpacity   
                     style = {styles.button}
                     onPress = { () => insertData()}
 
                     >
-                        <Text style={styles.textButton}> Valider </Text>   
+                        <Text style={styles.textButton}> Soumettre la scène </Text>   
                         </TouchableOpacity>      
             </View>   
         </ScrollView>
@@ -121,20 +160,25 @@ const styles = StyleSheet.create({
     button: {
         margin: 30,
         backgroundColor: '#FF4858',
-        alignItems:'center'
+        alignItems:'center',
         // justifyContent: 'center',
         // alignItems: 'center',
         // width: '40%',
         // height: 40, 
         // backgroundColor: colors.primary,
-        // borderRadius: 5,
+        borderRadius: 5,
         // marginTop: 20,
     },
     textButton: {
         margin: 10,
         color: colors.white,
         
-    }
+    },
+    dateButtonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: "center",
+    },
 });
 
 export default SceneForm;

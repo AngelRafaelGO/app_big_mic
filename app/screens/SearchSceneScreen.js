@@ -1,39 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {  View, StyleSheet, FlatList, Alert, TouchableOpacity, Text } from 'react-native';
 import colors from '../config/colors';
-import { Button_filter_Tag, Button_filter_Date} from './../components/componentsIndex'; 
+import { Button_filter_Date} from './../components/componentsIndex'; 
 import { Card, Badge, Searchbar, Button, Provider, Divider , Menu} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
-/* const tagList = [
-  {
-    id: 1,
-    name: "Musique"
-  },
-  {
-    id: 2,
-    name: "Danse"
-  },
-  {
-    id: 3,
-    name: "Chant"
-  },
-  {
-    id: 4,
-    name: "Théâtre"
-  },
-  {
-    id: 5,
-    name: "Stand-up"
-  },
-]; */
-
-
-
-/* const set_filter = () => {
-  Alert.alert('Selectionner les paramètres du filtre + rafraichir');
-}; */
 
 
 //Main component of this file
@@ -62,19 +32,20 @@ const SearchSceneScreen = ({navigation}) => {
   }
   removeValue();
 
-  
+  const [loading, setLoading] = useState(true); 
   const [selectedDate, setSelectedDate] = useState('');
   console.log("Selected Date: " + selectedDate);
 
   //Query to apply date filter
   const getScenesDateFilteredScenes = async () => {
     try {
-      const response = await fetch(`http://64.225.72.25:5000/'/scenefiltered/${[4, selectedDate]}'`, {
+      const response = await fetch(`http://64.225.72.25:5000/scenedatelessthan/${selectedDate}`, {
         method: 'GET',
       });
       const scenes = await response.json();
       setFilteredDataSource(scenes);
       setMasterDataSource(scenes);
+      setLoading(false)
     } catch (error) {
       console.error("ERROR in query:" + error);
     }
@@ -89,6 +60,7 @@ const SearchSceneScreen = ({navigation}) => {
       const scenes = await response.json();
       setFilteredDataSource(scenes);
       setMasterDataSource(scenes);
+      setLoading(false) 
     } catch (error) {
       console.error("ERROR in query:" + error);
     }
@@ -97,6 +69,7 @@ const SearchSceneScreen = ({navigation}) => {
   useEffect(() =>{ 
     getScenesFromApi();
   }, []);
+  
 
   //Research result item structure and filling
   const renderData = (item) => {
@@ -177,7 +150,7 @@ const SearchSceneScreen = ({navigation}) => {
       <View style={styles.filterContainer}>
           
       <Provider>
-        <View>
+
           <Menu
             style={styles.menu}
             visible={visibleMenu}
@@ -191,23 +164,24 @@ const SearchSceneScreen = ({navigation}) => {
             >
             <Menu.Item onPress={() => {
               setSelectedDate(getDatePlusDays(7));
-              closeMenu;
+              closeMenu();
             }} title="La semaine prochaine" />
             <Menu.Item onPress={() => {
               setSelectedDate(getDatePlusDays(30));
-              closeMenu;;
+              closeMenu();
               }} title={"Le mois prochain"} />
             <Divider />
               <Button_filter_Date
               name={"Choisir une date"}/>
           </Menu>
-        </View>
+
       </Provider>
         <Button 
         icon= "filter"
         onPress={() => {
           getSelectedDate();
           getScenesDateFilteredScenes();
+          setSearch('');
         }}
         color = {colors.primary}
         labelStyle={{color:colors.primary}}
@@ -215,14 +189,18 @@ const SearchSceneScreen = ({navigation}) => {
         > Appliquer </Button>
       </View>
       {/* Results of the research */}
-      <FlatList
-        style = {styles.listContainer}
-        data = {filteredDataSource}
-        renderItem = {({item}) => {
-          return renderData(item)
-        }}
-        keyExtractor = {item => `${item.numscene}`}
-      />
+      <View>
+        <FlatList
+          style = {styles.listContainer}
+          data = {filteredDataSource}
+          renderItem = {({item}) => {
+            return renderData(item)
+          }}
+          onRefresh = {() => getScenesFromApi()}
+          refreshing = {loading}
+          keyExtractor = {item => `${item.numscene}`}
+        />
+      </View>
     </View>
   );
 }
@@ -262,6 +240,8 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   menu: {
+    position:"absolute",
+    zIndex: 1000,
     top: 65,
     borderRadius: 5,
   },
