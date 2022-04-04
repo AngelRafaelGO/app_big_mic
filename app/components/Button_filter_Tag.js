@@ -1,15 +1,11 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import colors from '../config/colors';
-import SelectDate from './SelectDate';
 import Dialog from "react-native-dialog";
-import {SwitchFilter} from './componentsIndex';
+import SwitchFilter from './SwitchFilter';
 
 
 const Button_filter_Tag = (props) => {
-  //
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   //Toogle Dialog box for filters
   const [visible, setVisible] = useState(false);
@@ -36,6 +32,7 @@ const Button_filter_Tag = (props) => {
       name: "Stand-up",
     },
   ];
+  
   const buttonsListArr = initialList.map(buttonInfo => (
     <SwitchFilter 
     style={styles.filterList}

@@ -4,7 +4,7 @@ import {TextInput, Button} from 'react-native-paper';
 
 import colors from '../../config/colors';
 
-function SceneForm({navigation}) {
+function SceneForm(props, {navigation}) {
 
     const [titrescene, settitrescene] = useState('');
     const [adrscene, setadrscene] = useState('');
@@ -21,10 +21,17 @@ function SceneForm({navigation}) {
             headers: {
                 'Content-Type' : 'application/json'
             },
-            body: JSON.stringify({titrescene: titrescene, datescene: datescene, numphoto: numphoto, criteres: criteres, recurrence: recurrence, adrscene: adrscene, descscene: descscene, numcompte: numcompte})
+            body: JSON.stringify({titrescene: titrescene, 
+                datescene: datescene, 
+                numphoto: numphoto, 
+                criteres: criteres, 
+                recurrence: recurrence, 
+                adrscene: adrscene, 
+                descscene: descscene, 
+                numcompte: numcompte}),
         })
         .then(resp => resp.json())
-        .then(data => {
+        .then((data) => {
             props.navigation.navigate('Profil')
         })
         .catch(error => console.log("POST error: " + error))
@@ -33,6 +40,14 @@ function SceneForm({navigation}) {
 
 
     return (
+        console.log({titrescene: titrescene, 
+            datescene: datescene, 
+            numphoto: numphoto, 
+            criteres: criteres, 
+            recurrence: recurrence, 
+            adrscene: adrscene, 
+            descscene: descscene, 
+            numcompte: numcompte}),
         <ScrollView styles={styles.container}> 
             <View style={{alignItems: 'center', marginTop: 50}} >
             <Image source={require('../../assets/SceneImage.png')} />

@@ -1,12 +1,35 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import colors from '../config/colors';
-import SelectDate from './SelectDate';
 import Dialog from "react-native-dialog";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import CalendarPicker from 'react-native-calendar-picker';
 
 
 const Button_filter_Date = (props) => {
-    const [visible, setVisible] = useState(false);
+  
+  //Store selected date
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem('@selectedDate', value)
+    } catch (e) {
+      console.log("ASYNC Storage error: " + e);
+    }
+  }
+
+  //Variables for calendar date picker
+  const [selectedStartDate, setSelectedStartDate] = useState();
+  const startDate = selectedStartDate
+    ? selectedStartDate.format('YYYY-MM-DD').toString()
+    : '';
+
+  const minDate = new Date(); // Today
+  const maxDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getFullYear()+3);
+  
+  //Config dialog box handler
+  const [visible, setVisible] = useState(false);
+
+  
 
     const showCalendar = () => {
       setVisible(true);
@@ -15,12 +38,15 @@ const Button_filter_Date = (props) => {
     const handleCancel = () => {
       setVisible(false);
     };
-  
+ 
+
     const handleValidate = () => {
       // The user has pressed the "Delete" button, so here you can do your own logic.
-      // ...Your logic
+      storeData(startDate);
       setVisible(false);
     };
+
+
     
     return (
       <View >
@@ -28,7 +54,19 @@ const Button_filter_Date = (props) => {
             <Dialog.Container visible={visible} contentStyle={{height: 'auto', width: 'auto', padding:5}}>
               <Dialog.Title>Calendrier</Dialog.Title>
               <Dialog.Description >
-                <SelectDate />
+              <View style={styles.dateContainer}>
+                <CalendarPicker onDateChange={setSelectedStartDate}
+                width={300}
+                minDate={minDate}
+                maxDate={maxDate}
+                todayBackgroundColor={colors.secondary}
+                selectedDayColor={colors.primary}
+                selectedDayTextColor={colors.black}
+                scrollable={true}
+                restrictMonthNavigation={true}
+                />
+                <Text>Vous avez sélectionné {startDate}</Text>
+              </View>
               </Dialog.Description>
               <Dialog.Button label="Annuler" onPress={handleCancel} color={colors.primary}/>
               <Dialog.Button label="Valider" onPress={handleValidate} color={colors.primary}/>
@@ -47,6 +85,10 @@ const Button_filter_Date = (props) => {
   };
 
   const styles = StyleSheet.create({
+   dateContainer: {
+      alignItems: "center",
+      justifyContent: "center",
+    },
     buttonContainer: {
       backgroundColor: colors.secondary,
       color: colors.light,

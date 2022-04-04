@@ -1,9 +1,8 @@
-import React from 'react';
-import { SafeAreaView, View, StyleSheet, VirtualizedList, Text, TouchableHighlight, Alert } from 'react-native';
+import React , {useState, useEffect}from 'react';
+import { View, StyleSheet, FlatList, Alert, Image} from 'react-native';
 import colors from '../config/colors';
 import {Button_filter_Tag, Search_bar} from '../components/componentsIndex';
-
-const DATA = [];
+import { IconButton, Card } from 'react-native-paper';
 
 const tagList = [
   {
@@ -43,28 +42,50 @@ const roleList = [
   }
 ];
 
-//Generation of the item's data
-const getItem = (data, index) => ({
-  id: Math.random().toString(12).substring(0),
-  title: `Item ${index+1}`
-});
+const SearchUserScreen = ({navigation}) => {
 
-//Generates unique key for each item
-const _keyExtractor = (item, index) => item.id.toString();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true); 
 
-const getItemCount = (data) => 30;
+  
 
-//Research item structure and filling
-const Item = ({ title }) => (
-  <TouchableHighlight 
-  onPress={()=> set_action()}
-  >
-    <View style={styles.item}>
-      <Text style={styles.itemTitle}>{title}</Text>
-    </View>
-  </TouchableHighlight>
+  const getScenesFromApi = async () => {
+    try {
+      const response = await fetch('http://64.225.72.25:5000/getcompte', {
+        method: 'GET',
+      });
+      const scenes = await response.json();
+      setData(scenes),
+      setLoading(false);
+    } catch (error) {
+      console.error("ERROR in query:" + error);
+    }
+  };
 
-);
+  useEffect(() =>{ 
+    getScenesFromApi()
+  }, []);
+
+  //Research result item structure and filling
+  const renderData = (item) => {
+    return (
+    <Card
+      style={styles.itemContainer}
+      onPress={()=>navigation.navigate("Détails compte", {item: item})}>
+        <Card.Title
+          title={item.nom + " "+ item.prenom}
+          subtitle={item.ville}
+          left={(props) => <Image style={styles.thumbnail}
+          source={require('../assets/default-avatar-profile-icon.jpeg')}/>}
+          right={(props) => <IconButton 
+            icon="email" 
+            onPress={() => Alert.alert("Envoyer un message à la personne")}
+            color={colors.primary} />}
+          />
+      </Card>
+      );
+    }
+
 
 //Action when user clicks on an item of the resulted search
 const set_action = () => {
@@ -75,10 +96,10 @@ const set_filter = () => {
   Alert.alert('Selectionner les paramètres du filtre + rafraichir');
 };
 
-const SearchSceneScreen = () => {
+
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Search_bar />
       <View style={styles.filterContainer}>  
         <Button_filter_Tag name="Tag"
@@ -90,15 +111,18 @@ const SearchSceneScreen = () => {
          />
       </View>
       {/* Results of the research */}
-      <VirtualizedList
-        data={DATA}
-        initialNumToRender={4}
-        renderItem={({ item }) => <Item title={item.title} />}
-        keyExtractor={_keyExtractor}
-        getItemCount={getItemCount}
-        getItem={getItem}
+      <FlatList
+        style = {styles.listContainer}
+        data = {data}
+        renderItem = {({item}) => {
+          // console.log(data)
+          return renderData(item)
+        }}
+        onRefresh = {() => loadData()}
+        refreshing = {loading}
+        keyExtractor = {item => `${item.numcompte}`}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -110,13 +134,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 5,
   },
-  item: {
-    padding: 10,
-    backgroundColor: colors.white,
-    marginVertical: 5,
-    marginHorizontal: 10,
-    borderRadius: 5,
+  listContainer: {
+    backgroundColor: colors.light,
+    paddingTop: 10,
+  },
+  itemContainer: {
+    marginVertical:5,
+    marginHorizontal: 20,
   },
   shadowProp: {
     shadowColor: colors.dark,
@@ -124,7 +150,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 3,
   },
+  thumbnail: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+  }
 })
 
-
-export default SearchSceneScreen;
+export default SearchUserScreen;
