@@ -4,6 +4,7 @@ import colors from '../config/colors';
 import Dialog from "react-native-dialog";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CalendarPicker from 'react-native-calendar-picker';
+import { utc } from 'moment';
 
 
 const Button_filter_Date = (props) => {
@@ -19,6 +20,7 @@ const Button_filter_Date = (props) => {
 
   //Variables for calendar date picker
   const [selectedStartDate, setSelectedStartDate] = useState();
+
   const startDate = selectedStartDate
     ? selectedStartDate.format('YYYY-MM-DD').toString()
     : '';

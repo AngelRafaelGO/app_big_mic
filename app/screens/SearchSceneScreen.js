@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {  View, StyleSheet, FlatList, Alert } from 'react-native';
+import {  View, StyleSheet, FlatList, Alert, TouchableOpacity, Text } from 'react-native';
 import colors from '../config/colors';
 import { Button_filter_Tag, Button_filter_Date} from './../components/componentsIndex'; 
 import { Card, Badge, Searchbar, Button, Provider, Divider , Menu} from 'react-native-paper';
@@ -62,8 +62,23 @@ const SearchSceneScreen = ({navigation}) => {
   }
   removeValue();
 
+  
   const [selectedDate, setSelectedDate] = useState('');
   console.log("Selected Date: " + selectedDate);
+
+  //Query to apply date filter
+  const getScenesDateFilteredScenes = async () => {
+    try {
+      const response = await fetch(`http://64.225.72.25:5000/'/scenefiltered/${[4, selectedDate]}'`, {
+        method: 'GET',
+      });
+      const scenes = await response.json();
+      setFilteredDataSource(scenes);
+      setMasterDataSource(scenes);
+    } catch (error) {
+      console.error("ERROR in query:" + error);
+    }
+  };
 
   // Query to display the list of all scenes
   const getScenesFromApi = async () => {
@@ -140,13 +155,14 @@ const SearchSceneScreen = ({navigation}) => {
   const openMenu = () => setVisibleMenu(true);
   const closeMenu = () => setVisibleMenu(false);
   const today = new Date(); 
-  console.log(today)
-  const getDatePlusWeek = () =>{
-    return new Date(today.getFullYear(), today.getMonth(), today.getDate()+7)
+  const year = today.getFullYear()
+  const month = today.getMonth()
+  const day = today.getDate()
+  const getDatePlusDays = (value) =>{
+    const newDate = new Date(year, month, day + value)
+    return newDate.toISOString().split('T')[0]
   }
-  const getDatePlusMonth = () =>{
-    return new Date(today.getFullYear(), today.getMonth(), today.getDate()+30)
-  }
+ 
 
   return (
     <View style={styles.container}>
@@ -166,17 +182,19 @@ const SearchSceneScreen = ({navigation}) => {
             style={styles.menu}
             visible={visibleMenu}
             onDismiss={closeMenu}
-            anchor={<Button 
+            anchor={<TouchableOpacity 
               onPress={openMenu}
-              style={styles.buttonContainer}
-              >Date</Button>}
+              style= {styles.buttonContainer}
+              >
+                <Text>Date</Text>
+                </TouchableOpacity>}
             >
             <Menu.Item onPress={() => {
-              setSelectedDate(getDatePlusWeek());
+              setSelectedDate(getDatePlusDays(7));
               closeMenu;
             }} title="La semaine prochaine" />
             <Menu.Item onPress={() => {
-              setSelectedDate(getDatePlusMonth());
+              setSelectedDate(getDatePlusDays(30));
               closeMenu;;
               }} title={"Le mois prochain"} />
             <Divider />
@@ -187,7 +205,10 @@ const SearchSceneScreen = ({navigation}) => {
       </Provider>
         <Button 
         icon= "filter"
-        onPress={() => getSelectedDate()}
+        onPress={() => {
+          getSelectedDate();
+          getScenesDateFilteredScenes();
+        }}
         color = {colors.primary}
         labelStyle={{color:colors.primary}}
         compact={true}
@@ -212,6 +233,10 @@ const styles = StyleSheet.create({
     position: 'relative',
     padding: 10,
     margin: 5,
+    backgroundColor: colors.light,
+    borderRadius: 15,
+    width: 80,
+    alignItems: "center",
   },
   container:{
     backgroundColor: colors.white,
@@ -220,7 +245,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     paddingBottom: 5,
   },
   listContainer: {
@@ -238,8 +262,8 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   menu: {
-    top: 70,
-    left: 20,
+    top: 65,
+    borderRadius: 5,
   },
   searchinputStyle: {
     margin: 5,
