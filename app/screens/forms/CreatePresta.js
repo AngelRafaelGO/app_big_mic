@@ -3,59 +3,88 @@ import {View, Text, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, Touc
 import {TextInput, Button} from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import colors from '../../config/colors';
+// import ImagePicker from "react-native-image-picker";
+//import {launchImageLibrary} from 'react-native-image-picker';
+
 
 function CreatePresta(props, {navigation}) {
-    const [numcompte, setnumcompte] = useState("")
+
+    const [numcompte, setnumcompte] = useState(null)
     const [titreprest, settitreprest] = useState("")
     const [descprest, setdescprest] = useState("")
     const [lienprest, setlienprest] = useState("")
-    const [numphoto, setnumphoto] = useState("")
+    const [numphoto, setnumphoto] = useState(null)
 
     const [fichierphoto, setFichierphoto] = useState("")
 
     const [image, setImage] = useState("");
     
-    const pick = async (props) => {        
+    const setBlob = async() => {
+        let uriParts = fichierphoto.uri.split(".");
+        let uriExtension = "image/" + uriParts[uriParts.length-1];
+        console.log("file type: " + uriExtension);
+
+        // var toto = document.querySelector(fichierphoto.uri);
+        // var formdatas = new FormData(toto);
+
+        const imgfile = await fetch(fichierphoto.uri);
+        // const blob = new Blob(0, {type: uriExtension})
+        // blob = await imgfile.blob();
+        // blob = blob.slice(0,blob.size,"image/" + uriExtension);
+        let formdata = new FormData;
+        formdata.append('Image/' + uriExtension, imgfile);
+        console.log("type : " + formdata.type);
+        setImage(formdata);
+        console.log(formdata);
+    }
+
+    const pickImage = async (props) => {
+        
         let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 1,
         });
-
-        console.log("ImagePicker returns: " + result.uri);
-
-        if (result.cancelled){
-            result.uri = '';
-            console.log('cancelled');
+    
+          console.log("ImagePicker returns: " + result.uri);
+    
+          if (!result.cancelled){
+              setFichierphoto(result);
+          } else {
+              console.log('cancelled');
         }
-        setImage(result);
-        setFichierphoto(result.uri);
-    }
+      }
 
     const insertData = (navigation) => {
-        console.log("image sélectionnée: " + image.uri);
-        if(image.uri != ''){
-            console.log(image.uri);
-            fetch('http://64.225.72.25:5000/addphoto', {
+        console.log("image sélectionnée: " + fichierphoto.uri);
+        if(fichierphoto.uri != ''){
+            setBlob();
+            console.log(fichierphoto.uri);
+            console.log(image.size);
+            fetch('http://64.225.72.25:5000/addphototest', {
                 method : 'POST',
                 headers: {
-                    'Content-Type' : 'multipart/form-data'
+                    'Content-Type' : 'application/json'
                 },
-                body: JSON.stringify({fichierphoto: fichierphoto})
+                body: JSON.stringify({fichierphoto: image})
             })
             .then(resp => resp.json())
             .then(data => {
                 console.log('numero: ' + data.numphoto)
-                setnumphoto(data.numphoto)
+                // setnumphoto(data.numphoto)
+                setnumphoto(null);
             })
-            .catch(error => console.log("Image couldn't be stored properly: " + error))
-        }
+            .catch(error => {
+                console.log("Image couldn't be stored properly: " + error);
+                setnumphoto(1);
+            })
+        } else Alert.Alert("Pas d'image sélectionnée");
 
         fetch('http://64.225.72.25:5000/addpresta', {
             method : 'POST',
             headers: {
                 'Content-Type' : 'application/json'
             },
-            body: JSON.stringify({numcompte:numcompte, titreprest:titreprest, descprest:descprest, lienprest:lienprest})
+            body: JSON.stringify({numcompte:numcompte, titreprest:titreprest, descprest:descprest, lienprest:lienprest, numphoto:numphoto})
         })
         .then(resp => resp.json())
         .then(data => {
@@ -95,8 +124,9 @@ function CreatePresta(props, {navigation}) {
         />
         <TouchableOpacity 
             style={styles.imgView} 
-            onPress={() => pick()}>
-                <Image source={{ uri : image.uri !== null ? image.url: '../../assets/No_Image_uploaded.png'}} style = {styles.img} />
+            onPress={() => pickImage()}>
+                <Image source={{ uri : fichierphoto.uri}} style = {styles.img} />
+                {/* <Image source={{ uri : fichierphoto.uri !== null ? image.url: '../../assets/No_Image_uploaded.png'}} style = {styles.img} /> */}
         </TouchableOpacity>
 
         <View style = {styles.btnStyle} >
@@ -164,3 +194,6 @@ const styles = StyleSheet.create ({
 });
 
 export default CreatePresta;
+
+
+{/* <ActivityIndicator style={style.View} color="#FF0000" size= "large" animating={true} /> */}

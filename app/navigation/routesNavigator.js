@@ -4,7 +4,8 @@ import {
     LoginScreen, CreateAccount, CreateAccountS2, 
     ProfilScreen, Loading, ProfilOptions, SceneForm, 
     CreatePresta, WelcomeScreen, PrestaDetails, EditPresta, 
-    SceneDetails, Scenes, SceneFormEdit
+    SceneDetails, Scenes, SceneFormEdit,
+    CreateLieu, EditLieu, LieuDetails
     } 
 from '../screens/screensIndex';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -93,6 +94,18 @@ const ProfilStackScreen = () => (
          <ProfilStack.Screen 
         name='Scenes'
         component={Scenes}
+        />
+        <ProfilStack.Screen 
+        name='CreateLieu'
+        component={CreateLieu}
+        /> 
+        <ProfilStack.Screen 
+        name='EditLieu'
+        component={EditLieu}
+        /> 
+        <ProfilStack.Screen 
+        name='LieuDetails'
+        component={LieuDetails}
         /> 
     </ProfilStack.Navigator>
 );
