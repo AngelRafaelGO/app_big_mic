@@ -47,8 +47,6 @@ const Button_filter_Date = (props) => {
       storeData(startDate);
       setVisible(false);
     };
-
-
     
     return (
       <View >

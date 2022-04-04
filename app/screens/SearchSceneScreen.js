@@ -158,9 +158,38 @@ const SearchSceneScreen = ({navigation}) => {
             anchor={<TouchableOpacity 
               onPress={openMenu}
               style= {styles.buttonContainer}
+              
               >
-                <Text>Date</Text>
-                </TouchableOpacity>}
+                  <Text>Date</Text>
+                  <Text
+                      style={{color:colors.dark, fontSize:12}}>{selectedDate}</Text>
+                      <View style={{flexDirection:'row'}}>
+                        <Button 
+                        icon= "check"
+                        onPress={() => {
+                          getSelectedDate();
+                          getScenesDateFilteredScenes();
+                          setSearch('');
+                          closeMenu();
+                        }}
+                        color = {colors.primary}
+                        labelStyle={{color:colors.primary}}
+                        compact={true}
+                        /> 
+                        <Button 
+                        icon= "close"
+                        onPress={() => {
+                          setSelectedDate('');
+                          getScenesFromApi();
+                        }}
+                        color = {colors.primary}
+                        labelStyle={{color:colors.primary}}
+                        compact={true}
+                        /> 
+                      </View>
+                </TouchableOpacity>
+                
+                }
             >
             <Menu.Item onPress={() => {
               setSelectedDate(getDatePlusDays(7));
@@ -171,25 +200,17 @@ const SearchSceneScreen = ({navigation}) => {
               closeMenu();
               }} title={"Le mois prochain"} />
             <Divider />
-              <Button_filter_Date
-              name={"Choisir une date"}/>
+            <Button_filter_Date
+            name={"Choisir une date"}/>
           </Menu>
 
       </Provider>
-        <Button 
-        icon= "filter"
-        onPress={() => {
-          getSelectedDate();
-          getScenesDateFilteredScenes();
-          setSearch('');
-        }}
-        color = {colors.primary}
-        labelStyle={{color:colors.primary}}
-        compact={true}
-        > Appliquer </Button>
+      
+        
       </View>
       {/* Results of the research */}
-      <View>
+      <View
+      style={{zIndex: 2}}>
         <FlatList
           style = {styles.listContainer}
           data = {filteredDataSource}
@@ -207,19 +228,21 @@ const SearchSceneScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     position: 'relative',
-    padding: 10,
-    margin: 5,
+    padding: 5,
+    margin: 20,
     backgroundColor: colors.light,
     borderRadius: 15,
-    width: 80,
     alignItems: "center",
+    paddingLeft:20,
   },
   container:{
     backgroundColor: colors.white,
   },
   filterContainer: {
+    zIndex: 4,
     backgroundColor: colors.white,
     flexDirection: 'row',
     alignItems: 'center',
@@ -243,7 +266,6 @@ const styles = StyleSheet.create({
     position:"absolute",
     zIndex: 1000,
     top: 65,
-    borderRadius: 5,
   },
   searchinputStyle: {
     margin: 5,
