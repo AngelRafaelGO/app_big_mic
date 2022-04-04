@@ -1,61 +1,56 @@
 import React, {useState} from 'react';
 import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity,  ScrollView , Style} from 'react-native';
-import {TextInput, Button, Dialog} from 'react-native-paper';
-import {Button_filter_Date, SelectDate }from '../../components/componentsIndex';
+import {TextInput, Button} from 'react-native-paper';
+
 import colors from '../../config/colors';
-import { AuthContext } from '../../config/context';
 
-function SceneForm(props, {navigation}) {
+function SceneFormEdit (props,{navigation}) {
 
-    const [titrescene, settitrescene] = useState('');
-    const [adrscene, setadrscene] = useState('');
-    const [descscene, setdescscene] = useState('');
-    const [criteres, setcriteres] = useState('');
-    const [datescene, setdatescene] = useState('');
-    const [recurrence, setrecurrence] = useState('');
+    // const {item} = route.params;
+    // console.log(item);
+    const item = props.route.params.data;
+
+    const [titrescene, settitrescene] = useState(item.titrescene);
+    const [adrscene, setadrscene] = useState(item.adrscene);
+    const [descscene, setdescscene] = useState(item.descscene);
+    const [criteres, setcriteres] = useState(item.criteres);
+    const [datescene, setdatescene] = useState(item.datescene);
+    const [recurrence, setrecurrence] = useState(item.recurrence);
     const [numphoto, setnumphoto] = useState(1);
     const [numcompte, setnumcompte] = useState(2);
 
-    const insertData = () => {
-        fetch('http://64.225.72.25:5000/addscene', {
-            method : 'POST',
+    const deleteData = () => {
+        fetch(`http://64.225.72.25:5000/deletescene/${item.numscene}`,{
+            method: 'DELETE'
+        })
+        .then(data => {
+            navigation.navigate('Profil')
+            })
+
+        .catch(error => console.log('delete error' + error)) 
+    }
+
+    const updateData = () => {
+        fetch(`http://64.225.72.25:5000/updatescene/${item.numscene}`, {
+            method : 'PUT',
             headers: {
                 'Content-Type' : 'application/json'
             },
-            body: JSON.stringify({titrescene: titrescene, 
-                datescene: datescene, 
-                numphoto: numphoto, 
-                criteres: criteres, 
-                recurrence: recurrence, 
-                adrscene: adrscene, 
-                descscene: descscene, 
-                numcompte: numcompte}),
+            body: JSON.stringify({titrescene: titrescene, datescene: datescene, numphoto: numphoto, criteres: criteres, recurrence: recurrence, adrscene: adrscene, descscene: descscene, numcompte: numcompte})
         })
         .then(resp => resp.json())
-        .then((data) => {
+        .then(data => {
             props.navigation.navigate('Profil')
         })
-        .catch(error => console.log("POST error: " + error))
+        .catch(error => console.log("PUT error: " + error))
     }
 
-    const [selectedDate, setSelectedDate] = useState('');
-
     return (
-        console.log({titrescene: titrescene, 
-            datescene: datescene, 
-            numphoto: numphoto, 
-            criteres: criteres, 
-            recurrence: recurrence, 
-            adrscene: adrscene, 
-            descscene: descscene, 
-            numcompte: numcompte}),
         <ScrollView styles={styles.container}> 
-            <View style={{alignItems: 'center', marginTop: 15}} >
+            
 
-            </View>
-
-            <Text style={{fontWeight: 'bold', margin: 20, fontSize: 20, alignItems:'center', textAlign:'center' }}> Création de ma scène  </Text>
-            <View>
+            <Text style={{fontWeight: 'bold', margin: 20, fontSize: 20, alignItems:'center', textAlign:'center', marginTop:15 }}> Editer ma scène  </Text>
+            
                     
                     <TextInput style={styles.textInput}
                                 label = "Titre de la scène"
@@ -83,22 +78,19 @@ function SceneForm(props, {navigation}) {
                                 value = {criteres}
                                 mode="outlined"
                                 onChangeText={ (val) => setcriteres(val)} />
-                    <Button_filter_Date 
-                                name= {'choisissez la date'}
+                    <TextInput style={styles.textInput}
+                                label = "Dates de la scène"
+                                value = {datescene}
+                                mode="outlined"
+                                onChangeText={ (val) => setdatescene(val)} 
                                  />
-                                 <Text>{selectedDate}</Text>
-                    <View>
-                    <Image style= {{marginLeft: 'auto',marginRight: 'auto', margin: 20}} source={require('../../assets/SceneImage.png')} />     
-                    </View>        
-                    <TouchableOpacity   
-                    style = {styles.button}
-                    onPress = { () => insertData()}
-
-                    >
-                        <Text style={styles.textButton}> Valider </Text>   
-                        </TouchableOpacity>      
-            </View>  
-
+                    <Image style= {{marginLeft: 'auto',marginRight: 'auto', margin: 20}} source={require('../../assets/SceneImage.png')} />                 
+                        <TouchableOpacity   
+                        style = {styles.button}
+                        icon="pencil"
+                        onPress = { () => updateData()}>
+                        <Text style={styles.textButton}> Modifier </Text>   
+                        </TouchableOpacity>                           
         </ScrollView>
     );
 };
@@ -120,7 +112,8 @@ const styles = StyleSheet.create({
         
     },
     button: {
-        margin: 30,
+        
+        margin: 20,
         backgroundColor: '#FF4858',
         alignItems:'center'
         // justifyContent: 'center',
@@ -140,4 +133,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SceneForm;
+export default SceneFormEdit;
