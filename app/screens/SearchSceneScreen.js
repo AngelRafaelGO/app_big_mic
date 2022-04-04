@@ -139,6 +139,14 @@ const SearchSceneScreen = ({navigation}) => {
   const [visibleMenu, setVisibleMenu] = React.useState(false);
   const openMenu = () => setVisibleMenu(true);
   const closeMenu = () => setVisibleMenu(false);
+  const today = new Date(); 
+  console.log(today)
+  const getDatePlusWeek = () =>{
+    return new Date(today.getFullYear(), today.getMonth(), today.getDate()+7)
+  }
+  const getDatePlusMonth = () =>{
+    return new Date(today.getFullYear(), today.getMonth(), today.getDate()+30)
+  }
 
   return (
     <View style={styles.container}>
@@ -163,8 +171,14 @@ const SearchSceneScreen = ({navigation}) => {
               style={styles.buttonContainer}
               >Date</Button>}
             >
-            <Menu.Item onPress={() => {}} title="La semaine prochaine" />
-            <Menu.Item onPress={() => {}} title={"Le mois prochain"} />
+            <Menu.Item onPress={() => {
+              setSelectedDate(getDatePlusWeek());
+              closeMenu;
+            }} title="La semaine prochaine" />
+            <Menu.Item onPress={() => {
+              setSelectedDate(getDatePlusMonth());
+              closeMenu;;
+              }} title={"Le mois prochain"} />
             <Divider />
               <Button_filter_Date
               name={"Choisir une date"}/>

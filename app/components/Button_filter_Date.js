@@ -24,7 +24,7 @@ const Button_filter_Date = (props) => {
     : '';
 
   const minDate = new Date(); // Today
-  const maxDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getFullYear()+3);
+  const maxDate = new Date(minDate.getFullYear()+3, minDate.getMonth(), minDate.getDate());
   
   //Config dialog box handler
   const [visible, setVisible] = useState(false);
