@@ -87,8 +87,8 @@ const SearchSceneScreen = ({navigation}) => {
 
   //Research result item structure and filling
   const renderData = (item) => {
-    var month = '00';
-    var day = '00';
+    var month = 'NR';
+    var day = 'NR';
     if(item.datescene !== null){
       const date = item.datescene.split('-');
       month = date[1];
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   itemDate: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: 'bold',
     backgroundColor: colors.primary, 
     color: colors.white,

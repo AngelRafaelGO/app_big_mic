@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView, Linking } from "react-native";
 import { Paragraph, Subheading, Card } from "react-native-paper";
 
 const PrestaCard = ({route}) =>{
@@ -20,7 +20,7 @@ const PrestaCard = ({route}) =>{
                         {prestas.descprest}
                     </Paragraph>
                     <Subheading>Lien</Subheading>
-                    <Paragraph>
+                    <Paragraph onPress={() => {if(prestas.lienprest){Linking.openURL(prestas.lienprest.toString())}}}>
                         {prestas.lienprest}
                     </Paragraph>
                 </Card.Content>
