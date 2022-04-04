@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, SafeAreaView, StyleSheet, View, TextInput, Text, TouchableOpacity } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, View, TextInput, Text, TouchableOpacity, Alert } from 'react-native';
 
 import { AuthContext } from '../../config/context';
 import colors from '../../config/colors';
@@ -8,7 +8,6 @@ function LoginScreen() {
 
     const { signIn } = React.useContext(AuthContext);
     const [password, setPassword] = React.useState();
-
     const [mail, setMail] = useState('');
     const [userData, setUserData] = useState([]);
 
@@ -20,7 +19,20 @@ function LoginScreen() {
         .then(userObject => {
             setUserData(userObject);
             const { motdepasse } = userData[0];
-            if (motdepasse == password) {
+            if (motdepasse != password) {
+                Alert.alert(
+                    "Mot de passe ou email incorrects",
+                    "Veuillez réessayer",
+                    [
+                      {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                      },
+                      { text: "OK", onPress: () => console.log("OK Pressed") }
+                    ]
+                );
+            } else if (motdepasse == password) {
                 signIn(password);
             }
         })

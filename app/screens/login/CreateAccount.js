@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { SafeAreaView, View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Alert } from "react-native";
 
 import colors from '../../config/colors';
 import { AuthContext } from '../../config/context';
@@ -7,7 +7,7 @@ import { AuthContext } from '../../config/context';
 function CreateAccount(props, {navigation, route }) {
 
     const { signUp } = React.useContext(AuthContext);
-
+    const [userData, setUserData] = useState([]);
     const [nom, setNom] = useState('');
     const [prenom, setPrenom] = useState('');
     const [email, setEmail] = useState('');
@@ -17,23 +17,45 @@ function CreateAccount(props, {navigation, route }) {
     const psudo = 'sudo';
     const ville = 'paris';
     const tel = '1234';
-    // const photo = 1;
 
-    const insertData = (navigation) => {
-        fetch('http://64.225.72.25:5000/addcompte', {
-            method : 'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({nom:nom, prenom:prenom, motdepasse:motDePasse, 
-                ville:ville, tel:tel, pseudo:psudo, mail:email, numphoto:numphoto})
-        })
+    const insertData = (email) => {
+        fetch(`http://64.225.72.25:5000/getmail/${email}`, {
+            method : 'GET',
+        }) 
         .then(resp => resp.json())
-        .then(data => {
-            signUp(motDePasse)
-            //props.navigation.navigate('Profil')
+        .then(userObject => {
+            setUserData(userObject);
+            const { mail } = userData[0];
+            if (mail == email) {
+                Alert.alert(
+                    "Ce mail a été déjà pris",
+                    "Veuillez réessayer",
+                    [
+                      {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                      },
+                      { text: "OK", onPress: () => console.log("OK Pressed") }
+                    ]
+                );
+            } else {
+                fetch('http://64.225.72.25:5000/addcompte', {
+                    method : 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({nom:nom, prenom:prenom, motdepasse:motDePasse, 
+                        ville:ville, tel:tel, pseudo:psudo, mail:email, numphoto:numphoto})
+                })
+                .then(resp => resp.json())
+                .then(() => {
+                    signUp(motDePasse)
+                })
+                .catch(error => console.log("POST error: " + error))
+            }
         })
-        .catch(error => console.log("POST error: " + error))
+        .catch(error => console.log("ERROR caught:\n" + error))
     }
 
     return (
@@ -70,7 +92,7 @@ function CreateAccount(props, {navigation, route }) {
                 />
                 <TouchableOpacity 
                 style={styles.createAccountTouchable} 
-                onPress={() => insertData()}
+                onPress={() => insertData(email)}
                 >
                     <Text style={styles.nextScreenTouchable}>
                         Suivant
