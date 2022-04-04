@@ -4,19 +4,34 @@ import {TextInput, Button} from 'react-native-paper';
 
 import colors from '../../config/colors';
 
-function SceneFormEdit ({navigation}) {
+function SceneFormEdit (props,{navigation}) {
 
-    const [titrescene, settitrescene] = useState('');
-    const [adrscene, setadrscene] = useState('');
-    const [descscene, setdescscene] = useState('');
-    const [criteres, setcriteres] = useState('');
-    const [datescene, setdatescene] = useState('');
-    const [recurrence, setrecurrence] = useState('');
+    // const {item} = route.params;
+    // console.log(item);
+    const item = props.route.params.data;
+
+    const [titrescene, settitrescene] = useState(item.titrescene);
+    const [adrscene, setadrscene] = useState(item.adrscene);
+    const [descscene, setdescscene] = useState(item.descscene);
+    const [criteres, setcriteres] = useState(item.criteres);
+    const [datescene, setdatescene] = useState(item.datescene);
+    const [recurrence, setrecurrence] = useState(item.recurrence);
     const [numphoto, setnumphoto] = useState(1);
     const [numcompte, setnumcompte] = useState(2);
 
-    const insertData = () => {
-        fetch('http://64.225.72.25:5000/updatescene/${data.numscene}', {
+    const deleteData = () => {
+        fetch(`http://64.225.72.25:5000/deletescene/${item.numscene}`,{
+            method: 'DELETE'
+        })
+        .then(data => {
+            navigation.navigate('Profil')
+            })
+
+        .catch(error => console.log('delete error' + error)) 
+    }
+
+    const updateData = () => {
+        fetch(`http://64.225.72.25:5000/updatescene/${item.numscene}`, {
             method : 'PUT',
             headers: {
                 'Content-Type' : 'application/json'
@@ -32,14 +47,10 @@ function SceneFormEdit ({navigation}) {
 
     return (
         <ScrollView styles={styles.container}> 
-            <View style={{alignItems: 'center', marginTop: 50}} >
-            <Image source={require('../../assets/SceneImage.png')} />
+            
 
-            </View>
-
-
-            <Text style={{fontWeight: 'bold', margin: 20, fontSize: 20, alignItems:'center', textAlign:'center' }}> Editer ma scène  </Text>
-            <View>
+            <Text style={{fontWeight: 'bold', margin: 20, fontSize: 20, alignItems:'center', textAlign:'center', marginTop:15 }}> Editer ma scène  </Text>
+            
                     
                     <TextInput style={styles.textInput}
                                 label = "Titre de la scène"
@@ -73,21 +84,13 @@ function SceneFormEdit ({navigation}) {
                                 mode="outlined"
                                 onChangeText={ (val) => setdatescene(val)} 
                                  />
-                    <View style={{flex:1, alignItems: 'center'}}>
+                    <Image style= {{marginLeft: 'auto',marginRight: 'auto', margin: 20}} source={require('../../assets/SceneImage.png')} />                 
                         <TouchableOpacity   
                         style = {styles.button}
-                        onPress = { () => insertData()}>
+                        icon="pencil"
+                        onPress = { () => updateData()}>
                         <Text style={styles.textButton}> Modifier </Text>   
-                        </TouchableOpacity>   
-
-                        <TouchableOpacity   
-                        style = {styles.button}
-                        onPress = { () => insertData()}>
-                        <Text style={styles.textButton}> Supprimer </Text>   
-                        </TouchableOpacity>  
-                    </View>   
-
-            </View>   
+                        </TouchableOpacity>                           
         </ScrollView>
     );
 };
@@ -109,7 +112,8 @@ const styles = StyleSheet.create({
         
     },
     button: {
-        margin: 30,
+        
+        margin: 20,
         backgroundColor: '#FF4858',
         alignItems:'center'
         // justifyContent: 'center',

@@ -4,13 +4,16 @@ import { Card , Badge, FAB} from 'react-native-paper';
 import colors from '../config/colors';
 
 
-
 const Scenes = ({navigation}) => {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const [userId, setUserId] = useState('4')
+
+    const clickedItem = (data) => {
+      navigation.navigate('SceneDetails', {data:data})
+    };
 
     //Item scene structure and filling
     const renderSceneList = (item) => {
@@ -24,7 +27,7 @@ const Scenes = ({navigation}) => {
     return (
     <Card
     style={styles.itemContainer}
-    onPress={()=>navigation.navigate("CreateScene", {item: item})}>
+    onPress={()=>clickedItem(item)}>
       <Card.Title
         title={item.titrescene}
         subtitle={item.descscene}

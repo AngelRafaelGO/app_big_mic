@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity,  ScrollView , Style} from 'react-native';
-import {TextInput, Button} from 'react-native-paper';
-
+import {TextInput, Button, Dialog} from 'react-native-paper';
+import {Button_filter_Date, SelectDate }from '../../components/componentsIndex';
 import colors from '../../config/colors';
+import { AuthContext } from '../../config/context';
 
 function SceneForm(props, {navigation}) {
 
@@ -37,7 +38,7 @@ function SceneForm(props, {navigation}) {
         .catch(error => console.log("POST error: " + error))
     }
 
-
+    const [selectedDate, setSelectedDate] = useState('');
 
     return (
         console.log({titrescene: titrescene, 
@@ -49,11 +50,9 @@ function SceneForm(props, {navigation}) {
             descscene: descscene, 
             numcompte: numcompte}),
         <ScrollView styles={styles.container}> 
-            <View style={{alignItems: 'center', marginTop: 50}} >
-            <Image source={require('../../assets/SceneImage.png')} />
+            <View style={{alignItems: 'center', marginTop: 15}} >
 
             </View>
-
 
             <Text style={{fontWeight: 'bold', margin: 20, fontSize: 20, alignItems:'center', textAlign:'center' }}> Création de ma scène  </Text>
             <View>
@@ -84,12 +83,13 @@ function SceneForm(props, {navigation}) {
                                 value = {criteres}
                                 mode="outlined"
                                 onChangeText={ (val) => setcriteres(val)} />
-                    <TextInput style={styles.textInput}
-                                label = "Dates de la scène"
-                                value = {datescene}
-                                mode="outlined"
-                                onChangeText={ (val) => setdatescene(val)} 
+                    <Button_filter_Date 
+                                name= {'choisissez la date'}
                                  />
+                                 <Text>{selectedDate}</Text>
+                    <View>
+                    <Image style= {{marginLeft: 'auto',marginRight: 'auto', margin: 20}} source={require('../../assets/SceneImage.png')} />     
+                    </View>        
                     <TouchableOpacity   
                     style = {styles.button}
                     onPress = { () => insertData()}
@@ -97,7 +97,8 @@ function SceneForm(props, {navigation}) {
                     >
                         <Text style={styles.textButton}> Valider </Text>   
                         </TouchableOpacity>      
-            </View>   
+            </View>  
+
         </ScrollView>
     );
 };
