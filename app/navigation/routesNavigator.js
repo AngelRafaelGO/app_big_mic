@@ -43,11 +43,6 @@ const LoginStackScreen = () => (
         component={CreateAccount} 
         options={{ title: '' }}
         />
-        <LoginStack.Screen 
-        name='CreateAccount2'
-        component={CreateAccountS2}
-        options={{ title: '' }}
-        />
     </LoginStack.Navigator>
 );
 
@@ -66,6 +61,11 @@ const ProfilStackScreen = () => (
         name='ProfilOptions'
         component={ProfilOptions}
         options={{ title: 'Options de compte' }}
+        />
+        <TabsMainStack.Screen 
+        name='ChangerImage'
+        component={ChangeProImage}
+        options={{ title: 'Modifier photo profil'}}
         />
         <ProfilStack.Screen 
         name='CreateScene'
@@ -134,7 +134,6 @@ const MainScreen = () => (
             ),
         }}
         />
-        
         <TabsMainStack.Screen 
         name='Compte'
         component={ProfilStackScreen}
@@ -152,6 +151,7 @@ const MainScreen = () => (
 );
 
 export function RootNavigator() {
+
     const [isLoading, setIsLoading] = React.useState(true);
     const [userPassword, setUserPassword] = React.useState(null);
 

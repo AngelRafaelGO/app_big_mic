@@ -103,7 +103,10 @@ const SearchSceneScreen = ({navigation}) => {
       subtitle={item.descscene}
       left={(props) => <Badge 
         size={50} 
-        style= {styles.itemDate}>{day}.{month}</Badge>}
+        style= {styles.itemDate}
+        >
+          
+        </Badge>}
       />
     </Card>
     );

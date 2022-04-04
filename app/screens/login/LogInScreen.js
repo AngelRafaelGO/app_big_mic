@@ -1,5 +1,5 @@
-import React from 'react';
-import { Image, SafeAreaView, StyleSheet, View, TextInput, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { Image, SafeAreaView, StyleSheet, View, TextInput, Text, TouchableOpacity, Alert } from 'react-native';
 
 import { AuthContext } from '../../config/context';
 import colors from '../../config/colors';
@@ -7,12 +7,39 @@ import colors from '../../config/colors';
 function LoginScreen() {
 
     const { signIn } = React.useContext(AuthContext);
-
     const [password, setPassword] = React.useState();
-    const [email, setEmail] = React.useState();
+    const [mail, setMail] = useState('');
+    const [userData, setUserData] = useState([]);
+
+    const getMail = (mail) => {
+        fetch(`http://64.225.72.25:5000/getmail/${mail}`, {
+            method : 'GET',
+        }) 
+        .then(resp => resp.json())
+        .then(userObject => {
+            setUserData(userObject);
+            const { motdepasse } = userData[0];
+            if (motdepasse != password) {
+                Alert.alert(
+                    "Mot de passe ou email incorrects",
+                    "Veuillez réessayer",
+                    [
+                      {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                      },
+                      { text: "OK", onPress: () => console.log("OK Pressed") }
+                    ]
+                );
+            } else if (motdepasse == password) {
+                signIn(password);
+            }
+        })
+        .catch(error => console.log("ERROR caught:\n" + error))
+    }
 
     return (
-
         <SafeAreaView style={styles.background}>
             <View style={styles.logoTitleContainer}>
                 <Image style={styles.logo} source={require("../../assets/microImage.jpg")}/>
@@ -20,20 +47,22 @@ function LoginScreen() {
             </View>
             <View style={styles.inputContainer}>
                 <TextInput 
+                placeholder='Email'
                 textContentType='emailAddress'
                 keyboardType='email-address' 
                 style={styles.loginText} 
-                onChangeText={(email) => setEmail(email)}
+                onChangeText={(mail) => setMail(mail)}
                 />
                 <TextInput 
+                placeholder='Mot de pass'
                 textContentType='password'
                 secureTextEntry={true}
                 style={styles.loginText} 
-                onChangeText={(password) => setPassword(password)}
+                onChangeText={(text) => setPassword(text)}
                 />
                 <TouchableOpacity 
                 style={styles.loginTouch}
-                onPress={() => signIn(password)}
+                onPress={() => getMail(mail)}
                 >
                     <Text style={styles.touchText}>
                         Connexion

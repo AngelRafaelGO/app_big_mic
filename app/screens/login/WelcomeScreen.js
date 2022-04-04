@@ -60,11 +60,6 @@ function WelcomeScreen() {
                     style={styles.slideImage}
                     />
                     <Image 
-                    source={require('../../assets/slidesLogin/slideExplo.jpg')}
-                    resizeMode='center'
-                    style={styles.slideImage}
-                    />
-                    <Image 
                     source={require('../../assets/slidesLogin/slideFin.jpg')}
                     resizeMode='center'
                     style={styles.slideImage}
@@ -85,7 +80,7 @@ function WelcomeScreen() {
                 onPress={() => navigation.navigate('Login')}
                 >
                     <Text style={styles.loginTxt}>
-                        J'ai déjà une compte
+                        J'ai déjà un compte
                     </Text>
                 </TouchableOpacity>                
             </View>

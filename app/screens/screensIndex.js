@@ -1,6 +1,5 @@
 export { default as LoginScreen } from './login/LogInScreen';
 export { default as CreateAccount } from './login/CreateAccount';
-export { default as CreateAccountS2 } from './login/CreateAccountS2';
 export { default as ProfilScreen } from './profilScreen';
 export { default as Loading } from './login/Loading';
 export { default as ProfilOptions } from './ProfilOptions';
