@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {  View, StyleSheet, FlatList, Alert } from 'react-native';
 import colors from '../config/colors';
 import { Button_filter_Tag, Button_filter_Date} from './../components/componentsIndex'; 
-import { Card, Badge, Searchbar, Button } from 'react-native-paper';
+import { Card, Badge, Searchbar, Button, Provider, Divider , Menu} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -79,8 +79,6 @@ const SearchSceneScreen = ({navigation}) => {
     }
   };
 
-  console.log(filteredDataSource);
-
   useEffect(() =>{ 
     getScenesFromApi();
   }, []);
@@ -137,6 +135,11 @@ const SearchSceneScreen = ({navigation}) => {
     }
   };
 
+  //Handle Date menu selection
+  const [visibleMenu, setVisibleMenu] = React.useState(false);
+  const openMenu = () => setVisibleMenu(true);
+  const closeMenu = () => setVisibleMenu(false);
+
   return (
     <View style={styles.container}>
       <Searchbar
@@ -149,11 +152,25 @@ const SearchSceneScreen = ({navigation}) => {
      
       <View style={styles.filterContainer}>
           
-        <Button_filter_Date name={"Date "+selectedDate} 
-        />
-        {/* <Button_filter_Tag name="Tag"
-        tagList={tagList}
-        set_action= {set_filter} /> */}
+      <Provider>
+        <View>
+          <Menu
+            style={styles.menu}
+            visible={visibleMenu}
+            onDismiss={closeMenu}
+            anchor={<Button 
+              onPress={openMenu}
+              style={styles.buttonContainer}
+              >Date</Button>}
+            >
+            <Menu.Item onPress={() => {}} title="La semaine prochaine" />
+            <Menu.Item onPress={() => {}} title={"Le mois prochain"} />
+            <Divider />
+              <Button_filter_Date
+              name={"Choisir une date"}/>
+          </Menu>
+        </View>
+      </Provider>
         <Button 
         icon= "filter"
         onPress={() => getSelectedDate()}
@@ -167,7 +184,6 @@ const SearchSceneScreen = ({navigation}) => {
         style = {styles.listContainer}
         data = {filteredDataSource}
         renderItem = {({item}) => {
-          // console.log(data)
           return renderData(item)
         }}
         keyExtractor = {item => `${item.numscene}`}
@@ -177,6 +193,12 @@ const SearchSceneScreen = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    justifyContent: 'center',
+    position: 'relative',
+    padding: 10,
+    margin: 5,
+  },
   container:{
     backgroundColor: colors.white,
   },
@@ -200,6 +222,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     backgroundColor: colors.primary, 
     color: colors.white,
+  },
+  menu: {
+    top: 70,
+    left: 20,
   },
   searchinputStyle: {
     margin: 5,

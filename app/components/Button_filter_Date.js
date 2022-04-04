@@ -28,7 +28,6 @@ const Button_filter_Date = (props) => {
   
   //Config dialog box handler
   const [visible, setVisible] = useState(false);
-
   
 
     const showCalendar = () => {
@@ -90,15 +89,11 @@ const Button_filter_Date = (props) => {
       justifyContent: "center",
     },
     buttonContainer: {
-      backgroundColor: colors.secondary,
-      color: colors.light,
       padding: 10,
       margin: 5,
-      borderRadius: 18,
     },
     button: {
-      width: 80,
-      textAlign: 'center',
+      fontSize: 16,
     },
     filterList: {
       alignItems: 'center',
