@@ -5,7 +5,6 @@ import {Search_bar, Button_filter_Tag, Button_filter_Date} from './../components
 import { Card, Badge } from 'react-native-paper';
 
 
-
 const tagList = [
   {
     id: 1,
@@ -69,6 +68,7 @@ const SearchSceneScreen = ({navigation}) => {
 
   //Research result item structure and filling
   const renderData = (item) => {
+  // const date = item.datescene.split('-');
   return (
   <Card
   style={styles.itemContainer}
@@ -78,7 +78,10 @@ const SearchSceneScreen = ({navigation}) => {
       subtitle={item.descscene}
       left={(props) => <Badge 
         size={50} 
-        style= {styles.itemDate}></Badge>}
+        style= {styles.itemDate}
+        >
+          
+        </Badge>}
       />
     </Card>
     );

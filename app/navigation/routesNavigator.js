@@ -82,10 +82,6 @@ const ProfilStackScreen = () => (
         name='EditPresta'
         component={EditPresta}
         /> 
-        <ProfilStack.Screen 
-        name='CreateLieu'
-        component={CreateLieu}
-        />
     </ProfilStack.Navigator>
 );
 
@@ -113,7 +109,6 @@ const MainScreen = () => (
             ),
         }}
         />
-        
         <TabsMainStack.Screen 
         name='Compte'
         component={ProfilStackScreen}
@@ -131,6 +126,7 @@ const MainScreen = () => (
 );
 
 export function RootNavigator() {
+
     const [isLoading, setIsLoading] = React.useState(true);
     const [userPassword, setUserPassword] = React.useState(null);
 

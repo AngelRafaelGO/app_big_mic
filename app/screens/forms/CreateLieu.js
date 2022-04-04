@@ -13,7 +13,7 @@ function CreatePresta(props, {navigation}) {
     <SafeAreaView style = {styles.safeAreaStyle}>
     <ScrollView style = {styles.ScrollviewStyle}>
         <TextInput style = {styles.textInputStyle}
-            label = "Titre"
+            label = "Nom de l'établissement"
             //value = {titreprest}
             mode="outlined"
             //onChangeText = {text => settitreprest(text)}
@@ -27,13 +27,13 @@ function CreatePresta(props, {navigation}) {
             //onChangeText = {text => setdescprest(text)}
         />
         <TextInput style = {styles.textInputStyle}
-            label = "Lien"
+            label = "Adresse"
             //value = {lienprest}
             mode="outlined"
             //onChangeText = {text => setlienprest(text)}
         />
         <TextInput style = {styles.textInputStyle}
-            label = "Compte"
+            label = "Contraintes"
             //value = {numcompte}
             mode="outlined"
             //onChangeText = {text => setnumcompte(text)}

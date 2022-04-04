@@ -28,14 +28,6 @@ const SecondTab = ({ navigation }) => (
     </View>
 );
 
-const ThirdTab = ({ navigation }) => (
-    <View style={styles.tabScreen}>
-        <View style={styles.tabScrArtCardCreate}>
-        </View>
-        < Lieux navigation = {navigation} />    
-    </View>
-);
-
 const renderTabBar = props => (
     <TabBar 
     {...props}
@@ -44,14 +36,13 @@ const renderTabBar = props => (
     />
 );
 
-function ProfilScreen({ navigation }) {
+function ProfilScreen({ navigation, route }) {
 
     const layout = useWindowDimensions();
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         {key: 'first', title: 'Prestations'},
         {key: 'second', title: 'Scènes'},
-        {key: 'third', title: 'Lieux'},
     ]);
 
     const renderScene = ({ route }) => {
@@ -60,8 +51,6 @@ function ProfilScreen({ navigation }) {
                 return <FirstTab navigation={navigation} />;
             case 'second':
                 return <SecondTab navigation={navigation} />;
-            case 'third' :
-                return <ThirdTab navigation={navigation} />;
             default:
                 return null;
         };
@@ -72,7 +61,9 @@ function ProfilScreen({ navigation }) {
             <View style={styles.accountInfoView}>
                 <TouchableOpacity 
                 style={styles.profilOprionsTouchable}
-                onPress={() => navigation.navigate('ProfilOptions')}
+                onPress={() => {
+                    navigation.navigate('ProfilOptions')
+                }}
                 >
                     <Ionicons name='settings-outline' size={24} color='white' />
                 </TouchableOpacity>

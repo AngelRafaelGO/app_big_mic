@@ -1,13 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from "react-native";
 
 import colors from '../../config/colors';
 import { AuthContext } from '../../config/context';
 
-function CreateAccount({ navigation }) {
+function CreateAccount(props, {navigation, route }) {
 
-    const [createPassword, setCreatePassword] = React.useState();
     const { signUp } = React.useContext(AuthContext);
+
+    const [nom, setNom] = useState('');
+    const [prenom, setPrenom] = useState('');
+    const [email, setEmail] = useState('');
+    const [motDePasse, setMotDePasse] = useState('');
+    const [numphoto, setnumphoto] = useState(null); 
+    // These variables should be deleted further on
+    const psudo = 'sudo';
+    const ville = 'paris';
+    const tel = '1234';
+    // const photo = 1;
+
+    const insertData = (navigation) => {
+        fetch('http://64.225.72.25:5000/addcompte', {
+            method : 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({nom:nom, prenom:prenom, motdepasse:motDePasse, 
+                ville:ville, tel:tel, pseudo:psudo, mail:email, numphoto:numphoto})
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            signUp(motDePasse)
+            //props.navigation.navigate('Profil')
+        })
+        .catch(error => console.log("POST error: " + error))
+    }
 
     return (
         <SafeAreaView style={styles.background}>
@@ -22,25 +49,28 @@ function CreateAccount({ navigation }) {
                 <TextInput 
                 placeholder='Nom'
                 style={styles.inputText} 
+                onChangeText={text => setNom(text)}
                 />
                 <TextInput 
                 placeholder='Prenom'
                 style={styles.inputText} 
+                onChangeText={text => setPrenom(text)}
                 />
                 <TextInput 
                 placeholder='Email'
                 style={styles.inputText} 
+                onChangeText={text => setEmail(text)}
                 />
                 <TextInput 
                 placeholder='Mot de passe'
                 textContentType='password'
                 secureTextEntry={true}
                 style={styles.inputText} 
-                onChangeText={(createPassword) => setCreatePassword(createPassword)}
+                onChangeText={(text) => setMotDePasse(text)}
                 />
                 <TouchableOpacity 
                 style={styles.createAccountTouchable} 
-                onPress={() => signUp(createPassword)}
+                onPress={() => insertData()}
                 >
                     <Text style={styles.nextScreenTouchable}>
                         Suivant

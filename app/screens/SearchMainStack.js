@@ -3,8 +3,8 @@ import { SearchSceneScreen, SearchUserScreen, SceneForm } from './screensIndex';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import colors from '../config/colors';
 import {StatusBar, StyleSheet} from 'react-native';
-import SceneCard from './cards/SceneCard';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import SceneCard from '../screens/cards/SceneCard';
 
 
 const SearchMainStack = () => {
