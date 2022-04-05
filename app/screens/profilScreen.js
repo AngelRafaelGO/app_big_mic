@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { 
     Text, SafeAreaView, 
     View, TouchableOpacity, 
@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
 import { Ionicons, AntDesign, EvilIcons } from "@expo/vector-icons"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import colors from "../config/colors";
 import {Prestations, Scenes, Lieux} from "./screensIndex";
@@ -53,9 +54,6 @@ function ProfilScreen({ navigation, route }) {
         };
     };
 
-    const name = route.params;
-    console.log(name);
-
     return (
         <SafeAreaView style={styles.mainView}>
             <View style={styles.accountInfoView}>
@@ -78,15 +76,15 @@ function ProfilScreen({ navigation, route }) {
                     }}
                     />                    
                 </TouchableOpacity>
-                <View style={styles.accountDescriptionView}>
+                <View>
                     <View style={styles.profileTxtView}>
-                        <AntDesign style={styles.profileTxtIcon} name='user' size={24} color={colors.white} />
+                        <AntDesign style={styles.profileTxtIcon} name='user' size={18} color={colors.white} />
                         <Text style={styles.accountText}>
-                            Angel Rafael
+                            Angel Rafael GO
                         </Text>
                     </View>
                     <View style={styles.profileTxtView}>
-                        <EvilIcons style={styles.profileTxtIcon} name='location' size={24} color={colors.white} />
+                        <EvilIcons style={styles.profileTxtIcon} name='location' size={18} color={colors.white} />
                         <Text style={styles.accountText}>
                             Paris
                         </Text>
@@ -108,12 +106,10 @@ function ProfilScreen({ navigation, route }) {
 const styles = StyleSheet.create({
     accountInfoView: {
         justifyContent: 'center',
+        alignItems: 'center',
         width: '100%',
         height: '30%',
         backgroundColor: colors.primary,
-    },
-    accountDescriptionView: {
-        left: 10,
     },
     accountImage: {
         width: 75,
@@ -125,8 +121,6 @@ const styles = StyleSheet.create({
         color: colors.white,
         marginBottom: 5,
     },
-    bSheetHead: {
-    },
     mainView: {
         flex: 1,
     },
@@ -134,7 +128,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     profileTxtView: {
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
     },
@@ -154,7 +148,6 @@ const styles = StyleSheet.create({
         top: 15,
     },
     tabScrLocCardCreate: {
-        position: 'absolute',
         right: 20,
         top: 15,
     },
@@ -173,7 +166,6 @@ const styles = StyleSheet.create({
         top: 10,
         width: 100,
         height: 100,
-        left: 10,
     },
 });
 
