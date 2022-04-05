@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity, Alert, Dimensions, ScrollView} from 'react-native';
 // import { ScrollView } from 'react-native-gesture-handler';
 import {TextInput, Button} from 'react-native-paper';
@@ -9,6 +9,8 @@ import colors from '../../config/colors';
 function EditPresta(props, {navigation}) {
 
     const data = props.route.params.data;
+
+    const [fichierphoto, setFichierphoto] = useState('');
 
     const [numcompte, setnumcompte] = useState(data.numcompte)
     const [titreprest, settitreprest] = useState(data.titreprest)
@@ -32,7 +34,31 @@ function EditPresta(props, {navigation}) {
         .catch(error => console.log("PUT error: " + error))
     }
     
+    const getphoto = () => {
+        console.log('numphoto:' + data.numphoto)
+        fetch(`http://64.225.72.25:5000/getphoto/${data.numphoto}`, {
+            method : 'GET',
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            if(resp.numphoto != null || resp.fichierphoto !='' || resp.fichierphoto != 'undefined'){
+                console.log("il y a une photo " + resp.numphoto + " - "+ resp.fichierphoto);
+                setFichierphoto(photo);
+            }
+        })
+        .catch(error => {
+            console.log("photo upload error: " + error)
+            alert
+        })
+    };
 
+    useEffect(() =>{ 
+        getphoto();
+        if (fichierphoto.fichierphoto == ''){
+            fichierphoto.fichierphoto = 'https://picsum.photos/700';
+            console.log("fichier: " + fichierphoto.fichierphoto);
+        }
+      }, []);
 
   return (
     <SafeAreaView style = {styles.safeAreaStyle}>
@@ -40,8 +66,8 @@ function EditPresta(props, {navigation}) {
             <TouchableOpacity 
                 style={styles.imgView} 
                 onPress={() => Alert.alert("you will be able to change the image here next time")}>
-                    <Image source={{ uri: 'https://picsum.photos/400'}} style = {styles.img} />
-                    {/* <Image source={{ uri : fichierphoto}} style = {styles.img} /> */}
+                    <Image source={{ uri: fichierphoto.fichierphoto}} style = {styles.img} />
+                    {/* <Image source={{ uri: 'https://picsum.photos/400'}} style = {styles.img} /> */}
             </TouchableOpacity>
 
             <View>

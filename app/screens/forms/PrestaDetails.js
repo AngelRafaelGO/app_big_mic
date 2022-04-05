@@ -8,6 +8,15 @@ function PrestaDetails(props, {navigation}) {
 
     const [fichierphoto, setFichierphoto] = useState('');
 
+    const [img, setImg] = useState();
+
+    const fetchImage = async () => {
+      const res = await fetch(fichierphoto.fichierphoto);
+      const imageBlob = await res.blob();
+      const imageObjectURL = URL.createObjectURL(imageBlob);
+      setImg(imageObjectURL);
+    };
+  
     const confirmDeletion = () =>
     Alert.alert(
       "Supprimer une prestation",
@@ -44,12 +53,12 @@ function PrestaDetails(props, {navigation}) {
         .then(resp => {
             if(resp.numphoto != null || resp.fichierphoto !='' || resp.fichierphoto != 'undefined'){
                 console.log("il y a une photo " + resp.numphoto + " - "+ resp.fichierphoto);
-                setFichierphoto(photo);
+                setFichierphoto(resp);
             }
         })
         .catch(error => {
-            console.log("DELETE error: " + error)
-            alert
+            console.log("photo upload error: " + error);
+            Alert.alert('pas de photo');
         })
     };
 
@@ -59,6 +68,7 @@ function PrestaDetails(props, {navigation}) {
             fichierphoto.fichierphoto = 'https://picsum.photos/700';
             console.log("fichier: " + fichierphoto.fichierphoto);
         }
+        fetchImage();
       }, []);
 
 
@@ -77,7 +87,6 @@ function PrestaDetails(props, {navigation}) {
                     onPress={() => Alert.alert("go to full screen image")}>
                     <Image source={{ uri: fichierphoto.fichierphoto}} style = {styles.img} />
                     {/* <Image source={{ uri: 'https://picsum.photos/700'}} style = {styles.img} /> */}
-                    {/* <Image source={{ uri : fichierphoto}} style = {styles.img} /> */}
                 </TouchableOpacity>
                 <Text style= {styles.txtChamp}>
                     {data.numphoto} - {fichierphoto.fichierphoto}

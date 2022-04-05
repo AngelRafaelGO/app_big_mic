@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react'
-import {View, Text, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, TouchableOpacity, RefreshControl} from 'react-native'; 
+import {View, Text, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, TouchableOpacity, Alert} from 'react-native'; 
 import {TextInput, Button} from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import colors from '../../config/colors';
@@ -16,6 +16,17 @@ function CreatePresta(props, {navigation}) {
 
     const [image, setImage] = useState("");
     
+    const [img, setImg] = useState();
+
+    const fetchImage = async () => {
+      const res = await fetch(fichierphoto.uri);
+      const imageBlob = await res.blob();
+      setImage(imageBlob);
+      const imageObjectURL = URL.createObjectURL(imageBlob);
+      setImg(imageObjectURL);
+    };
+  
+ 
     const pickImage = async (props) => {
         
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -33,8 +44,13 @@ function CreatePresta(props, {navigation}) {
       }
 
     const insertData = (navigation) => {
+        if(titreprest == ""){
+            Alert.alert("Vous devez saisir au moins un titre pour la prestation. Vous pourrez la compléter par la suite");
+            return;
+        } 
         console.log("image sélectionnée: " + fichierphoto.uri);
         if(fichierphoto.uri != ''){
+            // ADD PHOTO : URI ONLY
                 fetch('http://64.225.72.25:5000/addphoto', {
                     method : 'POST',
                 headers: {
@@ -51,7 +67,28 @@ function CreatePresta(props, {navigation}) {
                 console.log("Image URI couldn't be stored properly: " + error);
                 setnumphoto(1);
             })
-        } else Alert.Alert("Pas d'image sélectionnée");
+            // ADD PHOTO : BLOB TEST
+            fetchImage();
+            fetch('http://64.225.72.25:5000/uploadimg', {
+                    method : 'POST',
+                headers: {
+                'Content-Type' : 'application/json'
+                // 'Content-Type' : 'multipart/form-data'
+            },
+                body: JSON.stringify({img})
+            })
+            .then(resp => resp.json())
+            .then(data => {
+                console.log('numero: ' + data.numphoto)
+                // setnumphoto(data.numphoto)
+                setnumphoto(null);
+            })
+            .catch(error => {
+                console.log("Image BLOB couldn't be stored properly: " + error);
+                setnumphoto(1);
+            })
+
+        } else Alert.alert("Pas d'image sélectionnée");
 
         fetch('http://64.225.72.25:5000/addpresta', {
             method : 'POST',
@@ -65,6 +102,7 @@ function CreatePresta(props, {navigation}) {
             props.navigation.navigate('Profil')
         })
         .catch(error => console.log("POST error: " + error))
+
     }
 
   return (
