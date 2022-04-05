@@ -48,7 +48,7 @@ function SceneFormEdit (props,{navigation}) {
         try {
         const value = await AsyncStorage.getItem('@selectedDate')
         if(value !== null) {
-            setSelectedDate(value) ;
+            setdatescene(value) ;
         }
         } catch(e) {
         console.log("ASYNC Reading Storage error: " + e);
@@ -73,9 +73,12 @@ function SceneFormEdit (props,{navigation}) {
         removeValue;
     }
 
+    useEffect(() =>{ 
+          setdatescene(selectedDate);
+      }, [selectedDate]);
+
     const [selectedDate, setSelectedDate] = useState('');
     console.log("Selected Date: " + selectedDate);
-
 
     return (
         <ScrollView styles={styles.container}>
@@ -114,7 +117,8 @@ function SceneFormEdit (props,{navigation}) {
                     name={"Choisir une date"}
                     background={colors.secondary}
                     border={15}
-                    padding= {10}/>
+                    padding= {10}
+                    onPress={console.log("Press")}/>
                 <Text style={{color:colors.dark, fontSize:12, width: "30%"}}>{datescene}</Text>
                 <View style={{flexDirection:'row'}}>
                     <Button 
@@ -126,7 +130,9 @@ function SceneFormEdit (props,{navigation}) {
                     /> 
                     <Button 
                     icon= "close"
-                    onPress={() => setdatescene('')}
+                    onPress={() => {setdatescene('');
+                                    removeValue();
+                                    getSelectedDate();}}
                     color = {colors.primary}
                     labelStyle={{color:colors.primary}}
                     compact={true}
