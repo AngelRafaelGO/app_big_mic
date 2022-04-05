@@ -69,8 +69,12 @@ const SearchSceneScreen = ({navigation}) => {
   };
 
   useEffect(() =>{ 
-    getScenesFromApi();
-  }, []);
+    if(selectedDate == ''){
+      getScenesFromApi();
+    }else {
+      getScenesDateFilteredScenes();
+    } 
+  }, [selectedDate]);
   
  
   //Research result item structure and filling
@@ -168,8 +172,6 @@ const SearchSceneScreen = ({navigation}) => {
                   icon= "check"
                   onPress={() => {
                     closeMenu;
-                    getSelectedDate();
-                    setSelectedDate(selectedDate);
                     getScenesDateFilteredScenes();
                     setSearch('');
                     }}
@@ -201,7 +203,8 @@ const SearchSceneScreen = ({navigation}) => {
             <Divider />
             <Button_filter_Date
             name={"Choisir une date"}
-            padding={15}/>
+            padding={15}
+            onDismiss={getSelectedDate()}/>
           </Menu>
         </Provider>
       </View>
