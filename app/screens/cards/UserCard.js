@@ -1,4 +1,4 @@
-import { StyleSheet, Text, FlatList } from 'react-native'
+import { StyleSheet, Text, FlatList, SafeAreaView } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import colors from '../../config/colors';
 import { Card, FAB, Subheading } from 'react-native-paper';
@@ -67,42 +67,45 @@ const UserCard = ({route, navigation}) => {
   
   
   return (
+    <SafeAreaView>
 
-  <Card style={styles.sceneCard}>
-    <Card.Title title={artist.nom + " " + artist.prenom} subtitle={artist.ville}/>
-    <Card.Content>
-      <Subheading>Activités</Subheading>
-      {/* <FlatList 
-       style = {styles.listContainer}
-       data = {scenes}
+      <Card style={styles.sceneCard}>
+        <Card.Title title={artist.nom + " " + artist.prenom} subtitle={artist.ville}/>
+        <Card.Content>
+          <Subheading>Activités</Subheading>
+          {/* <FlatList 
+          style = {styles.listContainer}
+          data = {scenes}
 
-       renderItem = {({scene}) => {
-         // console.log(data)
-         return renderData(scene)
-       }}
-       keyExtractor = {scene => `${scene.numscene}`}
-       /> */}
-       <FlatList
-        data = {prestas}
-        renderItem = {({item}) => {
-          // console.log(data)
-          return renderPresta(item)
-        }}
-        keyExtractor = {presta => `${presta.numprest}`}
-        onRefresh = {() => loadData()}
-        refreshing = {loading}
-      />
-    </Card.Content>
-    <Card.Actions>
-      <FAB 
-      label='Contacter'
-      style= {styles.fab}
-      icon="email"
-      color={colors.white}
-      onPress={()=>alert("Envoyer un message à la personne")}
-        />
-    </Card.Actions>
-  </Card>
+          renderItem = {({scene}) => {
+            // console.log(data)
+            return renderData(scene)
+          }}
+          keyExtractor = {scene => `${scene.numscene}`}
+          /> */}
+          <FlatList
+            data = {prestas}
+            renderItem = {({item}) => {
+              // console.log(data)
+              return renderPresta(item)
+            }}
+            keyExtractor = {presta => `${presta.numprest}`}
+            onRefresh = {() => loadData()}
+            refreshing = {loading}
+          />
+        </Card.Content>
+        <Card.Actions>
+          <FAB 
+          label='Contacter'
+          style= {styles.fab}
+          icon="email"
+          color={colors.white}
+          onPress={()=>alert("Envoyer un message à la personne")}
+            />
+        </Card.Actions>
+      </Card>
+    </SafeAreaView>
+
 
   )
 };

@@ -1,11 +1,7 @@
 import React, { useState, useLayoutEffect } from 'react'
-import {View, Text, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar} from 'react-native';
-import {TextInput, Button, Surface, IconButton} from 'react-native-paper';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-//import * as ImagePicker from 'react-native-image-picker';
+import {View, Text, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, TouchableOpacity, RefreshControl} from 'react-native'; 
+import {TextInput, Button} from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
-// import { useLayoutEffect } from 'react/cjs/react.production.min';
-//import { Dimensions, StatusBar } from 'react-native-web';
 import colors from '../../config/colors';
 
 function CreatePresta(props, {navigation}) {
@@ -13,67 +9,47 @@ function CreatePresta(props, {navigation}) {
     const [titreprest, settitreprest] = useState("")
     const [descprest, setdescprest] = useState("")
     const [lienprest, setlienprest] = useState("")
+    const [numphoto, setnumphoto] = useState("")
 
-    // const [images, setImages] = useState([]);
+    const [fichierphoto, setFichierphoto] = useState("")
+
     const [image, setImage] = useState("");
     
-    const pick = async () => {
-        
-        // const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-        // if(granted){
-        //     console.log('access granted')
-        //     let result = await ImagePicker.launchImageLibraryAsync({
-        //     mediaTypes:ImagePicker.MediaTypeOptions.Images,
-        //     allowsEditing: true,
-        //     aspect:[1,1],
-        //     quality:1,
-        // })
-        // } else {
-            let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            quality: 1,
-            });
-        // }   
-        console.log(result);
+    const pick = async (props) => {        
+        let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
+        });
 
-        if (!result.cancelled){
-            setImage(result);
-        } else {
-            result.uri = '../../assets/No_Image_uploaded.png';
+        console.log("ImagePicker returns: " + result.uri);
+
+        if (result.cancelled){
+            result.uri = '';
             console.log('cancelled');
-            setImage(result);
         }
+        setImage(result);
+        setFichierphoto(result.uri);
     }
 
-    // useLayoutEffect(() => {
-    const handleUpLoad = () => {
-        launchImageLibrary({ maxWidth: 500, maxHeight: 500}, (response) => {
-            if (response.didCancel){
-                return;
-            }
-            const img = {
-                uri: response.uri,
-                type: response.type,
-                name:
-                    response.fileName ||
-                    response.uri.substr(response.uri.lastIndexOf('/') +1),
-            };
-
-            setImage(img);
-            // setImages(prevImages => prevImages.concat(img));
-        });
-    };
-    
-    
-
-
-    // navigation.setOptions({
-    //     headerRight: () => <IconButton icon="plus" onPress={handleUpLoad} />
-    // });
-    // }, [navigation]);
-
-
     const insertData = (navigation) => {
+        console.log("image sélectionnée: " + image.uri);
+        if(image.uri != ''){
+            console.log(image.uri);
+            fetch('http://64.225.72.25:5000/addphoto', {
+                method : 'POST',
+                headers: {
+                    'Content-Type' : 'multipart/form-data'
+                },
+                body: JSON.stringify({fichierphoto: fichierphoto})
+            })
+            .then(resp => resp.json())
+            .then(data => {
+                console.log('numero: ' + data.numphoto)
+                setnumphoto(data.numphoto)
+            })
+            .catch(error => console.log("Image couldn't be stored properly: " + error))
+        }
+
         fetch('http://64.225.72.25:5000/addpresta', {
             method : 'POST',
             headers: {
@@ -117,19 +93,13 @@ function CreatePresta(props, {navigation}) {
             mode="outlined"
             onChangeText = {text => setnumcompte(text)}
         />
-        <View style = {styles.imgView}>
-            <Text> Image :</Text>
-            <Image source={{ uri : image.uri}} style = {styles.img} />
-        </View>
+        <TouchableOpacity 
+            style={styles.imgView} 
+            onPress={() => pick()}>
+                <Image source={{ uri : image.uri !== null ? image.url: '../../assets/No_Image_uploaded.png'}} style = {styles.img} />
+        </TouchableOpacity>
+
         <View style = {styles.btnStyle} >
-            <Button style = {styles.btnInside}
-                icon = "image"
-                mode='contained'
-                onPress={() => pick()}
-                // onPress={() => handleUpLoad()}
-                >
-                Image
-            </ Button>
             <Button style = {styles.btnInside}
                 icon = "pencil"
                 mode='contained'
@@ -173,20 +143,23 @@ const styles = StyleSheet.create ({
         // padding: 5,
     },
     btnInside: {
-        backgroundColor: '#FF4858',
+        backgroundColor: colors.primary,
     },
     imgView: {
-        borderStyle: 'solid',
-        borderColor: colors.secondary,
+        alignItems: 'center',
+        margin: 10,
+        borderWidth: 1,
+        backgroundColor: colors.secondary,
         height: 300,
+        borderRadius: 5,
     },
     img: {
-        // width: Dimensions.get('window').width * 0.9,
-        width: 300,
-        height: '100%',
-        resizeMode: 'contain',
-        padding: 10,
-        margin: 10,
+        // width: Dimensions.get('window').width * 0.8,
+        height: 260,
+        aspectRatio: 1,
+        resizeMode: 'stretch',
+        // padding: 10,
+        marginTop: 8,
     },
 });
 

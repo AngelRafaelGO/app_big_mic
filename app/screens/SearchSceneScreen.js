@@ -14,8 +14,9 @@ const SearchSceneScreen = ({navigation}) => {
     try {
       const value = await AsyncStorage.getItem('@selectedDate')
       if(value !== null) {
-        setSelectedDate(value) ;
-      }
+       setSelectedDate(value);
+      } 
+      console.log(value);
     } catch(e) {
       console.log("ASYNC Reading Storage error: " + e);
     }
@@ -30,7 +31,7 @@ const SearchSceneScreen = ({navigation}) => {
     }
     console.log('Done.')
   }
-  removeValue();
+  removeValue
 
   const [loading, setLoading] = useState(true); 
   const [selectedDate, setSelectedDate] = useState('');
@@ -39,6 +40,7 @@ const SearchSceneScreen = ({navigation}) => {
   //Query to apply date filter selection
   const getScenesDateFilteredScenes = async () => {
     try {
+      setSelectedDate(selectedDate);
       const response = await fetch(`http://64.225.72.25:5000/scenedatelessthan/${selectedDate}`, {
         method: 'GET',
       });
@@ -70,7 +72,7 @@ const SearchSceneScreen = ({navigation}) => {
     getScenesFromApi();
   }, []);
   
-
+ 
   //Research result item structure and filling
   const renderData = (item) => {
     var month = 'NR';
@@ -165,10 +167,12 @@ const SearchSceneScreen = ({navigation}) => {
                   <Button 
                   icon= "check"
                   onPress={() => {
+                    closeMenu;
                     getSelectedDate();
+                    setSelectedDate(selectedDate);
                     getScenesDateFilteredScenes();
                     setSearch('');
-                    closeMenu();}}
+                    }}
                   color = {colors.primary}
                   labelStyle={{color:colors.primary}}
                   compact={true}
@@ -177,7 +181,8 @@ const SearchSceneScreen = ({navigation}) => {
                   icon= "close"
                   onPress={() => {
                     setSelectedDate('');
-                    getScenesFromApi();}}
+                    getScenesFromApi();
+                    removeValue();}}
                   color = {colors.primary}
                   labelStyle={{color:colors.primary}}
                   compact={true}

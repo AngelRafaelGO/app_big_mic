@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity,  ScrollView} from 'react-native';
 import {TextInput, Button, Title} from 'react-native-paper';
 import Button_filter_Date from '../../components/Button_filter_Date';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../../config/colors';
+
 
 function SceneForm(props, {navigation}) {
 
@@ -38,7 +39,7 @@ function SceneForm(props, {navigation}) {
         .catch(error => console.log("POST error: " + error))
     }
 
-      //Get selectedDate on Calendar picker
+    //Get selectedDate on Calendar picker
     const getSelectedDate = async () => {
         try {
         const value = await AsyncStorage.getItem('@selectedDate')
@@ -50,10 +51,11 @@ function SceneForm(props, {navigation}) {
         }
     }
 
+
     //Reset selectedDate of calendar
     const removeValue = async () => {
         try {
-        await AsyncStorage.setItem('@selectedDate', "")
+        await AsyncStorage.setItem('@selectedDate', '')
         } catch(e) {
         console.log("ASYNC Removal error: " + e);
         }
@@ -64,11 +66,10 @@ function SceneForm(props, {navigation}) {
     const calendarAction = () =>{
         getSelectedDate();
         setdatescene(selectedDate);
-        removeValue;
+        removeValue();
     }
 
-    const [selectedDate, setSelectedDate] = useState('');
-    console.log("Selected Date: " + selectedDate);
+    const [selectedDate, setSelectedDate] = useState(null);
 
     return (
         console.log({titrescene: titrescene, 
@@ -80,8 +81,7 @@ function SceneForm(props, {navigation}) {
             descscene: descscene, 
             numcompte: numcompte}),
         <ScrollView styles={styles.container}> 
-            <View style={{alignItems: 'center', marginTop: 50}} >
-            <Image source={require('../../assets/SceneImage.png')} />
+            <View style={{alignItems: 'center', marginTop: 15}} >
 
             </View>
 
@@ -128,7 +128,9 @@ function SceneForm(props, {navigation}) {
                             /> 
                             <Button 
                             icon= "close"
-                            onPress={() => setdatescene('')}
+                            onPress={() => {setdatescene('');
+                                            setSelectedDate('');
+                                            removeValue;}}
                             color = {colors.primary}
                             labelStyle={{color:colors.primary}}
                             compact={true}

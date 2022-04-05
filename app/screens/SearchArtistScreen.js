@@ -1,5 +1,5 @@
 import React , {useState, useEffect}from 'react';
-import { View, StyleSheet, FlatList, Image} from 'react-native';
+import { View, StyleSheet, FlatList, Image, SafeAreaView} from 'react-native';
 import colors from '../config/colors';
 import { Card, Searchbar} from 'react-native-paper';
 
@@ -73,7 +73,7 @@ const SearchUserScreen = ({navigation}) => {
 
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Searchbar
       placeholder="Entrez votre recherche"
       onChangeText={(text) => searchFilterFunction(text)}
@@ -93,7 +93,7 @@ const SearchUserScreen = ({navigation}) => {
         }}
         keyExtractor = {item => `${item.numprest}`}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 

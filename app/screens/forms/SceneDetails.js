@@ -1,13 +1,17 @@
+import { View, Text, ScrollView, StyleSheet } from 'react-native'
 import React from 'react';
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import { Button} from 'react-native-paper';
 
 
-function PrestaDetails(props, {navigation}) {
+
+
+function SceneDetails(props, {navigation}) {
+
     const data = props.route.params.data;
+    
 
     const deleteData =  (data) => {
-        fetch(`http://64.225.72.25:5000/deletepresta/${data.numprest}`, {
+        fetch(`http://64.225.72.25:5000/deletescene/${data.numscene}`, {
             method : 'DELETE',
         })
         .then(data => {
@@ -20,25 +24,37 @@ function PrestaDetails(props, {navigation}) {
     };
 
   return (
-    <ScrollView>
-        <View style = {styles.viewStyle}>
+   <ScrollView>
+
+<View style = {styles.viewStyle}>
             <Text style = {{fontSize: 25}}>
-                {data.titreprest}
+                {data.titrescene}
             </Text>
             <Text style = {{fontSize: 15, marginTop: 15}}>
-                {data.descprest}
+                {data.adrscene}
             </Text>
             <Text style = {{fontSize: 15, marginTop: 15}}>
-                {data.lienprest}
+                {data.descscene}
             </Text>
-            <Text style = {{fontSize: 12, marginTop: 15}}>
-                {data.numcompte} - {data.numprest}
+            <Text style = {{fontSize: 15, marginTop: 15}}>
+                {data.criteres}
             </Text>
+            <View style={styles.viewDate}>
+                <Text style = {{fontSize: 15, marginTop: 15}}>
+                    {data.datescene}
+                </Text>
+                <Text style = {{fontSize: 15, marginTop: 15}}>
+                    {data.recurrence}
+                </Text>
+            </View>
+
+
+            
             <View  style = {styles.btnStyle}>
             <Button style = {styles.btnInside}
                 icon = "update"
                 mode='contained'
-                onPress={() => props.navigation.navigate("EditPresta", {data:data})}> 
+                onPress={() => props.navigation.navigate("SceneFormEdit", {data:data})}> 
                 Modifier
             </Button>
             <Button style = {styles.btnInside}
@@ -49,7 +65,8 @@ function PrestaDetails(props, {navigation}) {
             </Button>
             </View>
         </View>
-    </ScrollView>
+
+   </ScrollView>
   )
 };
 
@@ -66,9 +83,14 @@ const styles = StyleSheet.create ({
     },
     btnInside: {
         backgroundColor: '#FF4858',
+        
+    },
+    viewDate: {
+        flex:1,
+        flexDirection: 'row',
+    }    
 
-    }
 
-})
+});
 
-export default PrestaDetails
+export default SceneDetails;
