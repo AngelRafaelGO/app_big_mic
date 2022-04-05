@@ -1,8 +1,7 @@
-import { StyleSheet, Text, FlatList, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, FlatList, ScrollView } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import colors from '../../config/colors';
 import { Card, FAB, Subheading } from 'react-native-paper';
-import { sendEmail } from './../../functions/sendemail';
 
 
 const UserCard = ({route, navigation}) => {
@@ -67,7 +66,7 @@ const UserCard = ({route, navigation}) => {
   
   
   return (
-    <SafeAreaView>
+    <ScrollView>
 
       <Card style={styles.sceneCard}>
         <Card.Title title={artist.nom + " " + artist.prenom} subtitle={artist.ville}/>
@@ -104,7 +103,7 @@ const UserCard = ({route, navigation}) => {
             />
         </Card.Actions>
       </Card>
-    </SafeAreaView>
+    </ScrollView>
 
 
   )

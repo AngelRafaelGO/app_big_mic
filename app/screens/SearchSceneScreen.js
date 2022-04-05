@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {  View, StyleSheet, FlatList, Alert, TouchableOpacity, Text } from 'react-native';
+import {  View, StyleSheet, FlatList, Alert, TouchableOpacity, Text, SafeAreaView, ScrollView } from 'react-native';
 import colors from '../config/colors';
 import { Button_filter_Date} from './../components/componentsIndex'; 
 import { Card, Badge, Searchbar, Button, Provider, Divider , Menu} from 'react-native-paper';
@@ -143,18 +143,16 @@ const SearchSceneScreen = ({navigation}) => {
  
 
   return (
-    <View style={styles.container}>
-     
-     
+    <SafeAreaView style={styles.container}>
+      <Searchbar
+      placeholder="Entrez votre recherche"
+      onChangeText={(text) => searchFilterFunction(text)}
+      value={search}
+      iconColor={colors.primary}
+      inputStyle={styles.searchinputStyle}
+      />
+      {/* Date filter menu and validation buttons */}
       <View style={styles.filterContainer}> 
-        <Searchbar
-        placeholder="Entrez votre recherche"
-        onChangeText={(text) => searchFilterFunction(text)}
-        value={search}
-        iconColor={colors.primary}
-        inputStyle={styles.searchinputStyle}
-        />
-        {/* Date filter menu and validation buttons */}
         <Provider>
           <Menu
             style={styles.menu}
@@ -208,20 +206,18 @@ const SearchSceneScreen = ({navigation}) => {
       </View>
 
       {/* Results of the research */}
-      <View
-      style={{zIndex: 2}}>
-        <FlatList
-          style = {styles.listContainer}
-          data = {filteredDataSource}
-          renderItem = {({item}) => {
-            return renderData(item)
-          }}
-          onRefresh = {() => getScenesFromApi()}
-          refreshing = {loading}
-          keyExtractor = {item => `${item.numscene}`}
-        />
-      </View>
-    </View>
+      <FlatList
+        style = {styles.listContainer}
+        data = {filteredDataSource}
+        renderItem = {({item}) => {
+          return renderData(item)
+        }}
+        onRefresh = {() => getScenesFromApi()}
+        refreshing = {loading}
+        keyExtractor = {item => `${item.numscene}`}
+      />
+
+    </SafeAreaView>
   );
 }
 
@@ -241,10 +237,9 @@ const styles = StyleSheet.create({
   },
   filterContainer: {
     zIndex: 4,
-    height: 160,
     backgroundColor: colors.white,
-    //flexDirection: 'row',
-    //alignItems: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingBottom: 5,
   },
   listContainer: {
