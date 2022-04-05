@@ -3,9 +3,6 @@ import {View, Text, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, Touc
 import {TextInput, Button} from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import colors from '../../config/colors';
-// import ImagePicker from "react-native-image-picker";
-//import {launchImageLibrary} from 'react-native-image-picker';
-
 
 function CreatePresta(props, {navigation}) {
 
@@ -13,31 +10,12 @@ function CreatePresta(props, {navigation}) {
     const [titreprest, settitreprest] = useState("")
     const [descprest, setdescprest] = useState("")
     const [lienprest, setlienprest] = useState("")
-    const [numphoto, setnumphoto] = useState(null)
+    const [numphoto, setnumphoto] = useState("")
 
     const [fichierphoto, setFichierphoto] = useState("")
 
     const [image, setImage] = useState("");
     
-    const setBlob = async() => {
-        let uriParts = fichierphoto.uri.split(".");
-        let uriExtension = "image/" + uriParts[uriParts.length-1];
-        console.log("file type: " + uriExtension);
-
-        // var toto = document.querySelector(fichierphoto.uri);
-        // var formdatas = new FormData(toto);
-
-        const imgfile = await fetch(fichierphoto.uri);
-        // const blob = new Blob(0, {type: uriExtension})
-        // blob = await imgfile.blob();
-        // blob = blob.slice(0,blob.size,"image/" + uriExtension);
-        let formdata = new FormData;
-        formdata.append('Image/' + uriExtension, imgfile);
-        console.log("type : " + formdata.type);
-        setImage(formdata);
-        console.log(formdata);
-    }
-
     const pickImage = async (props) => {
         
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -57,26 +35,20 @@ function CreatePresta(props, {navigation}) {
     const insertData = (navigation) => {
         console.log("image sélectionnée: " + fichierphoto.uri);
         if(fichierphoto.uri != ''){
-            setBlob();
-            console.log(fichierphoto.uri);
-            console.log(image.size);
-            fetch('http://64.225.72.25:5000/uploadimg', {
-                // fetch('http://64.225.72.25:5000/addphototest', {
+                fetch('http://64.225.72.25:5000/addphoto', {
                     method : 'POST',
                 headers: {
                 'Content-Type' : 'application/json'
-                // 'Content-Type' : 'multipart/form-data'
             },
-                body: JSON.stringify({fichierphoto: image})
+                body: JSON.stringify({fichierphoto: fichierphoto.uri})
             })
             .then(resp => resp.json())
-            .then(data => {
-                console.log('numero: ' + data.numphoto)
-                // setnumphoto(data.numphoto)
-                setnumphoto(null);
+            .then(resp => {
+                console.log('numero: ' + resp.numphoto)
+                setnumphoto(resp.numphoto)
             })
             .catch(error => {
-                console.log("Image couldn't be stored properly: " + error);
+                console.log("Image URI couldn't be stored properly: " + error);
                 setnumphoto(1);
             })
         } else Alert.Alert("Pas d'image sélectionnée");
