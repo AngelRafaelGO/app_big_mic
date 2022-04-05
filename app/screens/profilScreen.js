@@ -53,6 +53,9 @@ function ProfilScreen({ navigation, route }) {
         };
     };
 
+    const name = route.params;
+    console.log(name);
+
     return (
         <SafeAreaView style={styles.mainView}>
             <View style={styles.accountInfoView}>

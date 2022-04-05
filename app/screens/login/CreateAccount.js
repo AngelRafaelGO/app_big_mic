@@ -18,7 +18,7 @@ function CreateAccount(props, {navigation, route }) {
     const ville = 'paris';
     const tel = '1234';
 
-    const insertData = (email) => {
+    const valEmail = () => {
         fetch(`http://64.225.72.25:5000/getmail/${email}`, {
             method : 'GET',
         }) 
@@ -28,38 +28,44 @@ function CreateAccount(props, {navigation, route }) {
             const { mail } = userData[0];
             if (mail == email) {
                 Alert.alert(
-                    "Ce mail a été déjà pris",
-                    "Veuillez réessayer",
+                    "Une compte est déjà lié à ce email",
+                    "Veuillez saisir un autre",
                     [
-                      {
-                        text: "Cancel",
-                        onPress: () => console.log("Cancel Pressed"),
-                        style: "cancel"
-                      },
-                      { text: "OK", onPress: () => console.log("OK Pressed") }
+                        {
+                            text: "Cancel",
+                            style: "cancel",
+                        },
+                        { 
+                            text: "OK",
+                        },
                     ]
-                );
+                  );
             } else {
-                fetch('http://64.225.72.25:5000/addcompte', {
-                    method : 'POST',
-                    headers: {
-                        'Content-Type' : 'application/json'
-                    },
-                    body: JSON.stringify({nom:nom, prenom:prenom, motdepasse:motDePasse, 
-                        ville:ville, tel:tel, pseudo:psudo, mail:email, numphoto:numphoto})
-                })
-                .then(resp => resp.json())
-                .then(() => {
-                    signUp(motDePasse)
-                })
-                .catch(error => console.log("POST error: " + error))
+                insertData();
             }
         })
         .catch(error => console.log("ERROR caught:\n" + error))
     }
 
+    const insertData = () => {
+        fetch('http://64.225.72.25:5000/addcompte', {
+            method : 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({nom:nom, prenom:prenom, motdepasse:motDePasse, 
+                ville:ville, tel:tel, pseudo:psudo, mail:email, numphoto:numphoto})
+        })
+        .then(resp => resp.json())
+        .then(() => {
+            signUp(motDePasse)
+        })
+        .catch(error => console.log("POST error: " + error))
+    }
+
     return (
-        <SafeAreaView style={styles.background}>
+        <SafeAreaView 
+        style={styles.background}>
             <Image 
             style={styles.creationImage}
             source={require('../../assets/pablita-523.png')}
@@ -67,7 +73,8 @@ function CreateAccount(props, {navigation, route }) {
             <Text style={styles.creationTitle}>
                 Création de compte
             </Text>
-            <View style={styles.formView}>
+            <View 
+            style={styles.formView}>
                 <TextInput 
                 placeholder='Nom'
                 style={styles.inputText} 
@@ -92,7 +99,9 @@ function CreateAccount(props, {navigation, route }) {
                 />
                 <TouchableOpacity 
                 style={styles.createAccountTouchable} 
-                onPress={() => insertData(email)}
+                onPress={() => {
+                    valEmail()
+                }}
                 >
                     <Text style={styles.nextScreenTouchable}>
                         Suivant

@@ -1,16 +1,16 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialCommunityIcons, AntDesign} from '@expo/vector-icons'; 
+
 import { 
     LoginScreen, CreateAccount, CreateAccountS2, 
     ProfilScreen, Loading, ProfilOptions, SceneForm, 
     CreatePresta, WelcomeScreen, PrestaDetails, EditPresta, 
     SceneDetails, Scenes, SceneFormEdit,
-    CreateLieu, EditLieu, LieuDetails
+    CreateLieu, EditLieu, LieuDetails, ChangeProImage
     } 
 from '../screens/screensIndex';
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialCommunityIcons, AntDesign} from '@expo/vector-icons'; 
-
 import { AuthContext } from '../config/context';
 import colors from '../config/colors';
 import SearchMainStack from './SearchMainStack';
