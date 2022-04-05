@@ -60,11 +60,13 @@ function CreatePresta(props, {navigation}) {
             setBlob();
             console.log(fichierphoto.uri);
             console.log(image.size);
-            fetch('http://64.225.72.25:5000/addphototest', {
-                method : 'POST',
+            fetch('http://64.225.72.25:5000/uploadimg', {
+                // fetch('http://64.225.72.25:5000/addphototest', {
+                    method : 'POST',
                 headers: {
-                    'Content-Type' : 'application/json'
-                },
+                'Content-Type' : 'application/json'
+                // 'Content-Type' : 'multipart/form-data'
+            },
                 body: JSON.stringify({fichierphoto: image})
             })
             .then(resp => resp.json())
