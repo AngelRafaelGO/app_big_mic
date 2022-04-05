@@ -24,9 +24,7 @@ function CreateAccount(props, {navigation, route }) {
         }) 
         .then(resp => resp.json())
         .then(userObject => {
-            setUserData(userObject);
-            const { mail } = userData[0];
-            if (mail == email) {
+            if (userObject.length > 0) {
                 Alert.alert(
                     "Une compte est déjà lié à ce email",
                     "Veuillez saisir un autre",
@@ -39,7 +37,7 @@ function CreateAccount(props, {navigation, route }) {
                             text: "OK",
                         },
                     ]
-                  );
+                );
             } else {
                 insertData();
             }

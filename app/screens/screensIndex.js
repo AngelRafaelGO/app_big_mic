@@ -21,3 +21,4 @@ export { default as UserCard } from './cards/UserCard';
 export { default as SceneCard } from './cards/SceneCard';
 export { default as SceneDetails } from './forms/SceneDetails';
 export { default as ChangeProImage} from './ChangeProImage';
+export { default as EditProfil } from './EditProfil';

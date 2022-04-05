@@ -12,6 +12,15 @@ function ProfilOptions({ navigation }) {
         <SafeAreaView style={styles.background}>
             <View style={styles.disconnectTouch}>
                 <TouchableOpacity
+                onPress={() => navigation.navigate('EditProfil')}
+                >
+                    <Text style={styles.disconnectTouchTxt}>
+                        Editer mon profil
+                    </Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.disconnectTouch}>
+                <TouchableOpacity
                 onPress={() => signOut()}
                 >
                     <Text style={styles.disconnectTouchTxt}>

@@ -58,12 +58,10 @@ const SearchSceneScreen = ({navigation}) => {
     } catch(e) {
       console.log("ASYNC Removal error: " + e);
     }
-    console.log('Done.')
   }
   removeValue();
 
   const [selectedDate, setSelectedDate] = useState('');
-  console.log("Selected Date: " + selectedDate);
 
   // Query to display the list of all scenes
   const getScenesFromApi = async () => {
@@ -78,8 +76,6 @@ const SearchSceneScreen = ({navigation}) => {
       console.error("ERROR in query:" + error);
     }
   };
-
-  console.log(filteredDataSource);
 
   useEffect(() =>{ 
     getScenesFromApi();
