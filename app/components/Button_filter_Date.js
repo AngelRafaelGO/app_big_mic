@@ -4,6 +4,8 @@ import colors from '../config/colors';
 import Dialog from "react-native-dialog";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CalendarPicker from 'react-native-calendar-picker';
+import { utc } from 'moment';
+import { IconButton } from 'react-native-paper';
 
 
 const Button_filter_Date = (props) => {
@@ -17,18 +19,19 @@ const Button_filter_Date = (props) => {
     }
   }
 
+
   //Variables for calendar date picker
   const [selectedStartDate, setSelectedStartDate] = useState();
+
   const startDate = selectedStartDate
     ? selectedStartDate.format('YYYY-MM-DD').toString()
     : '';
 
   const minDate = new Date(); // Today
-  const maxDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getFullYear()+3);
+  const maxDate = new Date(minDate.getFullYear()+3, minDate.getMonth(), minDate.getDate());
   
   //Config dialog box handler
   const [visible, setVisible] = useState(false);
-
   
 
     const showCalendar = () => {
@@ -45,8 +48,6 @@ const Button_filter_Date = (props) => {
       storeData(startDate);
       setVisible(false);
     };
-
-
     
     return (
       <View >
@@ -73,9 +74,14 @@ const Button_filter_Date = (props) => {
             </Dialog.Container>
           </View>
         <TouchableOpacity
-          style={styles.buttonContainer}
+          style={{color: props.color, 
+            borderRadius: props.border, 
+            backgroundColor: props.background,
+            padding: props.padding,
+            }}
           onPress={showCalendar}
           >
+
             <Text style={styles.button}>
             {props.name}
             </Text>
@@ -89,16 +95,8 @@ const Button_filter_Date = (props) => {
       alignItems: "center",
       justifyContent: "center",
     },
-    buttonContainer: {
-      backgroundColor: colors.secondary,
-      color: colors.light,
-      padding: 10,
-      margin: 5,
-      borderRadius: 18,
-    },
     button: {
-      width: 80,
-      textAlign: 'center',
+      fontSize: 16,
     },
     filterList: {
       alignItems: 'center',

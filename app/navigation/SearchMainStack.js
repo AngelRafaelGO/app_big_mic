@@ -6,6 +6,7 @@ import {StatusBar} from 'react-native';
 import {SceneCard, UserCard}from '../screens/screensIndex';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PrestaCard from '../screens/cards/PrestaCard';
+import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 
 
 const SearchMainStack = () => {
@@ -17,12 +18,17 @@ const SearchMainStack = () => {
     return (
         <Tab.Navigator 
         screenOptions={{
-          tabBarLabelStyle: { fontSize: 12, color: colors.light },
-          tabBarStyle: { backgroundColor: colors.dark, paddingTop: 25 },
-          tabBarIndicatorStyle: {backgroundColor: colors.primary}
+          tabBarLabelStyle: { fontSize: 12, color: colors.dark, fontWeight: "bold" },
+          tabBarStyle: { backgroundColor: colors.primary, paddingTop: 25 },
+          tabBarIndicatorStyle: {backgroundColor: colors.dark}
         }}
         >
-          <Tab.Screen name="Rechercher une scène"> 
+          <Tab.Screen name="Une scène"
+           options={{
+            tabBarIcon: () => (
+              <FontAwesome5 name="search-location" size={24} color={colors.dark} />
+            ),
+        }}> 
           {() => (
             <Stack.Navigator>
               <Stack.Screen name="Recherche de scène" component={SearchSceneScreen}
@@ -34,7 +40,12 @@ const SearchMainStack = () => {
             )}
           </Tab.Screen>
           <Tab.Screen
-            name="Rechercher un artiste"
+            name="Un artiste"
+            options={{
+              tabBarIcon: () => (
+                <MaterialIcons name="person-search" size={24} color={colors.dark} />
+              ),
+          }}
           >
             {() => (
             <Stack.Navigator>

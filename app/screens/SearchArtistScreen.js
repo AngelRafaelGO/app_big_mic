@@ -3,44 +3,6 @@ import { View, StyleSheet, FlatList, Image, SafeAreaView} from 'react-native';
 import colors from '../config/colors';
 import { Card, Searchbar} from 'react-native-paper';
 
-/* const tagList = [
-  {
-    id: 1,
-    name: "Musique"
-  },
-  {
-    id: 2,
-    name: "Danse"
-  },
-  {
-    id: 3,
-    name: "Chant"
-  },
-  {
-    id: 4,
-    name: "Théâtre"
-  },
-  {
-    id: 5,
-    name: "Stand-up"
-  },
-];
-
-const roleList = [
-  {
-    id: 1,
-    name: "Organisateur"
-  },
-  {
-    id: 2,
-    name: "Exploitant"
-  },
-  {
-    id: 3,
-    name: "Artiste"
-  }
-]; */
-
 const SearchUserScreen = ({navigation}) => {
 
   //Search artist function
@@ -120,20 +82,6 @@ const SearchUserScreen = ({navigation}) => {
       inputStyle={styles.searchinputStyle}
     />
       <View style={styles.filterContainer}>  
-        {/* <Button_filter_Tag name="Tag"
-        set_action= {set_filter}
-        tagList={tagList} /> 
-        <Button_filter_Tag name="Rôle"
-        tagList={roleList}
-        set_action= {set_filter}
-         />
-          <Button 
-        icon= "filter"
-        onPress={() => console.log("Filters applied")}
-        color = {colors.primary}
-        labelStyle={{color:colors.primary}}
-        compact={true}
-        > Appliquer </Button>*/}
       </View>
       {/* Results of the research */}
       <FlatList

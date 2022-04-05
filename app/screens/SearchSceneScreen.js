@@ -1,51 +1,22 @@
 import React, {useState, useEffect} from 'react';
-import {  View, StyleSheet, FlatList, Alert } from 'react-native';
+import {  View, StyleSheet, FlatList, Alert, TouchableOpacity, Text } from 'react-native';
 import colors from '../config/colors';
-import { Button_filter_Tag, Button_filter_Date} from './../components/componentsIndex'; 
-import { Card, Badge, Searchbar, Button } from 'react-native-paper';
+import { Button_filter_Date} from './../components/componentsIndex'; 
+import { Card, Badge, Searchbar, Button, Provider, Divider , Menu} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
-/* const tagList = [
-  {
-    id: 1,
-    name: "Musique"
-  },
-  {
-    id: 2,
-    name: "Danse"
-  },
-  {
-    id: 3,
-    name: "Chant"
-  },
-  {
-    id: 4,
-    name: "Théâtre"
-  },
-  {
-    id: 5,
-    name: "Stand-up"
-  },
-]; */
-
-
-
-/* const set_filter = () => {
-  Alert.alert('Selectionner les paramètres du filtre + rafraichir');
-}; */
 
 
 //Main component of this file
 const SearchSceneScreen = ({navigation}) => {
 
-  //Get selectedDate on Calendar picker
+  /*Get selectedDate on Calendar picker*/
   const getSelectedDate = async () => {
     try {
       const value = await AsyncStorage.getItem('@selectedDate')
       if(value !== null) {
-        setSelectedDate(value) ;
-      }
+       setSelectedDate(value);
+      } 
+      console.log(value);
     } catch(e) {
       console.log("ASYNC Reading Storage error: " + e);
     }
@@ -60,12 +31,29 @@ const SearchSceneScreen = ({navigation}) => {
     }
     console.log('Done.')
   }
-  removeValue();
+  removeValue
 
+  const [loading, setLoading] = useState(true); 
   const [selectedDate, setSelectedDate] = useState('');
   console.log("Selected Date: " + selectedDate);
 
-  // Query to display the list of all scenes
+  //Query to apply date filter selection
+  const getScenesDateFilteredScenes = async () => {
+    try {
+      setSelectedDate(selectedDate);
+      const response = await fetch(`http://64.225.72.25:5000/scenedatelessthan/${selectedDate}`, {
+        method: 'GET',
+      });
+      const scenes = await response.json();
+      setFilteredDataSource(scenes);
+      setMasterDataSource(scenes);
+      setLoading(false)
+    } catch (error) {
+      console.error("ERROR in query:" + error);
+    }
+  };
+
+  // Query to display the list of all available scenes
   const getScenesFromApi = async () => {
     try {
       const response = await fetch('http://64.225.72.25:5000/getscene', {
@@ -74,17 +62,17 @@ const SearchSceneScreen = ({navigation}) => {
       const scenes = await response.json();
       setFilteredDataSource(scenes);
       setMasterDataSource(scenes);
+      setLoading(false) 
     } catch (error) {
       console.error("ERROR in query:" + error);
     }
   };
 
-  console.log(filteredDataSource);
-
   useEffect(() =>{ 
     getScenesFromApi();
   }, []);
-
+  
+ 
   //Research result item structure and filling
   const renderData = (item) => {
     var month = 'NR';
@@ -94,23 +82,21 @@ const SearchSceneScreen = ({navigation}) => {
       month = date[1];
       day = date[2];
     }
-  return (
-  <Card
-  style={styles.itemContainer}
-  onPress={()=>navigation.navigate("Détails", {item: item})}>
-    <Card.Title
-      title={item.titrescene}
-      subtitle={item.descscene}
-      left={(props) => <Badge 
-        size={50} 
-        style= {styles.itemDate}
-        >
-          
-        </Badge>}
-      />
-    </Card>
-    );
-  }
+    return (
+      <Card
+        style={styles.itemContainer}
+        onPress={()=>navigation.navigate("Détails", {item: item})}>
+        <Card.Title
+          title={item.titrescene}
+          subtitle={item.descscene}
+          left={(props) => <Badge 
+            size={50} 
+            style= {styles.itemDate}>{day}.{month}</Badge>}
+          />
+      </Card>
+      );
+    }
+
   //Search bar variables
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -140,6 +126,20 @@ const SearchSceneScreen = ({navigation}) => {
     }
   };
 
+  //Handle Date menu selection
+  const [visibleMenu, setVisibleMenu] = React.useState(false);
+  const openMenu = () => setVisibleMenu(true);
+  const closeMenu = () => setVisibleMenu(false);
+  const today = new Date(); 
+  const year = today.getFullYear()
+  const month = today.getMonth()
+  const day = today.getDate()
+  const getDatePlusDays = (value) =>{
+    const newDate = new Date(year, month, day + value)
+    return newDate.toISOString().split('T')[0]
+  }
+ 
+
   return (
     <View style={styles.container}>
       <Searchbar
@@ -148,46 +148,102 @@ const SearchSceneScreen = ({navigation}) => {
       value={search}
       iconColor={colors.primary}
       inputStyle={styles.searchinputStyle}
-    />
-     
-      <View style={styles.filterContainer}>
-          
-        <Button_filter_Date name={"Date "+selectedDate} 
-        />
-        {/* <Button_filter_Tag name="Tag"
-        tagList={tagList}
-        set_action= {set_filter} /> */}
-        <Button 
-        icon= "filter"
-        onPress={() => getSelectedDate()}
-        color = {colors.primary}
-        labelStyle={{color:colors.primary}}
-        compact={true}
-        > Appliquer </Button>
-      </View>
-      {/* Results of the research */}
-      <FlatList
-        style = {styles.listContainer}
-        data = {filteredDataSource}
-        renderItem = {({item}) => {
-          // console.log(data)
-          return renderData(item)
-        }}
-        keyExtractor = {item => `${item.numscene}`}
       />
+     
+     {/* Date filter menu and validation buttons */}
+      <View style={styles.filterContainer}> 
+        <Provider>
+          <Menu
+            style={styles.menu}
+            visible={visibleMenu}
+            onDismiss={closeMenu}
+            anchor={<TouchableOpacity 
+              onPress={openMenu}
+              style= {styles.buttonContainer}
+              >
+                <Text>Date</Text>
+                <Text style={{color:colors.dark, fontSize:12}}>{selectedDate}</Text>
+                <View style={{flexDirection:'row'}}>
+                  <Button 
+                  icon= "check"
+                  onPress={() => {
+                    closeMenu;
+                    getSelectedDate();
+                    setSelectedDate(selectedDate);
+                    getScenesDateFilteredScenes();
+                    setSearch('');
+                    }}
+                  color = {colors.primary}
+                  labelStyle={{color:colors.primary}}
+                  compact={true}
+                  /> 
+                  <Button 
+                  icon= "close"
+                  onPress={() => {
+                    setSelectedDate('');
+                    getScenesFromApi();
+                    removeValue();}}
+                  color = {colors.primary}
+                  labelStyle={{color:colors.primary}}
+                  compact={true}
+                  /> 
+                </View>
+                </TouchableOpacity>
+              }>
+            <Menu.Item onPress={() => {
+              setSelectedDate(getDatePlusDays(7));
+              closeMenu();
+            }} title="La semaine prochaine" />
+            <Menu.Item onPress={() => {
+              setSelectedDate(getDatePlusDays(30));
+              closeMenu();
+              }} title={"Le mois prochain"} />
+            {/* <Divider />
+            <Button_filter_Date
+            name={"Choisir une date"}
+            padding={15}/> */}
+          </Menu>
+        </Provider>
+      </View>
+
+      {/* Results of the research */}
+      <View
+      style={{zIndex: 2}}>
+        <FlatList
+          style = {styles.listContainer}
+          data = {filteredDataSource}
+          renderItem = {({item}) => {
+            return renderData(item)
+          }}
+          onRefresh = {() => getScenesFromApi()}
+          refreshing = {loading}
+          keyExtractor = {item => `${item.numscene}`}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    position: 'relative',
+    padding: 5,
+    margin: 20,
+    backgroundColor: colors.light,
+    borderRadius: 15,
+    alignItems: "center",
+    paddingLeft:20,
+  },
   container:{
     backgroundColor: colors.white,
   },
   filterContainer: {
+    zIndex: 4,
     backgroundColor: colors.white,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     paddingBottom: 5,
   },
   listContainer: {
@@ -203,6 +259,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     backgroundColor: colors.primary, 
     color: colors.white,
+  },
+  menu: {
+    position:"absolute",
+    zIndex: 1000,
+    top: 65,
   },
   searchinputStyle: {
     margin: 5,

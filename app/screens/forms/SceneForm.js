@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity,  ScrollView , Style} from 'react-native';
-import {TextInput, Button, Dialog} from 'react-native-paper';
-import {Button_filter_Date, SelectDate }from '../../components/componentsIndex';
+import React, {useState, useEffect} from 'react';
+import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity,  ScrollView} from 'react-native';
+import {TextInput, Button, Title} from 'react-native-paper';
+import Button_filter_Date from '../../components/Button_filter_Date';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../../config/colors';
-import { AuthContext } from '../../config/context';
+
 
 function SceneForm(props, {navigation}) {
 
@@ -38,7 +39,37 @@ function SceneForm(props, {navigation}) {
         .catch(error => console.log("POST error: " + error))
     }
 
-    const [selectedDate, setSelectedDate] = useState('');
+    //Get selectedDate on Calendar picker
+    const getSelectedDate = async () => {
+        try {
+        const value = await AsyncStorage.getItem('@selectedDate')
+        if(value !== null) {
+            setSelectedDate(value) ;
+        }
+        } catch(e) {
+        console.log("ASYNC Reading Storage error: " + e);
+        }
+    }
+
+
+    //Reset selectedDate of calendar
+    const removeValue = async () => {
+        try {
+        await AsyncStorage.setItem('@selectedDate', '')
+        } catch(e) {
+        console.log("ASYNC Removal error: " + e);
+        }
+        console.log('Done.')
+    }
+    
+    //Calendar action
+    const calendarAction = () =>{
+        getSelectedDate();
+        setdatescene(selectedDate);
+        removeValue();
+    }
+
+    const [selectedDate, setSelectedDate] = useState(null);
 
     return (
         console.log({titrescene: titrescene, 
@@ -54,7 +85,9 @@ function SceneForm(props, {navigation}) {
 
             </View>
 
-            <Text style={{fontWeight: 'bold', margin: 20, fontSize: 20, alignItems:'center', textAlign:'center' }}> Création de ma scène  </Text>
+
+            <Title
+            style={{textAlign:'center'}}>Création de ma scène</Title>
             <View>
                     
                     <TextInput style={styles.textInput}
@@ -72,72 +105,83 @@ function SceneForm(props, {navigation}) {
                                 value = {descscene}
                                 mode="outlined"
                                 onChangeText={ (val) => setdescscene(val)} />
-                    {/* <TextInput style={styles.textInput}
-                                label = "Tags"
-                                value = {sceneTags}
-                                mode="outlined"
-                                onChangeText={ (val) => setSceneTags(val)} /> */}
                     <TextInput style={styles.textInput}
                                 multiline
                                 label = "Critères de participation"
                                 value = {criteres}
                                 mode="outlined"
                                 onChangeText={ (val) => setcriteres(val)} />
-                    <Button_filter_Date 
-                                name= {'choisissez la date'}
-                                 />
-                                 <Text>{selectedDate}</Text>
-                    <View>
-                    <Image style= {{marginLeft: 'auto',marginRight: 'auto', margin: 20}} source={require('../../assets/SceneImage.png')} />     
-                    </View>        
-                    <TouchableOpacity   
-                    style = {styles.button}
-                    onPress = { () => insertData()}
-
-                    >
-                        <Text style={styles.textButton}> Valider </Text>   
-                        </TouchableOpacity>      
-            </View>  
-
+                    <View style={styles.dateButtonContainer}>
+                        <Button_filter_Date
+                            name={"Choisir une date"}
+                            background={colors.secondary}
+                            border={15}
+                            padding= {10}/>
+                        <Text style={{color:colors.dark, fontSize:12, width: "30%"}}>{datescene}</Text>
+                        <View style={{flexDirection:'row'}}>
+                            <Button 
+                            icon= "check"
+                            onPress={() => calendarAction()}
+                            color = {colors.primary}
+                            labelStyle={{color:colors.primary}}
+                            compact={true}
+                            /> 
+                            <Button 
+                            icon= "close"
+                            onPress={() => {setdatescene('');
+                                            setSelectedDate('');
+                                            removeValue;}}
+                            color = {colors.primary}
+                            labelStyle={{color:colors.primary}}
+                            compact={true}
+                            /> 
+                        </View>
+                    </View>
+                <TouchableOpacity   
+                style = {styles.button}
+                onPress = { () => insertData()}
+                >
+                <Text style={styles.textButton}> Soumettre la scène </Text>   
+                </TouchableOpacity>      
+            </View>   
         </ScrollView>
     );
 };
  
 const styles = StyleSheet.create({
+    button: {
+        backgroundColor: colors.primary,
+        borderRadius: 15,
+    },
+    dateButtonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+      },
     container: { 
         flex:1,
         justifyContent:"center",
-        alignItems:"center", 
+        alignItems:"center",
     },
     textInput: { 
-        // borderRadius: 10,
-        // height: 32,
-        // width: '90%',
-        // padding: 5,
         marginLeft:10,
         marginRight:10,
-        marginBottom:5,
-        
+        marginBottom:5, 
     },
     button: {
         margin: 30,
         backgroundColor: '#FF4858',
-        alignItems:'center'
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // width: '40%',
-        // height: 40, 
-        // backgroundColor: colors.primary,
-        // borderRadius: 5,
-        // marginTop: 20,
+        alignItems:'center',
+        borderRadius: 5,
     },
     textButton: {
         margin: 10,
-        color: colors.white,
-        fontWeight: 'bold',
-        fontSize:15,
-        
-    }
+        color: colors.white,       
+    },
+    dateButtonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: "center",
+    },
 });
 
 export default SceneForm;
