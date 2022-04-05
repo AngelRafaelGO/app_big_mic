@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //Main component of this file
 const SearchSceneScreen = ({navigation}) => {
 
-  //Get selectedDate on Calendar picker
+  /*Get selectedDate on Calendar picker*/
   const getSelectedDate = async () => {
     try {
       const value = await AsyncStorage.getItem('@selectedDate')
@@ -36,7 +36,7 @@ const SearchSceneScreen = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState('');
   console.log("Selected Date: " + selectedDate);
 
-  //Query to apply date filter
+  //Query to apply date filter selection
   const getScenesDateFilteredScenes = async () => {
     try {
       const response = await fetch(`http://64.225.72.25:5000/scenedatelessthan/${selectedDate}`, {
@@ -51,7 +51,7 @@ const SearchSceneScreen = ({navigation}) => {
     }
   };
 
-  // Query to display the list of all scenes
+  // Query to display the list of all available scenes
   const getScenesFromApi = async () => {
     try {
       const response = await fetch('http://64.225.72.25:5000/getscene', {
@@ -80,20 +80,21 @@ const SearchSceneScreen = ({navigation}) => {
       month = date[1];
       day = date[2];
     }
-  return (
-  <Card
-  style={styles.itemContainer}
-  onPress={()=>navigation.navigate("Détails", {item: item})}>
-    <Card.Title
-      title={item.titrescene}
-      subtitle={item.descscene}
-      left={(props) => <Badge 
-        size={50} 
-        style= {styles.itemDate}>{day}.{month}</Badge>}
-      />
-    </Card>
-    );
-  }
+    return (
+      <Card
+        style={styles.itemContainer}
+        onPress={()=>navigation.navigate("Détails", {item: item})}>
+        <Card.Title
+          title={item.titrescene}
+          subtitle={item.descscene}
+          left={(props) => <Badge 
+            size={50} 
+            style= {styles.itemDate}>{day}.{month}</Badge>}
+          />
+      </Card>
+      );
+    }
+
   //Search bar variables
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -145,12 +146,11 @@ const SearchSceneScreen = ({navigation}) => {
       value={search}
       iconColor={colors.primary}
       inputStyle={styles.searchinputStyle}
-    />
+      />
      
-      <View style={styles.filterContainer}>
-          
-      <Provider>
-
+     {/* Date filter menu and validation buttons */}
+      <View style={styles.filterContainer}> 
+        <Provider>
           <Menu
             style={styles.menu}
             visible={visibleMenu}
@@ -158,39 +158,33 @@ const SearchSceneScreen = ({navigation}) => {
             anchor={<TouchableOpacity 
               onPress={openMenu}
               style= {styles.buttonContainer}
-              
               >
-                  <Text>Date</Text>
-                  <Text
-                      style={{color:colors.dark, fontSize:12}}>{selectedDate}</Text>
-                      <View style={{flexDirection:'row'}}>
-                        <Button 
-                        icon= "check"
-                        onPress={() => {
-                          getSelectedDate();
-                          getScenesDateFilteredScenes();
-                          setSearch('');
-                          closeMenu();
-                        }}
-                        color = {colors.primary}
-                        labelStyle={{color:colors.primary}}
-                        compact={true}
-                        /> 
-                        <Button 
-                        icon= "close"
-                        onPress={() => {
-                          setSelectedDate('');
-                          getScenesFromApi();
-                        }}
-                        color = {colors.primary}
-                        labelStyle={{color:colors.primary}}
-                        compact={true}
-                        /> 
-                      </View>
+                <Text>Date</Text>
+                <Text style={{color:colors.dark, fontSize:12}}>{selectedDate}</Text>
+                <View style={{flexDirection:'row'}}>
+                  <Button 
+                  icon= "check"
+                  onPress={() => {
+                    getSelectedDate();
+                    getScenesDateFilteredScenes();
+                    setSearch('');
+                    closeMenu();}}
+                  color = {colors.primary}
+                  labelStyle={{color:colors.primary}}
+                  compact={true}
+                  /> 
+                  <Button 
+                  icon= "close"
+                  onPress={() => {
+                    setSelectedDate('');
+                    getScenesFromApi();}}
+                  color = {colors.primary}
+                  labelStyle={{color:colors.primary}}
+                  compact={true}
+                  /> 
+                </View>
                 </TouchableOpacity>
-                
-                }
-            >
+              }>
             <Menu.Item onPress={() => {
               setSelectedDate(getDatePlusDays(7));
               closeMenu();
@@ -203,11 +197,9 @@ const SearchSceneScreen = ({navigation}) => {
             <Button_filter_Date
             name={"Choisir une date"}/>
           </Menu>
-
-      </Provider>
-      
-        
+        </Provider>
       </View>
+
       {/* Results of the research */}
       <View
       style={{zIndex: 2}}>

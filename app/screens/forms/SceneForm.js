@@ -3,7 +3,6 @@ import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity,  ScrollV
 import {TextInput, Button, Title} from 'react-native-paper';
 import Button_filter_Date from '../../components/Button_filter_Date';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import colors from '../../config/colors';
 
 function SceneForm(props, {navigation}) {
@@ -115,64 +114,66 @@ function SceneForm(props, {navigation}) {
                     <View style={styles.dateButtonContainer}>
                         <Button_filter_Date
                             name={"Choisir une date"}
-                            style={styles.button}/>
-                        <Text
-                        style={{width:90}}>{datescene}</Text>
-                        <Button
-                        color={colors.primary}
-                        onPress={()=> calendarAction()}>Valider</Button>
+                            background={colors.secondary}
+                            border={15}
+                            padding= {10}/>
+                        <Text style={{color:colors.dark, fontSize:12, width: "30%"}}>{datescene}</Text>
+                        <View style={{flexDirection:'row'}}>
+                            <Button 
+                            icon= "check"
+                            onPress={() => calendarAction()}
+                            color = {colors.primary}
+                            labelStyle={{color:colors.primary}}
+                            compact={true}
+                            /> 
+                            <Button 
+                            icon= "close"
+                            onPress={() => setdatescene('')}
+                            color = {colors.primary}
+                            labelStyle={{color:colors.primary}}
+                            compact={true}
+                            /> 
+                        </View>
                     </View>
-{/* 
-                    <TextInput style={styles.textInput}
-                                label = "Dates de la scène"
-                                value = {datescene}
-                                mode="outlined"
-                                onChangeText={ (val) => setdatescene(val)} 
-                                 /> */}
-                    <TouchableOpacity   
-                    style = {styles.button}
-                    onPress = { () => insertData()}
-
-                    >
-                        <Text style={styles.textButton}> Soumettre la scène </Text>   
-                        </TouchableOpacity>      
+                <TouchableOpacity   
+                style = {styles.button}
+                onPress = { () => insertData()}
+                >
+                <Text style={styles.textButton}> Soumettre la scène </Text>   
+                </TouchableOpacity>      
             </View>   
         </ScrollView>
     );
 };
  
 const styles = StyleSheet.create({
+    button: {
+        backgroundColor: colors.primary,
+        borderRadius: 15,
+    },
+    dateButtonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+      },
     container: { 
         flex:1,
         justifyContent:"center",
-        alignItems:"center", 
+        alignItems:"center",
     },
     textInput: { 
-        // borderRadius: 10,
-        // height: 32,
-        // width: '90%',
-        // padding: 5,
         marginLeft:10,
         marginRight:10,
-        marginBottom:5,
-        
+        marginBottom:5, 
     },
     button: {
         margin: 30,
         backgroundColor: '#FF4858',
         alignItems:'center',
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // width: '40%',
-        // height: 40, 
-        // backgroundColor: colors.primary,
         borderRadius: 5,
-        // marginTop: 20,
     },
     textButton: {
         margin: 10,
-        color: colors.white,
-        
+        color: colors.white,       
     },
     dateButtonContainer: {
         flexDirection: 'row',

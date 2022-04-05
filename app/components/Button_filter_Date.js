@@ -5,6 +5,7 @@ import Dialog from "react-native-dialog";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CalendarPicker from 'react-native-calendar-picker';
 import { utc } from 'moment';
+import { IconButton } from 'react-native-paper';
 
 
 const Button_filter_Date = (props) => {
@@ -73,9 +74,14 @@ const Button_filter_Date = (props) => {
             </Dialog.Container>
           </View>
         <TouchableOpacity
-          style={styles.buttonContainer}
+          style={{color: props.color, 
+            borderRadius: props.border, 
+            backgroundColor: props.background,
+            padding: props.padding,
+            }}
           onPress={showCalendar}
           >
+
             <Text style={styles.button}>
             {props.name}
             </Text>
@@ -88,10 +94,6 @@ const Button_filter_Date = (props) => {
    dateContainer: {
       alignItems: "center",
       justifyContent: "center",
-    },
-    buttonContainer: {
-      padding: 10,
-      margin: 5,
     },
     button: {
       fontSize: 16,
