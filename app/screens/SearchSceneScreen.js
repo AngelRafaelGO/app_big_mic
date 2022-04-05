@@ -200,7 +200,8 @@ const SearchSceneScreen = ({navigation}) => {
               }} title={"Le mois prochain"} />
             <Divider />
             <Button_filter_Date
-            name={"Choisir une date"}/>
+            name={"Choisir une date"}
+            padding={15}/>
           </Menu>
         </Provider>
       </View>
