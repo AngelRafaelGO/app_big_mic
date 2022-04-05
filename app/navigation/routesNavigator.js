@@ -8,7 +8,8 @@ import {
     ProfilScreen, Loading, ProfilOptions, SceneForm, 
     CreatePresta, WelcomeScreen, PrestaDetails, EditPresta, 
     SceneDetails, Scenes, SceneFormEdit,
-    CreateLieu, EditLieu, LieuDetails, ChangeProImage
+    CreateLieu, EditLieu, LieuDetails, ChangeProImage,
+    EditProfil
     } 
 from '../screens/screensIndex';
 import { AuthContext } from '../config/context';
@@ -47,10 +48,12 @@ const LoginStackScreen = () => (
 );
 
 // Profil stack screen
+let userData = [];
 const ProfilStack = createNativeStackNavigator();
 const ProfilStackScreen = () => (
     <ProfilStack.Navigator >
         <ProfilStack.Screen 
+        value={userData}
         name='Profil'
         component={ProfilScreen}
         options={{ 
@@ -107,6 +110,10 @@ const ProfilStackScreen = () => (
         name='LieuDetails'
         component={LieuDetails}
         /> 
+        <ProfilStack.Screen 
+        name='EditProfil'
+        component={EditProfil}
+        />
     </ProfilStack.Navigator>
 );
 
@@ -143,7 +150,8 @@ const MainScreen = () => (
                 <MaterialCommunityIcons 
                 name="account" 
                 color={color} 
-                size={24} />
+                size={24} 
+                />
             ),
         }}
         />
@@ -158,8 +166,8 @@ export function RootNavigator() {
     const authContext = React.useMemo(() => {
         // These functions enable logIn/logOut logic
         return {
-            signIn: (password) => {
-                setIsLoading(false);
+            signIn: (password, userDataI) => {
+                userData = userDataI;
                 setUserPassword(password);
             },
             signUp: (password) => {
@@ -180,7 +188,7 @@ export function RootNavigator() {
         setTimeout(() => {
             setIsLoading(false);
         }, 2000)
-    }, []); 
+    }, []);
 
     if (isLoading) {
         return <Loading />

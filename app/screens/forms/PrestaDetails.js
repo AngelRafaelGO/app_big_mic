@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, ScrollView, StyleSheet, Image, TouchableOpacity, Alert} from 'react-native';
 import { Button, FAB} from 'react-native-paper';
 import colors from '../../config/colors';
 
 function PrestaDetails(props, {navigation}) {
     const data = props.route.params.data;
+
+    const [fichierphoto, setFichierphoto] = useState('');
 
     const confirmDeletion = () =>
     Alert.alert(
@@ -29,9 +31,36 @@ function PrestaDetails(props, {navigation}) {
         })
         .catch(error => {
             console.log("DELETE error: " + error)
+            Alert.alert("la Prestation n'a pas pu être supprimée")
+        })
+    };
+
+    const getphoto = () => {
+        console.log('numphoto:' + data.numphoto)
+        fetch(`http://64.225.72.25:5000/getphoto/${data.numphoto}`, {
+            method : 'GET',
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            if(resp.fichierphoto != null || resp.fichierphoto !='' || resp.fichierphoto != 'undefined'){
+                console.log("il y a une photo " + resp.numphoto + " - "+ resp.fichierphoto);
+                setFichierphoto(photo);
+            }
+        })
+        .catch(error => {
+            console.log("DELETE error: " + error)
             alert
         })
     };
+
+    useEffect(() =>{ 
+        getphoto();
+        if (fichierphoto.fichierphoto == ''){
+            fichierphoto.fichierphoto = 'https://picsum.photos/700';
+            console.log(fichierphoto);
+        }
+      }, []);
+
 
   return (
       <View>
@@ -46,9 +75,13 @@ function PrestaDetails(props, {navigation}) {
                 <TouchableOpacity 
                     style={styles.imgView} 
                     onPress={() => Alert.alert("go to full screen image")}>
-                    <Image source={{ uri: 'https://picsum.photos/700'}} style = {styles.img} />
+                    <Image source={{ uri: fichierphoto.fichierphoto}} style = {styles.img} />
+                    {/* <Image source={{ uri: 'https://picsum.photos/700'}} style = {styles.img} /> */}
                     {/* <Image source={{ uri : fichierphoto}} style = {styles.img} /> */}
                 </TouchableOpacity>
+                <Text style= {styles.txtChamp}>
+                    {data.numphoto} - {fichierphoto.fichierphoto}
+                </Text>
                 <Text style= {styles.txtChamp}>
                     Description:
                 </Text>

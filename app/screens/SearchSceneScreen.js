@@ -29,13 +29,11 @@ const SearchSceneScreen = ({navigation}) => {
     } catch(e) {
       console.log("ASYNC Removal error: " + e);
     }
-    console.log('Done.')
   }
   removeValue
 
   const [loading, setLoading] = useState(true); 
   const [selectedDate, setSelectedDate] = useState('');
-  console.log("Selected Date: " + selectedDate);
 
   //Query to apply date filter selection
   const getScenesDateFilteredScenes = async () => {

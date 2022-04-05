@@ -3,13 +3,14 @@ import { Image, SafeAreaView, StyleSheet, View, TextInput, Text, TouchableOpacit
 
 import { AuthContext } from '../../config/context';
 import colors from '../../config/colors';
+import { acc } from 'react-native-reanimated';
 
-function LoginScreen() {
+function LoginScreen({navigation}) {
 
     const { signIn } = React.useContext(AuthContext);
     const [password, setPassword] = React.useState();
     const [mail, setMail] = useState('');
-    const [userData, setUserData] = useState([]);
+    let userData = [];
 
     const getMail = (mail) => {
         fetch(`http://64.225.72.25:5000/getmail/${mail}`, {
@@ -17,25 +18,27 @@ function LoginScreen() {
         }) 
         .then(resp => resp.json())
         .then(userObject => {
-            setUserData(userObject);
-            const { motdepasse } = userData[0];
-            if (motdepasse != password) {
-                Alert.alert(
-                    "Mot de passe ou email incorrects",
-                    "Veuillez réessayer",
-                    [
-                      {
-                        text: "Cancel",
-                        onPress: () => console.log("Cancel Pressed"),
-                        style: "cancel"
-                      },
-                      { text: "OK", onPress: () => console.log("OK Pressed") }
-                    ]
-                );
-            } else if (motdepasse == password) {
-                signIn(password);
-            }
-        })
+            //setUserData(userObject);
+            const { motdepasse } = userObject[0]
+                if (motdepasse != password) {
+                    Alert.alert(
+                        "Mot de passe ou email incorrects",
+                        "Veuillez réessayer",
+                        [
+                            {
+                                text: "Cancel",
+                                style: "cancel",
+                            },
+                            { 
+                                text: "OK",
+                            },
+                        ]
+                    );
+                } else {
+                    userData = userObject;
+                    signIn(password, userData);
+                }    
+            })
         .catch(error => console.log("ERROR caught:\n" + error))
     }
 
@@ -51,7 +54,7 @@ function LoginScreen() {
                 textContentType='emailAddress'
                 keyboardType='email-address' 
                 style={styles.loginText} 
-                onChangeText={(mail) => setMail(mail)}
+                onChangeText={(text) => setMail(text)}
                 />
                 <TextInput 
                 placeholder='Mot de pass'
