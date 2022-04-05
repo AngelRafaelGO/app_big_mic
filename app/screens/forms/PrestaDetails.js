@@ -42,7 +42,7 @@ function PrestaDetails(props, {navigation}) {
         })
         .then(resp => resp.json())
         .then(resp => {
-            if(resp.fichierphoto != null || resp.fichierphoto !='' || resp.fichierphoto != 'undefined'){
+            if(resp.numphoto != null || resp.fichierphoto !='' || resp.fichierphoto != 'undefined'){
                 console.log("il y a une photo " + resp.numphoto + " - "+ resp.fichierphoto);
                 setFichierphoto(photo);
             }
@@ -57,7 +57,7 @@ function PrestaDetails(props, {navigation}) {
         getphoto();
         if (fichierphoto.fichierphoto == ''){
             fichierphoto.fichierphoto = 'https://picsum.photos/700';
-            console.log(fichierphoto);
+            console.log("fichier: " + fichierphoto.fichierphoto);
         }
       }, []);
 
