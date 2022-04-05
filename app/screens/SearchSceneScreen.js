@@ -144,16 +144,17 @@ const SearchSceneScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Searchbar
-      placeholder="Entrez votre recherche"
-      onChangeText={(text) => searchFilterFunction(text)}
-      value={search}
-      iconColor={colors.primary}
-      inputStyle={styles.searchinputStyle}
-      />
      
-     {/* Date filter menu and validation buttons */}
+     
       <View style={styles.filterContainer}> 
+        <Searchbar
+        placeholder="Entrez votre recherche"
+        onChangeText={(text) => searchFilterFunction(text)}
+        value={search}
+        iconColor={colors.primary}
+        inputStyle={styles.searchinputStyle}
+        />
+        {/* Date filter menu and validation buttons */}
         <Provider>
           <Menu
             style={styles.menu}
@@ -198,7 +199,6 @@ const SearchSceneScreen = ({navigation}) => {
               setSelectedDate(getDatePlusDays(30));
               closeMenu();
               }} title={"Le mois prochain"} />
-            <Divider />
             <Button_filter_Date
             name={"Choisir une date"}
             padding={15}
@@ -229,7 +229,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    position: 'relative',
     padding: 5,
     margin: 20,
     backgroundColor: colors.light,
@@ -242,9 +241,10 @@ const styles = StyleSheet.create({
   },
   filterContainer: {
     zIndex: 4,
+    height: 160,
     backgroundColor: colors.white,
-    flexDirection: 'row',
-    alignItems: 'center',
+    //flexDirection: 'row',
+    //alignItems: 'center',
     paddingBottom: 5,
   },
   listContainer: {
@@ -263,13 +263,16 @@ const styles = StyleSheet.create({
   },
   menu: {
     position:"absolute",
-    zIndex: 1000,
-    top: 65,
+    zIndex: 4,
+    top: 35,
   },
   searchinputStyle: {
     margin: 5,
     backgroundColor: colors.light,
     borderRadius:5,
+    paddingVertical:10,
+    marginVertical: 10,
+    zIndex:1,
   },
 })
 
