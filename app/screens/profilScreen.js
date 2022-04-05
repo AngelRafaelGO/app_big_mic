@@ -8,15 +8,11 @@ import {
 import { TabView, TabBar } from "react-native-tab-view";
 import { Ionicons, AntDesign, EvilIcons } from "@expo/vector-icons"
 
-
 import colors from "../config/colors";
+import {Prestations, Scenes, Lieux} from "./screensIndex";
 
-import {Prestations, Scenes} from "./screensIndex";
-
-const FirstTab = ({navigation}) => (
+const FirstTab = ({ navigation }) => (
     <View style={styles.tabScreen}>
-        <View style={styles.tabScrArtCardCreate}>
-        </View>
         < Prestations navigation = {navigation} />    
     </View>
 );
@@ -24,34 +20,8 @@ const FirstTab = ({navigation}) => (
 const SecondTab = ({ navigation }) => (
     <View style={styles.tabScreen}>
         <View style={styles.tabScrArtCardCreate}>
-       {/* <TouchableOpacity 
-        style={styles.tabScrSceneCardCreate}
-        onPress={() => navigation.navigate('CreateScene')}
-        >
-            <Ionicons
-            name='ios-create-outline'
-            size={24}
-            color={{ color: colors.white }}
-            />
-        </TouchableOpacity>*/}
         </View>
         <Scenes navigation= {navigation} />
-
-    </View>
-);
-
-const ThirdTab = () => (
-    <View style={styles.tabScreen}>
-        <TouchableOpacity style={styles.tabScrLocCardCreate}>
-            <Ionicons 
-            name='ios-create-outline'
-            size={24}
-            color={{ color: colors.white }}
-            />
-        </TouchableOpacity>
-        <Text>
-            Hello, add a new place to host events!
-        </Text>
     </View>
 );
 
@@ -63,14 +33,13 @@ const renderTabBar = props => (
     />
 );
 
-function ProfilScreen({ navigation }) {
-       
+function ProfilScreen({ navigation, route }) {
+
     const layout = useWindowDimensions();
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         {key: 'first', title: 'Prestations'},
         {key: 'second', title: 'Scènes'},
-        {key: 'third', title: 'Lieux'},
     ]);
 
     const renderScene = ({ route }) => {
@@ -79,23 +48,29 @@ function ProfilScreen({ navigation }) {
                 return <FirstTab navigation={navigation} />;
             case 'second':
                 return <SecondTab navigation={navigation} />;
-            case 'third' :
-                return <ThirdTab navigation={navigation} />;
             default:
                 return null;
         };
     };
+
+    const name = route.params;
+    console.log(name);
 
     return (
         <SafeAreaView style={styles.mainView}>
             <View style={styles.accountInfoView}>
                 <TouchableOpacity 
                 style={styles.profilOprionsTouchable}
-                onPress={() => navigation.navigate('ProfilOptions')}
+                onPress={() => {
+                    navigation.navigate('ProfilOptions')
+                }}
                 >
                     <Ionicons name='settings-outline' size={24} color='white' />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.tchChangePImage}>
+                <TouchableOpacity 
+                style={styles.tchChangePImage}
+                onPress={() => navigation.navigate('ChangerImage')}
+                >
                     <Image 
                     style={styles.accountImage}
                     source={{
@@ -119,12 +94,12 @@ function ProfilScreen({ navigation }) {
                 </View>
             </View>
             <TabView 
-            navigation={navigation}
-            renderTabBar={renderTabBar}
-            navigationState={{ index, routes }}
-            renderScene={renderScene}
-            onIndexChange={setIndex}
-            initialLayout={{width: layout.width}}
+                navigation={navigation}
+                renderTabBar={renderTabBar}
+                navigationState={{ index, routes }}
+                renderScene={renderScene}
+                onIndexChange={setIndex}
+                initialLayout={{width: layout.width}}
             />
         </SafeAreaView>
     );
@@ -150,6 +125,8 @@ const styles = StyleSheet.create({
         color: colors.white,
         marginBottom: 5,
     },
+    bSheetHead: {
+    },
     mainView: {
         flex: 1,
     },
@@ -164,7 +141,7 @@ const styles = StyleSheet.create({
     profilOprionsTouchable: {
         position: 'absolute',
         right: 15,
-        top: 20,
+        top: 40,
     },
     tabScrArtCardCreate: {
         position: 'absolute',

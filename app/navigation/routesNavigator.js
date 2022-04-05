@@ -1,15 +1,16 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialCommunityIcons, AntDesign} from '@expo/vector-icons'; 
+
 import { 
     LoginScreen, CreateAccount, CreateAccountS2, 
     ProfilScreen, Loading, ProfilOptions, SceneForm, 
     CreatePresta, WelcomeScreen, PrestaDetails, EditPresta, 
-    SceneDetails, Scenes, SceneFormEdit
+    SceneDetails, Scenes, SceneFormEdit,
+    CreateLieu, EditLieu, LieuDetails, ChangeProImage
     } 
 from '../screens/screensIndex';
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialCommunityIcons, AntDesign} from '@expo/vector-icons'; 
-
 import { AuthContext } from '../config/context';
 import colors from '../config/colors';
 import SearchMainStack from './SearchMainStack';
@@ -42,11 +43,6 @@ const LoginStackScreen = () => (
         component={CreateAccount} 
         options={{ title: '' }}
         />
-        <LoginStack.Screen 
-        name='CreateAccount2'
-        component={CreateAccountS2}
-        options={{ title: '' }}
-        />
     </LoginStack.Navigator>
 );
 
@@ -65,6 +61,11 @@ const ProfilStackScreen = () => (
         name='ProfilOptions'
         component={ProfilOptions}
         options={{ title: 'Options de compte' }}
+        />
+        <TabsMainStack.Screen 
+        name='ChangerImage'
+        component={ChangeProImage}
+        options={{ title: 'Modifier photo profil'}}
         />
         <ProfilStack.Screen 
         name='CreateScene'
@@ -93,6 +94,18 @@ const ProfilStackScreen = () => (
          <ProfilStack.Screen 
         name='Scenes'
         component={Scenes}
+        />
+        <ProfilStack.Screen 
+        name='CreateLieu'
+        component={CreateLieu}
+        /> 
+        <ProfilStack.Screen 
+        name='EditLieu'
+        component={EditLieu}
+        /> 
+        <ProfilStack.Screen 
+        name='LieuDetails'
+        component={LieuDetails}
         /> 
     </ProfilStack.Navigator>
 );
@@ -121,7 +134,6 @@ const MainScreen = () => (
             ),
         }}
         />
-        
         <TabsMainStack.Screen 
         name='Compte'
         component={ProfilStackScreen}
@@ -139,6 +151,7 @@ const MainScreen = () => (
 );
 
 export function RootNavigator() {
+
     const [isLoading, setIsLoading] = React.useState(true);
     const [userPassword, setUserPassword] = React.useState(null);
 

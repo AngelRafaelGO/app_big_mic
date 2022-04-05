@@ -33,7 +33,7 @@ const Scenes = ({navigation}) => {
         subtitle={item.descscene}
         left={(props) => <Badge 
           size={50} 
-          style= {styles.itemDate}>{day}.{month}</Badge>}
+          style= {styles.itemDate}></Badge>}
         />
       </Card>
       );
@@ -72,7 +72,7 @@ const Scenes = ({navigation}) => {
         />
         <View style = {styles.fabView}>
             <FAB
-            small={false}
+            small={true}
             icon="plus"
             color='white'
             theme= {{colors:{accent:colors.primary}}}

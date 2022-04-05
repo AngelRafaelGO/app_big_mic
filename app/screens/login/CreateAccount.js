@@ -1,14 +1,71 @@
-import React from 'react';
-import { SafeAreaView, View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from "react-native";
+import React, { useState } from 'react';
+import { SafeAreaView, View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Alert } from "react-native";
 
 import colors from '../../config/colors';
+import { AuthContext } from '../../config/context';
 
-function CreateAccount({ navigation }) {
+function CreateAccount(props, {navigation, route }) {
 
-    const [createPassword, setCreatePassword] = React.useState();
+    const { signUp } = React.useContext(AuthContext);
+    const [userData, setUserData] = useState([]);
+    const [nom, setNom] = useState('');
+    const [prenom, setPrenom] = useState('');
+    const [email, setEmail] = useState('');
+    const [motDePasse, setMotDePasse] = useState('');
+    const [numphoto, setnumphoto] = useState(null); 
+    // These variables should be deleted further on
+    const psudo = 'sudo';
+    const ville = 'paris';
+    const tel = '1234';
+
+    const valEmail = () => {
+        fetch(`http://64.225.72.25:5000/getmail/${email}`, {
+            method : 'GET',
+        }) 
+        .then(resp => resp.json())
+        .then(userObject => {
+            setUserData(userObject);
+            const { mail } = userData[0];
+            if (mail == email) {
+                Alert.alert(
+                    "Une compte est déjà lié à ce email",
+                    "Veuillez saisir un autre",
+                    [
+                        {
+                            text: "Cancel",
+                            style: "cancel",
+                        },
+                        { 
+                            text: "OK",
+                        },
+                    ]
+                  );
+            } else {
+                insertData();
+            }
+        })
+        .catch(error => console.log("ERROR caught:\n" + error))
+    }
+
+    const insertData = () => {
+        fetch('http://64.225.72.25:5000/addcompte', {
+            method : 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({nom:nom, prenom:prenom, motdepasse:motDePasse, 
+                ville:ville, tel:tel, pseudo:psudo, mail:email, numphoto:numphoto})
+        })
+        .then(resp => resp.json())
+        .then(() => {
+            signUp(motDePasse)
+        })
+        .catch(error => console.log("POST error: " + error))
+    }
 
     return (
-        <SafeAreaView style={styles.background}>
+        <SafeAreaView 
+        style={styles.background}>
             <Image 
             style={styles.creationImage}
             source={require('../../assets/pablita-523.png')}
@@ -16,31 +73,35 @@ function CreateAccount({ navigation }) {
             <Text style={styles.creationTitle}>
                 Création de compte
             </Text>
-            <View style={styles.formView}>
+            <View 
+            style={styles.formView}>
                 <TextInput 
                 placeholder='Nom'
                 style={styles.inputText} 
+                onChangeText={text => setNom(text)}
                 />
                 <TextInput 
                 placeholder='Prenom'
                 style={styles.inputText} 
+                onChangeText={text => setPrenom(text)}
                 />
                 <TextInput 
                 placeholder='Email'
                 style={styles.inputText} 
+                onChangeText={text => setEmail(text)}
                 />
                 <TextInput 
                 placeholder='Mot de passe'
                 textContentType='password'
                 secureTextEntry={true}
                 style={styles.inputText} 
-                onChangeText={(createPassword) => setCreatePassword(createPassword)}
+                onChangeText={(text) => setMotDePasse(text)}
                 />
                 <TouchableOpacity 
                 style={styles.createAccountTouchable} 
-                onPress={() => navigation.navigate('CreateAccount2', {
-                    password: createPassword,
-                })}
+                onPress={() => {
+                    valEmail()
+                }}
                 >
                     <Text style={styles.nextScreenTouchable}>
                         Suivant
