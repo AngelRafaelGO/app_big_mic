@@ -95,6 +95,7 @@ const SearchSceneScreen = ({navigation}) => {
             size={50} 
             style= {styles.itemDate}>{day}.{month}</Badge>}
           />
+          <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
       </Card>
       );
     }
