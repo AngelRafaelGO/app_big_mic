@@ -148,43 +148,23 @@ const styles = StyleSheet.create ({
          marginRight: 10,
          marginLeft: 15,
     },
-    // btnStyle: {
-    //     flexDirection:"row",
-    //     justifyContent:"space-around",
-    //     margin: 10,
-    //     padding: 5,
-    // },
-    // btnInside: {
-    //     backgroundColor: '#FF4858',
-
-    // },
     imgView: {
         alignItems: 'center',
         margin: 10,
-        // borderWidth: 1,
-        // backgroundColor: colors.secondary,
         height: 200,
         width: 300,
-        // borderRadius: 5,
     },
     img: {
-        // width: Dimensions.get('window').width * 0.8,
         height: 200,
         aspectRatio: 1.5,
         resizeMode: 'contain',
         alignItems: 'center',
-        // padding: 10,
-        // marginTop: 8,
     },
     fabView: {
         position: 'absolute',
         flexDirection: 'column',
         right: 10,
         top: 10
-      },
-      fabBtn: {
-        // margin: 50,
-        // padding: 50,
       },
     txtTitre:{
         fontSize: 25,
@@ -202,7 +182,6 @@ const styles = StyleSheet.create ({
         color: '#4d94d6',
     },
     txtChamp: {
-        // width: 100,
         backgroundColor: colors.secondary,
         fontSize: 10,
         marginTop: 10,

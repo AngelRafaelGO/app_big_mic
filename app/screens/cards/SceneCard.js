@@ -46,15 +46,6 @@ const SceneCard = ( {route}) => {
         <Paragraph>{item.adrscene}</Paragraph>
 
       </Card.Content>
-      <Card.Actions>
-        <FAB 
-        label='Contacter'
-        style= {styles.fab}
-        icon="email"
-        color={colors.white}
-        onPress={()=> sendMail()}
-          />
-      </Card.Actions>
       <Card.Cover source={{ uri: item.lienphoto}} />
 
     </Card>
