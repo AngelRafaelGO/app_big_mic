@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {  View, StyleSheet, FlatList, Alert, TouchableOpacity, Text } from 'react-native';
+import {  View, StyleSheet, FlatList, TouchableOpacity, Text, SafeAreaView, ScrollView } from 'react-native';
 import colors from '../config/colors';
 import { Button_filter_Date} from './../components/componentsIndex'; 
-import { Card, Badge, Searchbar, Button, Provider, Divider , Menu} from 'react-native-paper';
+import { Card, Badge, Searchbar, Button, Provider , Menu} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -67,8 +67,12 @@ const SearchSceneScreen = ({navigation}) => {
   };
 
   useEffect(() =>{ 
-    getScenesFromApi();
-  }, []);
+    if(selectedDate == ''){
+      getScenesFromApi();
+    }else {
+      getScenesDateFilteredScenes();
+    } 
+  }, [selectedDate]);
   
  
   //Research result item structure and filling
@@ -91,6 +95,7 @@ const SearchSceneScreen = ({navigation}) => {
             size={50} 
             style= {styles.itemDate}>{day}.{month}</Badge>}
           />
+          <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
       </Card>
       );
     }
@@ -139,7 +144,7 @@ const SearchSceneScreen = ({navigation}) => {
  
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Searchbar
       placeholder="Entrez votre recherche"
       onChangeText={(text) => searchFilterFunction(text)}
@@ -147,8 +152,7 @@ const SearchSceneScreen = ({navigation}) => {
       iconColor={colors.primary}
       inputStyle={styles.searchinputStyle}
       />
-     
-     {/* Date filter menu and validation buttons */}
+      {/* Date filter menu and validation buttons */}
       <View style={styles.filterContainer}> 
         <Provider>
           <Menu
@@ -166,8 +170,6 @@ const SearchSceneScreen = ({navigation}) => {
                   icon= "check"
                   onPress={() => {
                     closeMenu;
-                    getSelectedDate();
-                    setSelectedDate(selectedDate);
                     getScenesDateFilteredScenes();
                     setSearch('');
                     }}
@@ -198,14 +200,14 @@ const SearchSceneScreen = ({navigation}) => {
               }} title={"Le mois prochain"} />
             <Button_filter_Date
             name={"Choisir une date"}
-            padding={15}/>
+            padding={15}
+            onDismiss={getSelectedDate()}/>
           </Menu>
         </Provider>
       </View>
-
-      {/* Results of the research */}
       <View
-      style={{zIndex: 2}}>
+      style={{height: '76%'}}>
+        {/* Results of the research */}
         <FlatList
           style = {styles.listContainer}
           data = {filteredDataSource}
@@ -217,7 +219,8 @@ const SearchSceneScreen = ({navigation}) => {
           keyExtractor = {item => `${item.numscene}`}
         />
       </View>
-    </View>
+
+    </SafeAreaView>
   );
 }
 
@@ -225,9 +228,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    position: 'relative',
     padding: 5,
-    margin: 20,
+    margin: 10,
     backgroundColor: colors.light,
     borderRadius: 15,
     alignItems: "center",
@@ -259,13 +261,16 @@ const styles = StyleSheet.create({
   },
   menu: {
     position:"absolute",
-    zIndex: 1000,
-    top: 65,
+    zIndex: 4,
+    top: 35,
   },
   searchinputStyle: {
     margin: 5,
     backgroundColor: colors.light,
     borderRadius:5,
+    paddingVertical:10,
+    marginVertical: 10,
+    zIndex:1,
   },
 })
 

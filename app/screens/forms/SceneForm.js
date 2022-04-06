@@ -44,7 +44,7 @@ function SceneForm(props, {navigation}) {
         try {
         const value = await AsyncStorage.getItem('@selectedDate')
         if(value !== null) {
-            setSelectedDate(value) ;
+            setdatescene(value) ;
         }
         } catch(e) {
         console.log("ASYNC Reading Storage error: " + e);
@@ -116,7 +116,8 @@ function SceneForm(props, {navigation}) {
                             name={"Choisir une date"}
                             background={colors.secondary}
                             border={15}
-                            padding= {10}/>
+                            padding= {10}
+                            onDismiss={getSelectedDate()}/>
                         <Text style={{color:colors.dark, fontSize:12, width: "30%"}}>{datescene}</Text>
                         <View style={{flexDirection:'row'}}>
                             <Button 
