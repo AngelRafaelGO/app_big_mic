@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { View, FlatList , StyleSheet, SafeAreaView} from "react-native";
 import { Card , Badge, FAB} from 'react-native-paper';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import colors from '../config/colors';
 import { AuthContext } from './../config/context';
-
 
 const Scenes = ({navigation}) => {
 
@@ -39,7 +37,7 @@ const Scenes = ({navigation}) => {
         subtitle={item.descscene}
         left={(props) => <Badge 
           size={50} 
-          style= {styles.itemDate}></Badge>}
+          style= {styles.itemDate}>{day}.{month}</Badge>}
         />
       </Card>
       );

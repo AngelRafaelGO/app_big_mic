@@ -43,7 +43,6 @@ const SceneCard = ( {route}) => {
         <Paragraph>{item.adrscene}</Paragraph>
 
       </Card.Content>
-      <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
       <Card.Actions>
         <FAB 
         label='Contacter'
