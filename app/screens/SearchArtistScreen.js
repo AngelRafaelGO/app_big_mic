@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     backgroundColor: colors.light,
-    height: '90%'
+    height: '95%'
   },
   itemContainer: {
     marginVertical:5,

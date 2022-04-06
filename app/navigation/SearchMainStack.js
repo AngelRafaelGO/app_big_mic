@@ -35,7 +35,8 @@ const SearchMainStack = () => {
               options={{ 
                 headerShown: false
              }} />
-              <Stack.Screen name="Détails" component={SceneCard} />
+              <Stack.Screen name="Détails" component={SceneCard}
+               />
             </Stack.Navigator>
             )}
           </Tab.Screen>
@@ -50,11 +51,11 @@ const SearchMainStack = () => {
             {() => (
             <Stack.Navigator>
               <Stack.Screen name="Recherche d'artiste" component={SearchArtistScreen}
-              options={{ 
-                headerShown: false
-             }} />
-              <Stack.Screen name="Détails compte" component={UserCard} />
-              <Stack.Screen name="Détails de la prestation" component={PrestaCard} />
+               />
+              <Stack.Screen name="Détails compte" component={UserCard}
+               />
+              <Stack.Screen name="Détails de la prestation" component={PrestaCard}
+              />
             </Stack.Navigator>
             )}
           </Tab.Screen>
