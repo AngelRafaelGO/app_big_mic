@@ -14,6 +14,7 @@ const Scenes = ({navigation}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [refresh, setrefresh] = useState(false);
   const clickedItem = (data) => {
     navigation.navigate('SceneDetails', {data:data})
   };
@@ -64,6 +65,7 @@ const Scenes = ({navigation}) => {
   return (
       <SafeAreaView style={styles.container}>
           <FlatList
+        extraData={refresh}
         style = {styles.listContainer}
         data = {data}
         renderItem = {({item}) => {
@@ -79,8 +81,15 @@ const Scenes = ({navigation}) => {
           small={true}
           icon="plus"
           color='white'
-          theme= {{colors:{accent:colors.primary}}}
+          theme= {{colors:{accent:colors.primary,}}}
           onPress = {() => navigation.navigate('CreateScene')}
+          />
+          <FAB
+          small={true}
+          icon="refresh"
+          color='white'
+          theme= {{colors:{accent:colors.primary}}}
+          onPress = {() => getScenesFromApi()}
           />
         </ View>
       </SafeAreaView>
@@ -96,7 +105,9 @@ const Scenes = ({navigation}) => {
     fabView: {
         position: 'absolute',
         flexDirection: 'row',
-        margin: 16,
+        width: 90,
+        justifyContent: 'space-between',
+        margin: 15,
         right: 0,
         bottom: 10
       },

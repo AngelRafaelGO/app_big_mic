@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
-import {Card, FAB, Avatar, Title, Paragraph} from 'react-native-paper';
+import { StyleSheet, Text, View, FlatList , SafeAreaView} from 'react-native';
+import {Card, FAB, } from 'react-native-paper';
 import {AuthContext} from '../config/context';
-import { AntDesign } from '@expo/vector-icons'; 
-import colors from '../config/colors';
 
 function Prestations({navigation}) {
 
@@ -65,7 +63,7 @@ function Prestations({navigation}) {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data = {data}
         renderItem = {({item}) => {
@@ -84,8 +82,16 @@ function Prestations({navigation}) {
           theme= {{colors:{accent:"rgb(255, 72, 88)"}}}
           onPress = {() => navigation.navigate('CreatePresta')}
           />
-        </View>
-    </View>
+          <FAB
+          small={true}
+          icon="refresh"
+          color='white'
+          // label='add'
+          theme= {{colors:{accent:"rgb(255, 72, 88)"}}}
+          onPress = {() => loadData()}
+          />
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -100,29 +106,17 @@ const styles = StyleSheet.create({
   fabView: {
     position: 'absolute',
     flexDirection: 'row',
-    right: 10,
+    width: 90,
+    justifyContent: 'space-between',
+    margin: 15,
+    right: 0,
     bottom: 10
-  },
-  fabBtn: {
-    margin: 50,
-    padding: 50,
   },
   cardStyle:{
     width : 340,
     backgroundColor : '#eeeeee',
     margin : 5,
   },
-  cardView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  cardIndex: {
-    padding: 10,
-    backgroundColor: 'rgb(255, 72, 88)',
-    width: 50,
-  },
-  cardText1: {color : 'white', fontSize :18, alignItems:'center', justifyContent: 'center'},
-  cardText2: {fontSize :18, paddingRight:5, paddingLeft: 5},
 });
 
 export default Prestations;
