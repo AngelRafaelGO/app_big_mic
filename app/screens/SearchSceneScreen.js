@@ -95,7 +95,7 @@ const SearchSceneScreen = ({navigation}) => {
             size={50} 
             style= {styles.itemDate}>{day}.{month}</Badge>}
           />
-          <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+          <Card.Cover source={{ uri: item.lienphoto }} />
       </Card>
       );
     }
@@ -170,7 +170,9 @@ const SearchSceneScreen = ({navigation}) => {
                   icon= "check"
                   onPress={() => {
                     closeMenu;
-                    getScenesDateFilteredScenes();
+                    if(selectedDate != 0){
+                      getScenesDateFilteredScenes();
+                    }
                     setSearch('');
                     }}
                   color = {colors.primary}
@@ -191,11 +193,11 @@ const SearchSceneScreen = ({navigation}) => {
                 </TouchableOpacity>
               }>
             <Menu.Item onPress={() => {
-              setSelectedDate(getDatePlusDays(7));
+              setSelectedDate(getDatePlusDays(9));
               closeMenu();
             }} title="La semaine prochaine" />
             <Menu.Item onPress={() => {
-              setSelectedDate(getDatePlusDays(30));
+              setSelectedDate(getDatePlusDays(31));
               closeMenu();
               }} title={"Le mois prochain"} />
             <Button_filter_Date

@@ -55,13 +55,7 @@ const SceneCard = ( {route}) => {
         onPress={()=> sendMail()}
           />
       </Card.Actions>
-
-      {/* <Text style={styles.txtlien}
-                    onPress={() => Linking.openURL(data.lienprest.toString())}>
-                    {data.lienprest}
-                </Text> */}
-
-      <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+      <Card.Cover source={{ uri: item.lienphoto}} />
 
     </Card>
   </ScrollView>
