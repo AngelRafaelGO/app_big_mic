@@ -1,11 +1,40 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { StyleSheet, ScrollView, Linking } from "react-native";
 import { Paragraph, Subheading, Card } from "react-native-paper";
 
 const PrestaCard = ({route}) =>{
 
+    //Fetch photo
+    const [lienfichierphoto, setlienFichierphoto] = useState('https://picsum.photos/700');
+
+    const getphoto = () => {
+        console.log('numphoto:' + prestas.numphoto)
+        fetch(`http://64.225.72.25:5000/getphoto/${prestas.numphoto}`, {
+            method : 'GET',
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            if(resp.numphoto != null || resp.fichierphoto !='' || resp.fichierphoto != 'undefined'){
+                console.log("il y a une photo " + resp.numphoto + " - "+ resp.fichierphoto);
+                setlienFichierphoto(resp.fichierphoto);
+            }
+        })
+        .catch(error => {
+            console.log("DELETE error: " + error)
+            alert
+        })
+    };
+
+    useEffect(() =>{ 
+        getphoto();
+        if (prestas.numphoto == null){
+            setlienFichierphoto('https://picsum.photos/700');
+            console.log("fichier: " + lienfichierphoto);
+        }
+      }, []);
+
     const {prestas} = route.params;
-    console.log(prestas);
+    console.log("Prestas :" +prestas);
 
     return(
 
@@ -24,6 +53,7 @@ const PrestaCard = ({route}) =>{
                         {prestas.lienprest}
                     </Paragraph>
                 </Card.Content>
+                <Card.Cover source={{ uri: lienfichierphoto}} />
             </Card>
         </ScrollView>
         )

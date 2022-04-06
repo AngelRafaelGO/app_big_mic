@@ -1,12 +1,31 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ScrollView, StyleSheet, Image, TouchableOpacity, Alert, Linking} from 'react-native';
 import { Button, FAB} from 'react-native-paper';
+import { AuthContext } from '../../config/context';
 import colors from '../../config/colors';
 
 function PrestaDetails(props, {navigation}) {
     const data = props.route.params.data;
 
+    const {getData} = React.useContext(AuthContext);
+    const currentUsr = getData();
+    const { numcompte } = currentUsr[0];
+    const { pseudo } = currentUsr[0]
+
     const [fichierphoto, setFichierphoto] = useState('');
+
+    const [img, setImg] = useState();
+
+    const fetchImage = async () => {
+        try{
+            const res = await fetch(fichierphoto.fichierphoto);
+            const imageBlob = await res.blob();
+            const imageObjectURL = URL.createObjectURL(imageBlob);
+            setImg(imageObjectURL);
+        } catch (e){
+            console.log("Error in fetImage function" + e);
+        }
+    };
 
     const confirmDeletion = () =>
     Alert.alert(
@@ -44,12 +63,12 @@ function PrestaDetails(props, {navigation}) {
         .then(resp => {
             if(resp.numphoto != null || resp.fichierphoto !='' || resp.fichierphoto != 'undefined'){
                 console.log("il y a une photo " + resp.numphoto + " - "+ resp.fichierphoto);
-                setFichierphoto(photo);
+                setFichierphoto(resp);
             }
         })
         .catch(error => {
-            console.log("DELETE error: " + error)
-            alert
+            console.log("photo upload error: " + error);
+            Alert.alert('pas de photo');
         })
     };
 
@@ -59,6 +78,7 @@ function PrestaDetails(props, {navigation}) {
             fichierphoto.fichierphoto = 'https://picsum.photos/700';
             console.log("fichier: " + fichierphoto.fichierphoto);
         }
+        fetchImage();
       }, []);
 
 
@@ -77,7 +97,6 @@ function PrestaDetails(props, {navigation}) {
                     onPress={() => Alert.alert("go to full screen image")}>
                     <Image source={{ uri: fichierphoto.fichierphoto}} style = {styles.img} />
                     {/* <Image source={{ uri: 'https://picsum.photos/700'}} style = {styles.img} /> */}
-                    {/* <Image source={{ uri : fichierphoto}} style = {styles.img} /> */}
                 </TouchableOpacity>
                 <Text style= {styles.txtChamp}>
                     {data.numphoto} - {fichierphoto.fichierphoto}
@@ -96,7 +115,7 @@ function PrestaDetails(props, {navigation}) {
                     {data.lienprest}
                 </Text>
                 <Text style = {styles.txtSecondaire}>
-                    Ref: {data.numcompte} - {data.numprest}
+                    Ref: {data.numcompte} - {data.numprest} - {pseudo}
                 </Text>
             </View>
         </ScrollView>
