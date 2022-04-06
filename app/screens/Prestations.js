@@ -11,12 +11,15 @@ function Prestations({navigation}) {
   const {getData} = React.useContext(AuthContext);
   const currentUsr = getData();
   const { numcompte } = currentUsr[0];
+  const { pseudo } = currentUsr[0];
+  console.log(currentUsr);
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); 
+  const [isAdmin, setAdmin] = useState(false); 
   
-  const loadData = () => {
-    fetch(`http://64.225.72.25:5000/getfilteredpresta/${numcompte}`, {
+  const loadAdminData = () => {
+    fetch('http://64.225.72.25:5000/getpresta', {
         method : 'GET'
     })
     .then(resp => resp.json())
@@ -25,6 +28,24 @@ function Prestations({navigation}) {
       setLoading(false) 
     })
     .catch(error => console.log("ERROR caught:\n" + error))
+  }
+
+  const loadData = () => {
+    if(pseudo == "the Great Band"){
+      console.log('Admin confirmed');
+      loadAdminData();
+    } else {
+      console.log('not admin');
+      fetch(`http://64.225.72.25:5000/getfilteredpresta/${numcompte}`, {
+          method : 'GET'
+      })
+      .then(resp => resp.json())
+      .then(prestations => {
+        setData(prestations),
+        setLoading(false) 
+      })
+      .catch(error => console.log("ERROR caught:\n" + error))
+    }
   }
 
   useEffect(() =>{ 
