@@ -1,10 +1,30 @@
-import { StyleSheet, Text, FlatList, ScrollView } from 'react-native'
+import { StyleSheet, Text, FlatList, View, Linking , Alert} from 'react-native'
 import React, {useState, useEffect} from 'react'
 import colors from '../../config/colors';
-import { Card, FAB, Subheading } from 'react-native-paper';
+import { Card, IconButton } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const UserCard = ({route, navigation}) => {
+
+  //Send a mail to user
+  const sendMail = () => {
+    fetch(`http://64.225.72.25:5000/getcompte/${item.numcompte}`, {
+      method : 'GET'
+    })
+    .then(resp => resp.json())
+    .then(contact => {
+      if(contact.mail != ''){
+        const message = 'mailto:' + contact.mail + '?subject=' + item.titrescene + '&body='+'Bonjour ' +  contact.pseudo ;
+        // console.log(message);
+        Linking.openURL(message);
+      } else {
+        Alert.alert("pas d'adresse email définie")
+      }
+    }
+    )
+    .catch(error => console.log("No mail sent :\n" + error))
+  }
 
   //User information
   const {item} = route.params;
@@ -63,59 +83,43 @@ const UserCard = ({route, navigation}) => {
     )
   };
 
+
   
   
   return (
-    <ScrollView>
-
-      <Card style={styles.sceneCard}>
-        <Card.Title title={artist.nom + " " + artist.prenom} subtitle={artist.ville}/>
-        <Card.Content>
-          <Subheading>Activités</Subheading>
-          {/* <FlatList 
-          style = {styles.listContainer}
-          data = {scenes}
-
-          renderItem = {({scene}) => {
-            // console.log(data)
-            return renderData(scene)
-          }}
-          keyExtractor = {scene => `${scene.numscene}`}
-          /> */}
+    <SafeAreaView>
+      <Card style={styles.userCard}>
+        <Card.Title 
+        title={artist.nom + " " + artist.prenom} 
+        subtitle={artist.ville}
+        right={(props) => <IconButton 
+          style={styles.button}
+          color={colors.white}
+          icon="email" 
+          onPress={() => {sendMail()}} />}/>
+          </Card>
           <FlatList
+            style={{margin:10}}
             data = {prestas}
             renderItem = {({item}) => {
-              // console.log(data)
               return renderPresta(item)
             }}
             keyExtractor = {presta => `${presta.numprest}`}
             onRefresh = {() => loadData()}
             refreshing = {loading}
-          />
-        </Card.Content>
-        <Card.Actions>
-          <FAB 
-          label='Contacter'
-          style= {styles.fab}
-          icon="email"
-          color={colors.white}
-          onPress={()=>alert("Envoyer un message à la personne")}
-            />
-        </Card.Actions>
-      </Card>
-    </ScrollView>
+              />
+    </SafeAreaView>
 
 
   )
 };
 
 const styles = StyleSheet.create({
-  fab: {
+  button: {
     backgroundColor: colors.primary,
   },
-  sceneCard: {
-    margin: 20,
-    padding: 10,
+  userCard: {
+    margin: 10,
   },
 })
 

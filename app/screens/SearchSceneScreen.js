@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {  View, StyleSheet, FlatList, Alert, TouchableOpacity, Text, SafeAreaView, ScrollView } from 'react-native';
+import {  View, StyleSheet, FlatList, TouchableOpacity, Text, SafeAreaView, ScrollView } from 'react-native';
 import colors from '../config/colors';
 import { Button_filter_Date} from './../components/componentsIndex'; 
-import { Card, Badge, Searchbar, Button, Provider, Divider , Menu} from 'react-native-paper';
+import { Card, Badge, Searchbar, Button, Provider , Menu} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -205,18 +205,20 @@ const SearchSceneScreen = ({navigation}) => {
           </Menu>
         </Provider>
       </View>
-
-      {/* Results of the research */}
-      <FlatList
-        style = {styles.listContainer}
-        data = {filteredDataSource}
-        renderItem = {({item}) => {
-          return renderData(item)
-        }}
-        onRefresh = {() => getScenesFromApi()}
-        refreshing = {loading}
-        keyExtractor = {item => `${item.numscene}`}
-      />
+      <View
+      style={{height: '76%'}}>
+        {/* Results of the research */}
+        <FlatList
+          style = {styles.listContainer}
+          data = {filteredDataSource}
+          renderItem = {({item}) => {
+            return renderData(item)
+          }}
+          onRefresh = {() => getScenesFromApi()}
+          refreshing = {loading}
+          keyExtractor = {item => `${item.numscene}`}
+        />
+      </View>
 
     </SafeAreaView>
   );
@@ -227,7 +229,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 5,
-    margin: 20,
+    margin: 10,
     backgroundColor: colors.light,
     borderRadius: 15,
     alignItems: "center",
