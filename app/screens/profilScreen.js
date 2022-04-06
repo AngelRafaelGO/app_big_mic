@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { 
     Text, SafeAreaView, 
     View, TouchableOpacity, 
@@ -7,10 +7,11 @@ import {
 } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
 import { Ionicons, AntDesign, EvilIcons } from "@expo/vector-icons"
-import { AuthContext } from "../config/context";
 
+import { AuthContext } from "../config/context";
 import colors from "../config/colors";
-import {Prestations, Scenes, Lieux} from "./screensIndex";
+import Prestations from "./Prestations";
+import Scenes from "./Scenes";
 
 const FirstTab = ({ navigation }) => (
     <View style={styles.tabScreen}>
@@ -36,6 +37,11 @@ const renderTabBar = props => (
 
 function ProfilScreen({ navigation, route }) {
 
+    const { getData } = React.useContext(AuthContext);
+    let userAccountData = getData();
+    let { prenom } = userAccountData[0];
+    let { ville } = userAccountData[0];
+
     const layout = useWindowDimensions();
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
@@ -54,13 +60,8 @@ function ProfilScreen({ navigation, route }) {
         };
     };
 
-    const { getData } = React.useContext(AuthContext);
-    const userAccountData = getData();
-    const { nom } = userAccountData[0];
-    const { ville } = userAccountData[0];
-
     return (
-        <SafeAreaView style={styles.mainView}>
+        <View style={styles.mainView}>
             <View 
             style={styles.accountInfoView}
             >
@@ -74,12 +75,14 @@ function ProfilScreen({ navigation, route }) {
                 </TouchableOpacity>
                 <TouchableOpacity 
                 style={styles.tchChangePImage}
-                onPress={() => navigation.navigate('ChangerImage')}
+                onPress={() => {
+                    navigation.navigate('ChangerImage')}
+                } 
                 >
                     <Image 
                     style={styles.accountImage}
                     source={{
-                        uri: 'https://avatars.githubusercontent.com/u/53479682?v=4'
+                        uri: 'https://picsum.photos/200'
                     }}
                     />                    
                 </TouchableOpacity>
@@ -87,7 +90,7 @@ function ProfilScreen({ navigation, route }) {
                     <View style={styles.profileTxtView}>
                         <AntDesign style={styles.profileTxtIcon} name='user' size={18} color={colors.white} />
                         <Text style={styles.accountText}>
-                            {nom}
+                            {prenom}
                         </Text>
                     </View>
                     <View style={styles.profileTxtView}>
@@ -106,7 +109,7 @@ function ProfilScreen({ navigation, route }) {
                 onIndexChange={setIndex}
                 initialLayout={{width: layout.width}}
             />
-        </SafeAreaView>
+        </View>
     );
 };
 

@@ -4,7 +4,7 @@ import { SafeAreaView, View, Text, TextInput, StyleSheet, TouchableOpacity, Imag
 import colors from '../../config/colors';
 import { AuthContext } from '../../config/context';
 
-function CreateAccount(props, {navigation, route }) {
+function CreateAccount({navigation}) {
 
     const { signUp } = React.useContext(AuthContext);
     const [userData, setUserData] = useState([]);
@@ -18,7 +18,7 @@ function CreateAccount(props, {navigation, route }) {
     const ville = 'paris';
     const tel = '1234';
 
-    const valEmail = () => {
+    const valEmail = (navigation) => {
         fetch(`http://64.225.72.25:5000/getmail/${email}`, {
             method : 'GET',
         }) 
@@ -39,13 +39,13 @@ function CreateAccount(props, {navigation, route }) {
                     ]
                 );
             } else {
-                insertData();
+                insertData(navigation);
             }
         })
         .catch(error => console.log("ERROR caught:\n" + error))
     }
 
-    const insertData = () => {
+    const insertData = (navigation) => {
         fetch('http://64.225.72.25:5000/addcompte', {
             method : 'POST',
             headers: {
@@ -56,7 +56,7 @@ function CreateAccount(props, {navigation, route }) {
         })
         .then(resp => resp.json())
         .then(() => {
-            signUp(motDePasse)
+            navigation.navigate('Login');
         })
         .catch(error => console.log("POST error: " + error))
     }
@@ -98,7 +98,7 @@ function CreateAccount(props, {navigation, route }) {
                 <TouchableOpacity 
                 style={styles.createAccountTouchable} 
                 onPress={() => {
-                    valEmail()
+                    valEmail(navigation)
                 }}
                 >
                     <Text style={styles.nextScreenTouchable}>

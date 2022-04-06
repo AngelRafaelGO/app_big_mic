@@ -1,8 +1,6 @@
-import { View, Text, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, Image } from 'react-native'
 import React from 'react';
 import { Button} from 'react-native-paper';
-
-
 
 
 function SceneDetails(props, {navigation}) {
@@ -47,6 +45,13 @@ function SceneDetails(props, {navigation}) {
                     {data.recurrence}
                 </Text>
             </View>
+            <View>
+                <Image
+                    style={styles.image}
+                    source={{
+                    uri: data.lienphoto,
+                    }}/>
+            </View>
 
 
             
@@ -71,6 +76,13 @@ function SceneDetails(props, {navigation}) {
 };
 
 const styles = StyleSheet.create ({
+    image:{
+        width:'80%',
+        height:'50%',
+        margin:10,
+        alignItems: 'center',
+        alignContent: 'center',
+    },
     viewStyle: {
          padding: 10,
          margin: 10,

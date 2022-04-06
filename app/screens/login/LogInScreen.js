@@ -3,7 +3,6 @@ import { Image, SafeAreaView, StyleSheet, View, TextInput, Text, TouchableOpacit
 
 import { AuthContext } from '../../config/context';
 import colors from '../../config/colors';
-import { acc } from 'react-native-reanimated';
 
 function LoginScreen({navigation}) {
 
@@ -18,7 +17,6 @@ function LoginScreen({navigation}) {
         }) 
         .then(resp => resp.json())
         .then(userObject => {
-            //setUserData(userObject);
             const { motdepasse } = userObject[0]
                 if (motdepasse != password) {
                     Alert.alert(
