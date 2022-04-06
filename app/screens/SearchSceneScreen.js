@@ -196,10 +196,9 @@ const SearchSceneScreen = ({navigation}) => {
               setSelectedDate(getDatePlusDays(30));
               closeMenu();
               }} title={"Le mois prochain"} />
-            {/* <Divider />
             <Button_filter_Date
             name={"Choisir une date"}
-            padding={15}/> */}
+            padding={15}/>
           </Menu>
         </Provider>
       </View>

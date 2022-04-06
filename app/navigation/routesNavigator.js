@@ -61,7 +61,7 @@ const ProfilStackScreen = () => (
         <TabsMainStack.Screen 
         name='ProfilOptions'
         component={ProfilOptions}
-        options={{ title: 'Options de compte' }}
+        options={{ title: 'Options de compte'}}
         />
         <TabsMainStack.Screen 
         name='ChangerImage'

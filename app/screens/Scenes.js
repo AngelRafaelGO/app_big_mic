@@ -1,15 +1,21 @@
 import React, {useEffect, useState} from 'react'
 import { View, FlatList , StyleSheet, SafeAreaView} from "react-native";
 import { Card , Badge, FAB} from 'react-native-paper';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import colors from '../config/colors';
+import { AuthContext } from './../config/context';
 
 
 const Scenes = ({navigation}) => {
 
+  //Get user numcompte to display his entries on his profile
+  const { getData } = React.useContext(AuthContext);
+  const Id = getData();
+  const {numcompte} = Id[0];
+  console.log(numcompte);
+
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-
-    const [userId, setUserId] = useState('4')
 
     const clickedItem = (data) => {
       navigation.navigate('SceneDetails', {data:data})
@@ -41,7 +47,7 @@ const Scenes = ({navigation}) => {
   
     const getScenesFromApi = async () => {
       try {
-        const response = await fetch('http://64.225.72.25:5000/getscene', {
+        const response = await fetch(`http://64.225.72.25:5000/getscenecompte/${numcompte}`, {
           method: 'GET',
         });
         const scenes = await response.json();
