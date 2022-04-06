@@ -1,10 +1,7 @@
 import React, {useState} from 'react'
 import { ScrollView, StyleSheet, Linking } from 'react-native'
 import colors from '../../config/colors';
-import { Card, FAB, Paragraph, Subheading } from 'react-native-paper';
-import { Link } from '@react-navigation/native';
-
-
+import { Card, FAB, Paragraph, Subheading, IconButton } from 'react-native-paper';
 
 
 const SceneCard = ( {route}) => {
@@ -33,7 +30,13 @@ const SceneCard = ( {route}) => {
   return (
   <ScrollView>
     <Card style={styles.sceneCard}>
-      <Card.Title title={item.titrescene} subtitle= {item.datescene}/>
+      <Card.Title title={item.titrescene} 
+      subtitle= {item.datescene}
+      right={(props) => <IconButton 
+        style={styles.button}
+        color={colors.white}
+        icon="email" 
+        onPress={() => {sendMail()}} />}/>
       <Card.Content>
         <Subheading>Description</Subheading>
         <Paragraph>{item.descscene}</Paragraph>
@@ -44,21 +47,6 @@ const SceneCard = ( {route}) => {
 
       </Card.Content>
       <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-      <Card.Actions>
-        <FAB 
-        label='Contacter'
-        style= {styles.fab}
-        icon="email"
-        color={colors.white}
-        onPress={()=> sendMail()}
-          />
-      </Card.Actions>
-
-      {/* <Text style={styles.txtlien}
-                    onPress={() => Linking.openURL(data.lienprest.toString())}>
-                    {data.lienprest}
-                </Text> */}
-
 
     </Card>
   </ScrollView>
@@ -67,8 +55,9 @@ const SceneCard = ( {route}) => {
 };
 
 const styles = StyleSheet.create({
-  fab: {
+  button: {
     backgroundColor: colors.primary,
+    marginRight:10,
   },
   sceneCard: {
     margin: 20,

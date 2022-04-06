@@ -100,7 +100,6 @@ const SearchUserScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
-    marginBottom: 80,
   },
   filterContainer: {
     flexDirection: 'row',
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     backgroundColor: colors.light,
-    padding: 10,
+    height: '90%'
   },
   itemContainer: {
     marginVertical:5,

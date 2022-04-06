@@ -20,6 +20,7 @@ const SearchMainStack = () => {
         screenOptions={{
           tabBarLabelStyle: { fontSize: 12, color: colors.dark, fontWeight: "bold" },
           tabBarStyle: { backgroundColor: colors.primary, paddingTop: 25 },
+          tabBarIndicatorStyle: {backgroundColor: colors.dark},
         }}
         >
           <Tab.Screen name="Une scène"
