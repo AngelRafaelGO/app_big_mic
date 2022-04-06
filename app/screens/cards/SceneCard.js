@@ -46,7 +46,7 @@ const SceneCard = ( {route}) => {
         <Paragraph>{item.adrscene}</Paragraph>
 
       </Card.Content>
-      <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+      <Card.Cover source={{ uri: item.lienphoto}} />
 
     </Card>
   </ScrollView>

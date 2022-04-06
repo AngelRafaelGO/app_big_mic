@@ -4,11 +4,15 @@ import {TextInput, Button} from 'react-native-paper';
 import Button_filter_Date from '../../components/Button_filter_Date';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../../config/colors';
+import { AuthContext } from '../../config/context';
 
 function SceneFormEdit (props,{navigation}) {
 
-    // const {item} = route.params;
-    // console.log(item);
+    //Get user numcompte to display his entries on his profile
+    const { getData } = React.useContext(AuthContext);
+    const Id = getData();
+    const {numcompte} = Id[0];
+
     const item = props.route.params.data;
 
     const [titrescene, settitrescene] = useState(item.titrescene);
@@ -18,7 +22,7 @@ function SceneFormEdit (props,{navigation}) {
     const [datescene, setdatescene] = useState(item.datescene);
     const [recurrence, setrecurrence] = useState(item.recurrence);
     const [numphoto, setnumphoto] = useState(1);
-    const [numcompte, setnumcompte] = useState(2);
+    const [lienphoto, setlienphoto] = useState(item.lienphoto);
 
     
     const updateData = () => {
@@ -34,7 +38,9 @@ function SceneFormEdit (props,{navigation}) {
                 recurrence: recurrence, 
                 adrscene: adrscene, 
                 descscene: descscene, 
-                numcompte: numcompte})
+                numcompte: numcompte,
+                lienphoto: lienphoto,
+            })
         })
         .then(resp => resp.json())
         .then(data => {
@@ -78,7 +84,7 @@ function SceneFormEdit (props,{navigation}) {
       }, [selectedDate]);
 
     const [selectedDate, setSelectedDate] = useState('');
-    console.log("Selected Date: " + selectedDate);
+    console.log("Selected Date: " + datescene);
 
     return (
         <ScrollView styles={styles.container}>
@@ -111,6 +117,13 @@ function SceneFormEdit (props,{navigation}) {
                         value = {criteres}
                         mode="outlined"
                         onChangeText={ (val) => setcriteres(val)} />
+             <TextInput style={styles.textInput}
+                        multiline
+                        label = "Lien vers l'affiche de votre scène"
+                        value = {lienphoto}
+                        mode="outlined"
+                        onChangeText={ (val) => setlienphoto(val)} />
+            
             
             <View style={styles.dateButtonContainer}>
                 <Button_filter_Date

@@ -4,9 +4,15 @@ import {TextInput, Button, Title} from 'react-native-paper';
 import Button_filter_Date from '../../components/Button_filter_Date';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../../config/colors';
+import { AuthContext } from '../../config/context';
 
 
 function SceneForm(props, {navigation}) {
+
+    //Get user numcompte to display his entries on his profile
+    const { getData } = React.useContext(AuthContext);
+    const Id = getData();
+    const {numcompte} = Id[0];
 
     const [titrescene, settitrescene] = useState('');
     const [adrscene, setadrscene] = useState('');
@@ -15,7 +21,7 @@ function SceneForm(props, {navigation}) {
     const [datescene, setdatescene] = useState('');
     const [recurrence, setrecurrence] = useState('');
     const [numphoto, setnumphoto] = useState(1);
-    const [numcompte, setnumcompte] = useState(2);
+    const [lienphoto, setlienphoto] = useState('');
 
     const insertData = () => {
         fetch('http://64.225.72.25:5000/addscene', {
@@ -30,7 +36,8 @@ function SceneForm(props, {navigation}) {
                 recurrence: recurrence, 
                 adrscene: adrscene, 
                 descscene: descscene, 
-                numcompte: numcompte}),
+                numcompte: numcompte,
+                lienphoto: lienphoto}),
         })
         .then(resp => resp.json())
         .then((data) => {
@@ -72,19 +79,8 @@ function SceneForm(props, {navigation}) {
     const [selectedDate, setSelectedDate] = useState(null);
 
     return (
-        console.log({titrescene: titrescene, 
-            datescene: datescene, 
-            numphoto: numphoto, 
-            criteres: criteres, 
-            recurrence: recurrence, 
-            adrscene: adrscene, 
-            descscene: descscene, 
-            numcompte: numcompte}),
+
         <ScrollView styles={styles.container}> 
-            <View style={{alignItems: 'center', marginTop: 15}} >
-
-            </View>
-
 
             <Title
             style={{textAlign:'center'}}>Création de ma scène</Title>
@@ -111,6 +107,12 @@ function SceneForm(props, {navigation}) {
                                 value = {criteres}
                                 mode="outlined"
                                 onChangeText={ (val) => setcriteres(val)} />
+                    <TextInput style={styles.textInput}
+                                multiline
+                                label = "Lien vers votre affiche de scène"
+                                value = {lienphoto}
+                                mode="outlined"
+                                onChangeText={ (val) => setlienphoto(val)} />
                     <View style={styles.dateButtonContainer}>
                         <Button_filter_Date
                             name={"Choisir une date"}
