@@ -16,7 +16,6 @@ const SearchSceneScreen = ({navigation}) => {
       if(value !== null) {
        setSelectedDate(value);
       } 
-      console.log(value);
     } catch(e) {
       console.log("ASYNC Reading Storage error: " + e);
     }

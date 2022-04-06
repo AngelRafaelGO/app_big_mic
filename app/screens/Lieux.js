@@ -47,7 +47,6 @@ function Lieux({navigation}) {
       <FlatList
         data = {data}
         renderItem = {({item}) => {
-          // console.log(data)
           return renderData(item)
         }}
         onRefresh = {() => loadData()}

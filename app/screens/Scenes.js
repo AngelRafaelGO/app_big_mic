@@ -14,7 +14,6 @@ const Scenes = ({navigation}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  console.log(data);
   const clickedItem = (data) => {
     navigation.navigate('SceneDetails', {data:data})
   };

@@ -12,8 +12,6 @@ function Prestations({navigation}) {
   const currentUsr = getData();
   const { numcompte } = currentUsr[0];
   const { pseudo } = currentUsr[0];
-  console.log(currentUsr);
-
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); 
   const [isAdmin, setAdmin] = useState(false); 
@@ -32,10 +30,8 @@ function Prestations({navigation}) {
 
   const loadData = () => {
     if(pseudo == "the Great Band"){
-      console.log('Admin confirmed');
       loadAdminData();
     } else {
-      console.log('not admin');
       fetch(`http://64.225.72.25:5000/getfilteredpresta/${numcompte}`, {
           method : 'GET'
       })
@@ -73,7 +69,6 @@ function Prestations({navigation}) {
       <FlatList
         data = {data}
         renderItem = {({item}) => {
-          // console.log(data)
           return renderData(item)
         }}
         onRefresh = {() => loadData()}
