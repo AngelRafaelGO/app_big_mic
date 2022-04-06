@@ -26,28 +26,36 @@ function SceneFormEdit (props,{navigation}) {
 
     
     const updateData = () => {
-        fetch(`http://64.225.72.25:5000/updatescene/${item.numscene}`, {
-            method : 'PUT',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({titrescene: titrescene, 
-                datescene: datescene, 
-                numphoto: numphoto, 
-                criteres: criteres, 
-                recurrence: recurrence, 
-                adrscene: adrscene, 
-                descscene: descscene, 
-                numcompte: numcompte,
-                lienphoto: lienphoto,
+        if(titrescene == ''){
+            alert("Votre scène n'a pas de titre!");
+        } else if (adrscene == ''){
+            alert("Votre scène n'a pas d'adresse!");
+        } else if (datescene == ''){
+            alert("Votre scène n'a pas de date!");
+        } else {
+            fetch(`http://64.225.72.25:5000/updatescene/${item.numscene}`, {
+                method : 'PUT',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify({titrescene: titrescene, 
+                    datescene: datescene, 
+                    numphoto: numphoto, 
+                    criteres: criteres, 
+                    recurrence: recurrence, 
+                    adrscene: adrscene, 
+                    descscene: descscene, 
+                    numcompte: numcompte,
+                    lienphoto: lienphoto,
+                })
             })
-        })
-        .then(resp => resp.json())
-        .then(data => {
-            props.navigation.navigate('Profil')
-        })
-        .catch(error => console.log("PUT error: " + error))
+            .then(resp => resp.json())
+            .then(data => {
+                props.navigation.navigate('Profil')
+            })
+            .catch(error => console.log("PUT error: " + error))
     }
+}
     
     //Get selectedDate on Calendar picker
     const getSelectedDate = async () => {
@@ -60,6 +68,7 @@ function SceneFormEdit (props,{navigation}) {
         console.log("ASYNC Reading Storage error: " + e);
         }
     }
+    
 
     //Reset selectedDate of calendar
     const removeValue = async () => {

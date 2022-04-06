@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import {Card, FAB, Avatar, Title, Paragraph} from 'react-native-paper';
+import {AuthContext} from '../config/context';
 import { AntDesign } from '@expo/vector-icons'; 
 import colors from '../config/colors';
-
-
-
 
 function Prestations({navigation}) {
 
 
+  const {getData} = React.useContext(AuthContext);
+  const currentUsr = getData();
+  const { numcompte } = currentUsr[0];
+  const { pseudo } = currentUsr[0];
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); 
+  const [isAdmin, setAdmin] = useState(false); 
   
-  const loadData = () => {
+  const loadAdminData = () => {
     fetch('http://64.225.72.25:5000/getpresta', {
         method : 'GET'
     })
@@ -23,6 +26,22 @@ function Prestations({navigation}) {
       setLoading(false) 
     })
     .catch(error => console.log("ERROR caught:\n" + error))
+  }
+
+  const loadData = () => {
+    if(pseudo == "the Great Band"){
+      loadAdminData();
+    } else {
+      fetch(`http://64.225.72.25:5000/getfilteredpresta/${numcompte}`, {
+          method : 'GET'
+      })
+      .then(resp => resp.json())
+      .then(prestations => {
+        setData(prestations),
+        setLoading(false) 
+      })
+      .catch(error => console.log("ERROR caught:\n" + error))
+    }
   }
 
   useEffect(() =>{ 
@@ -50,7 +69,6 @@ function Prestations({navigation}) {
       <FlatList
         data = {data}
         renderItem = {({item}) => {
-          // console.log(data)
           return renderData(item)
         }}
         onRefresh = {() => loadData()}

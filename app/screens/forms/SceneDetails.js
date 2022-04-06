@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, StyleSheet, Image } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, Image , Alert} from 'react-native'
 import React from 'react';
 import { Button} from 'react-native-paper';
 
@@ -9,6 +9,7 @@ function SceneDetails(props, {navigation}) {
     
 
     const deleteData =  (data) => {
+
         fetch(`http://64.225.72.25:5000/deletescene/${data.numscene}`, {
             method : 'DELETE',
         })
@@ -20,6 +21,20 @@ function SceneDetails(props, {navigation}) {
             alert
         })
     };
+
+    const confirmDeletion = () =>
+    Alert.alert(
+      "Supprimer la scène \n" + data.titrescene,
+      "Confirmer la suppression",
+      [
+        {
+          text: "Annuler",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "Cancel"
+        },
+        { text: "OK", onPress: () => deleteData(data) }
+      ]
+    );
 
   return (
    <ScrollView>
@@ -65,7 +80,7 @@ function SceneDetails(props, {navigation}) {
             <Button style = {styles.btnInside}
                 icon = "delete"
                 mode='contained'
-                onPress={() => deleteData(data)}> 
+                onPress={() => confirmDeletion()}> 
                 Supprimer
             </Button>
             </View>

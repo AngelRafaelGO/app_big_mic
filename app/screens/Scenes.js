@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { View, FlatList , StyleSheet, SafeAreaView} from "react-native";
 import { Card , Badge, FAB} from 'react-native-paper';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import colors from '../config/colors';
 import { AuthContext } from './../config/context';
-
 
 const Scenes = ({navigation}) => {
 
@@ -16,7 +14,6 @@ const Scenes = ({navigation}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  console.log(data);
   const clickedItem = (data) => {
     navigation.navigate('SceneDetails', {data:data})
   };

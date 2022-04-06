@@ -1,12 +1,18 @@
 import React, { useState, useLayoutEffect } from 'react'
 import {View, Text, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, TouchableOpacity, RefreshControl} from 'react-native'; 
 import {TextInput, Button} from 'react-native-paper';
+import { AuthContext } from '../../config/context';
 import * as ImagePicker from 'expo-image-picker';
 import colors from '../../config/colors';
 
 function CreatePresta(props, {navigation}) {
 
-    const [numcompte, setnumcompte] = useState(null)
+    const {getData} = React.useContext(AuthContext);
+    const currentUsr = getData();
+    const { numcompte } = currentUsr[0];
+    const { pseudo } = currentUsr[0];
+
+    // const [numcompte, setnumcompte] = useState(currentUsrNb);
     const [titreprest, settitreprest] = useState("")
     const [descprest, setdescprest] = useState("")
     const [lienprest, setlienprest] = useState("")
@@ -70,6 +76,9 @@ function CreatePresta(props, {navigation}) {
   return (
     <SafeAreaView style = {styles.safeAreaStyle}>
     <ScrollView style = {styles.ScrollviewStyle}>
+        <Text style = {styles.textInputStyle}>
+            {numcompte} - {pseudo}
+        </Text>
         <TextInput style = {styles.textInputStyle}
             label = "Titre"
             value = {titreprest}
@@ -89,12 +98,6 @@ function CreatePresta(props, {navigation}) {
             value = {lienprest}
             mode="outlined"
             onChangeText = {text => setlienprest(text)}
-        />
-        <TextInput style = {styles.textInputStyle}
-            label = "Compte"
-            value = {numcompte}
-            mode="outlined"
-            onChangeText = {text => setnumcompte(text)}
         />
         <TouchableOpacity 
             style={styles.imgView} 

@@ -36,7 +36,7 @@ function ChangeProImage({ navigation }) {
                     {image && <Image source={{ uri: image }} style={styles.image} />}
                 <TouchableOpacity
                 style={styles.changeITouchable}
-                onPress={() => navigation.navigate('Profil')}
+                onPress={() => navigation.navigate('Profil', { image:image })}
                 >
                     <Text style={styles.changeTxt}>
                         Valider

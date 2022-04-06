@@ -16,7 +16,6 @@ const SearchSceneScreen = ({navigation}) => {
       if(value !== null) {
        setSelectedDate(value);
       } 
-      console.log(value);
     } catch(e) {
       console.log("ASYNC Reading Storage error: " + e);
     }
@@ -170,7 +169,9 @@ const SearchSceneScreen = ({navigation}) => {
                   icon= "check"
                   onPress={() => {
                     closeMenu;
-                    getScenesDateFilteredScenes();
+                    if(selectedDate != 0){
+                      getScenesDateFilteredScenes();
+                    }
                     setSearch('');
                     }}
                   color = {colors.primary}
@@ -191,11 +192,11 @@ const SearchSceneScreen = ({navigation}) => {
                 </TouchableOpacity>
               }>
             <Menu.Item onPress={() => {
-              setSelectedDate(getDatePlusDays(7));
+              setSelectedDate(getDatePlusDays(9));
               closeMenu();
             }} title="La semaine prochaine" />
             <Menu.Item onPress={() => {
-              setSelectedDate(getDatePlusDays(30));
+              setSelectedDate(getDatePlusDays(31));
               closeMenu();
               }} title={"Le mois prochain"} />
             <Button_filter_Date

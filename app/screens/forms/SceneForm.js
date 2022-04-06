@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity,  ScrollView} from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity,  ScrollView, Alert} from 'react-native';
 import {TextInput, Button, Title} from 'react-native-paper';
 import Button_filter_Date from '../../components/Button_filter_Date';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -24,26 +24,35 @@ function SceneForm(props, {navigation}) {
     const [lienphoto, setlienphoto] = useState('');
 
     const insertData = () => {
-        fetch('http://64.225.72.25:5000/addscene', {
-            method : 'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({titrescene: titrescene, 
-                datescene: datescene, 
-                numphoto: numphoto, 
-                criteres: criteres, 
-                recurrence: recurrence, 
-                adrscene: adrscene, 
-                descscene: descscene, 
-                numcompte: numcompte,
-                lienphoto: lienphoto}),
-        })
-        .then(resp => resp.json())
-        .then((data) => {
-            props.navigation.navigate('Profil')
-        })
-        .catch(error => console.log("POST error: " + error))
+        if(titrescene == ''){
+            alert("Votre scène n'a pas de titre!");
+        } else if (adrscene == ''){
+            alert("Votre scène n'a pas d'adresse!");
+        } else if (datescene == ''){
+            alert("Votre scène n'a pas de date!");
+        } else {
+
+            fetch('http://64.225.72.25:5000/addscene', {
+                method : 'POST',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify({titrescene: titrescene, 
+                    datescene: datescene, 
+                    numphoto: numphoto, 
+                    criteres: criteres, 
+                    recurrence: recurrence, 
+                    adrscene: adrscene, 
+                    descscene: descscene, 
+                    numcompte: numcompte,
+                    lienphoto: lienphoto}),
+            })
+            .then(resp => resp.json())
+            .then((data) => {
+                props.navigation.navigate('Profil')
+            })
+            .catch(error => console.log("POST error: " + error))
+        }
     }
 
     //Get selectedDate on Calendar picker
