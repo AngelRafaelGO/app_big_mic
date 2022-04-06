@@ -60,6 +60,7 @@ const SearchUserScreen = ({navigation}) => {
     <Card
       style={styles.itemContainer}
       onPress={()=>navigation.navigate("Détails compte", {item: item})}>
+        <Card.Cover source={{ uri: 'https://picsum.photos/700'}} />
         <Card.Title
           title={item.titreprest}
           subtitle={item.descprest}
