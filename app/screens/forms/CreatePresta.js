@@ -11,7 +11,6 @@ function CreatePresta(props, {navigation}) {
     const currentUsr = getData();
     const { numcompte } = currentUsr[0];
     const { pseudo } = currentUsr[0];
-    console.log(currentUsr);
 
     // const [numcompte, setnumcompte] = useState(currentUsrNb);
     const [titreprest, settitreprest] = useState("")
@@ -56,7 +55,7 @@ function CreatePresta(props, {navigation}) {
             })
             .catch(error => {
                 console.log("Image URI couldn't be stored properly: " + error);
-                setnumphoto(1);
+                setnumphoto("");
             })
         } else Alert.Alert("Pas d'image sélectionnée");
 

@@ -11,7 +11,6 @@ function PrestaDetails(props, {navigation}) {
     const currentUsr = getData();
     const { numcompte } = currentUsr[0];
     const { pseudo } = currentUsr[0]
-//    console.log(currentUsr);
 
     const [fichierphoto, setFichierphoto] = useState('');
 

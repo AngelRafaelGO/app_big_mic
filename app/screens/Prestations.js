@@ -5,18 +5,12 @@ import {AuthContext} from '../config/context';
 import { AntDesign } from '@expo/vector-icons'; 
 import colors from '../config/colors';
 
-
-
-
 function Prestations({navigation}) {
 
 
   const {getData} = React.useContext(AuthContext);
   const currentUsr = getData();
   const { numcompte } = currentUsr[0];
-  const { nom } = currentUsr[0];
-  console.log(currentUsr);
-  console.log(nom);
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); 
