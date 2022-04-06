@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
 import { Ionicons, AntDesign, EvilIcons } from "@expo/vector-icons"
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthContext } from "../config/context";
 
 import colors from "../config/colors";
 import {Prestations, Scenes, Lieux} from "./screensIndex";
@@ -54,9 +54,16 @@ function ProfilScreen({ navigation, route }) {
         };
     };
 
+    const { getData } = React.useContext(AuthContext);
+    const userAccountData = getData();
+    const { nom } = userAccountData[0];
+    const { ville } = userAccountData[0];
+
     return (
         <SafeAreaView style={styles.mainView}>
-            <View style={styles.accountInfoView}>
+            <View 
+            style={styles.accountInfoView}
+            >
                 <TouchableOpacity 
                 style={styles.profilOprionsTouchable}
                 onPress={() => {
@@ -80,13 +87,13 @@ function ProfilScreen({ navigation, route }) {
                     <View style={styles.profileTxtView}>
                         <AntDesign style={styles.profileTxtIcon} name='user' size={18} color={colors.white} />
                         <Text style={styles.accountText}>
-                            Angel Rafael GO
+                            {nom}
                         </Text>
                     </View>
                     <View style={styles.profileTxtView}>
                         <EvilIcons style={styles.profileTxtIcon} name='location' size={18} color={colors.white} />
                         <Text style={styles.accountText}>
-                            Paris
+                            {ville}
                         </Text>
                     </View>
                 </View>

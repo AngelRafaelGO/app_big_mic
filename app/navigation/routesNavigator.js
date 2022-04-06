@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons, AntDesign} from '@expo/vector-icons'; 
 
 import { 
-    LoginScreen, CreateAccount, CreateAccountS2, 
+    LoginScreen, CreateAccount, 
     ProfilScreen, Loading, ProfilOptions, SceneForm, 
     CreatePresta, WelcomeScreen, PrestaDetails, EditPresta, 
     SceneDetails, Scenes, SceneFormEdit,
@@ -48,12 +48,10 @@ const LoginStackScreen = () => (
 );
 
 // Profil stack screen
-let userData = [];
 const ProfilStack = createNativeStackNavigator();
 const ProfilStackScreen = () => (
     <ProfilStack.Navigator >
         <ProfilStack.Screen 
-        value={userData}
         name='Profil'
         component={ProfilScreen}
         options={{ 
@@ -165,6 +163,7 @@ export function RootNavigator() {
 
     const authContext = React.useMemo(() => {
         // These functions enable logIn/logOut logic
+        let userData = [];
         return {
             signIn: (password, userDataI) => {
                 userData = userDataI;
@@ -178,7 +177,10 @@ export function RootNavigator() {
             signOut: () => {
                 setIsLoading(false);
                 setUserPassword(null);
-            }
+            },
+            getData: () => {
+                return userData;
+            },
         };
     }, []);
 
