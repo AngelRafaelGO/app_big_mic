@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons, AntDesign} from '@expo/vector-icons'; 
@@ -170,7 +170,6 @@ export function RootNavigator() {
                 setUserPassword(password);
             },
             signUp: (password) => {
-                console.log(password);
                 setIsLoading(false);
                 setUserPassword(password);
             },
@@ -181,7 +180,7 @@ export function RootNavigator() {
             getData: () => {
                 return userData;
             },
-        };
+         };
     }, []);
 
     // This effect component simulates the loading time needed
