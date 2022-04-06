@@ -55,7 +55,7 @@ function CreatePresta(props, {navigation}) {
             })
             .catch(error => {
                 console.log("Image URI couldn't be stored properly: " + error);
-                setnumphoto("");
+                setnumphoto(1);
             })
         } else Alert.Alert("Pas d'image sélectionnée");
 
