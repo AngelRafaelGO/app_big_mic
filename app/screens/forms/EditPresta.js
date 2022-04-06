@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity, Alert, Di
 // import { ScrollView } from 'react-native-gesture-handler';
 import {TextInput, Button} from 'react-native-paper';
 import colors from '../../config/colors';
+import {AuthContext} from '../../config/context';
 
 //import { routeParams } from '../navigation/routesNavigator';
 
@@ -10,14 +11,19 @@ function EditPresta(props, {navigation}) {
 
     const data = props.route.params.data;
 
-    const [numcompte, setnumcompte] = useState(data.numcompte)
+    const {getData} = React.useContext(AuthContext);
+    const currentUsr = getData();
+    const { numcompte } = currentUsr[0];
+    const { pseudo } = currentUsr[0]
+
+    // const [numcompte, setnumcompte] = useState(data.numcompte)
     const [titreprest, settitreprest] = useState(data.titreprest)
     const [descprest, setdescprest] = useState(data.descprest)
     const [lienprest, setlienprest] = useState(data.lienprest)
     const [numphoto, setnumphoto] = useState(data.numphoto)
 
     const updateData = (navigation) => {
-        setnumphoto('1');
+        // setnumphoto('');
         fetch(`http://64.225.72.25:5000/updatepresta/${data.numprest}`, { 
             method : 'PUT',
             headers: {
@@ -37,6 +43,9 @@ function EditPresta(props, {navigation}) {
   return (
     <SafeAreaView style = {styles.safeAreaStyle}>
         <ScrollView>
+            <Text style = {styles.textInputStyle}>
+                {numcompte} - {pseudo}
+            </Text>
             <TouchableOpacity 
                 style={styles.imgView} 
                 onPress={() => Alert.alert("you will be able to change the image here next time")}>
@@ -65,13 +74,6 @@ function EditPresta(props, {navigation}) {
                     value = {lienprest}
                     mode="outlined"
                     onChangeText = {text => setlienprest(text)}
-                />
-                <TextInput style = {styles.textInputStyle}
-                    label = "Compte:"
-                    keyboardType='numeric'
-                    value = {numcompte.toString()}
-                    mode="outlined"
-                    onChangeText = {text => setnumcompte(parseInt(text))}
                 />
                 <View style = {styles.viewStyle}>
                     <Button style = {styles.btnStyle}
