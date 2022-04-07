@@ -19,7 +19,7 @@ function CreateAccount({navigation}) {
     const tel = '1234';
 
     const valEmail = (navigation) => {
-        fetch(`http://64.225.72.25:5000/getmail/${email}`, {
+        fetch(`http://188.166.40.140:5000/getmail/${email}`, {
             method : 'GET',
         }) 
         .then(resp => resp.json())
@@ -46,7 +46,7 @@ function CreateAccount({navigation}) {
     }
 
     const insertData = (navigation) => {
-        fetch('http://64.225.72.25:5000/addcompte', {
+        fetch('http://188.166.40.140:5000/addcompte', {
             method : 'POST',
             headers: {
                 'Content-Type' : 'application/json'

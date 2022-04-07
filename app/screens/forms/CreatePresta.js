@@ -41,7 +41,7 @@ function CreatePresta(props, {navigation}) {
     const insertData = (navigation) => {
         console.log("image sélectionnée: " + fichierphoto.uri);
         if(fichierphoto.uri != ''){
-                fetch('http://64.225.72.25:5000/addphoto', {
+                fetch('http://188.166.40.140:5000/addphoto', {
                     method : 'POST',
                 headers: {
                 'Content-Type' : 'application/json'
@@ -59,7 +59,7 @@ function CreatePresta(props, {navigation}) {
             })
         } else Alert.Alert("Pas d'image sélectionnée");
 
-        fetch('http://64.225.72.25:5000/addpresta', {
+        fetch('http://188.166.40.140:5000/addpresta', {
             method : 'POST',
             headers: {
                 'Content-Type' : 'application/json'

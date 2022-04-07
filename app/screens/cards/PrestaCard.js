@@ -9,7 +9,7 @@ const PrestaCard = ({route}) =>{
 
     const getphoto = () => {
         console.log('numphoto:' + prestas.numphoto)
-        fetch(`http://64.225.72.25:5000/getphoto/${prestas.numphoto}`, {
+        fetch(`http://188.166.40.140:5000/getphoto/${prestas.numphoto}`, {
             method : 'GET',
         })
         .then(resp => resp.json())

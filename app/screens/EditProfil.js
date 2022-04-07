@@ -20,7 +20,7 @@ function EditProfil() {
     const tel = '1234';
    
     const updateUserAccount = () => {
-        fetch(`http://64.225.72.25:5000/updatecompte/${numcompte}`, { 
+        fetch(`http://188.166.40.140:5000/updatecompte/${numcompte}`, { 
             method : 'PUT',
             headers: {
                 'Content-Type' : 'application/json'

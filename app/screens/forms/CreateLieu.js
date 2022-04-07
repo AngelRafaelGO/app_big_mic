@@ -37,7 +37,7 @@ function CreateLieu(props, {navigation}) {
       }
 
       function insertMateriel(){
-        fetch('http://64.225.72.25:5000/addmateriel', {
+        fetch('http://188.166.40.140:5000/addmateriel', {
             method : 'POST',
             headers: {
                 'Content-Type' : 'application/json'
@@ -59,7 +59,7 @@ function CreateLieu(props, {navigation}) {
         } else {
             setnummateriel('');
         }
-        fetch('http://64.225.72.25:5000/addlieu', {
+        fetch('http://188.166.40.140:5000/addlieu', {
             method : 'POST',
             headers: {
                 'Content-Type' : 'application/json'

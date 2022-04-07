@@ -10,7 +10,7 @@ const SceneCard = ( {route}) => {
   console.log(item);
   
   const sendMail = () => {
-    fetch(`http://64.225.72.25:5000/getcompte/${item.numcompte}`, {
+    fetch(`http://188.166.40.140:5000/getcompte/${item.numcompte}`, {
       method : 'GET'
     })
     .then(resp => resp.json())

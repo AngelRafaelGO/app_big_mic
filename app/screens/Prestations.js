@@ -15,7 +15,7 @@ function Prestations({navigation}) {
   const [isAdmin, setAdmin] = useState(false); 
   
   const loadAdminData = () => {
-    fetch('http://64.225.72.25:5000/getpresta', {
+    fetch('http://188.166.40.140:5000/getpresta', {
         method : 'GET'
     })
     .then(resp => resp.json())
@@ -30,7 +30,7 @@ function Prestations({navigation}) {
     if(pseudo == "the Great Band"){
       loadAdminData();
     } else {
-      fetch(`http://64.225.72.25:5000/getfilteredpresta/${numcompte}`, {
+      fetch(`http://188.166.40.140:5000/getfilteredpresta/${numcompte}`, {
           method : 'GET'
       })
       .then(resp => resp.json())

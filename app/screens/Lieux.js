@@ -11,7 +11,7 @@ function Lieux({navigation}) {
   const [loading, setLoading] = useState(true); 
   
   const loadData = () => {
-    fetch('http://64.225.72.25:5000/getlieu', {
+    fetch('http://188.166.40.140:5000/getlieu', {
         method : 'GET'
     })
     .then(resp => resp.json())

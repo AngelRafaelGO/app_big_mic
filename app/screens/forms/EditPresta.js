@@ -24,7 +24,7 @@ function EditPresta(props, {navigation}) {
 
     const updateData = (navigation) => {
         // setnumphoto('');
-        fetch(`http://64.225.72.25:5000/updatepresta/${data.numprest}`, { 
+        fetch(`http://188.166.40.140:5000/updatepresta/${data.numprest}`, { 
             method : 'PUT',
             headers: {
                 'Content-Type' : 'application/json'

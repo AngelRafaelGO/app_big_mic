@@ -46,7 +46,7 @@ const Scenes = ({navigation}) => {
 
   const getScenesFromApi = async () => {
     try {
-      const response = await fetch(`http://64.225.72.25:5000/getscenecompte/${numcompte}`, {
+      const response = await fetch(`http://188.166.40.140:5000/getscenecompte/${numcompte}`, {
         method: 'GET',
       });
       const scenes = await response.json();

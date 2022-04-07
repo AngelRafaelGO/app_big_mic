@@ -42,7 +42,7 @@ function PrestaDetails(props, {navigation}) {
     );
 
     const deleteData =  (data) => {
-        fetch(`http://64.225.72.25:5000/deletepresta/${data.numprest}`, {
+        fetch(`http://188.166.40.140:5000/deletepresta/${data.numprest}`, {
             method : 'DELETE',
         })
         .then(data => {
@@ -56,7 +56,7 @@ function PrestaDetails(props, {navigation}) {
 
     const getphoto = () => {
         console.log('numphoto:' + data.numphoto)
-        fetch(`http://64.225.72.25:5000/getphoto/${data.numphoto}`, {
+        fetch(`http://188.166.40.140:5000/getphoto/${data.numphoto}`, {
             method : 'GET',
         })
         .then(resp => resp.json())
