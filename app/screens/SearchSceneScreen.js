@@ -38,7 +38,7 @@ const SearchSceneScreen = ({navigation}) => {
   const getScenesDateFilteredScenes = async () => {
     try {
       setSelectedDate(selectedDate);
-      const response = await fetch(`http://64.225.72.25:5000/scenedatelessthan/${selectedDate}`, {
+      const response = await fetch(`http://188.166.40.140:5000/scenedatelessthan/${selectedDate}`, {
         method: 'GET',
       });
       const scenes = await response.json();
@@ -53,7 +53,7 @@ const SearchSceneScreen = ({navigation}) => {
   // Query to display the list of all available scenes
   const getScenesFromApi = async () => {
     try {
-      const response = await fetch('http://64.225.72.25:5000/getscene', {
+      const response = await fetch('http://188.166.40.140:5000/getscene', {
         method: 'GET',
       });
       const scenes = await response.json();

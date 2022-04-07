@@ -25,7 +25,7 @@ function LieuDetails(props, {navigation}) {
     );
 
     const deleteData =  (data) => {
-        fetch(`http://64.225.72.25:5000/deletelieu/${data.numlieu}`, {
+        fetch(`http://188.166.40.140:5000/deletelieu/${data.numlieu}`, {
             method : 'DELETE',
         })
         .then(data => {
@@ -38,7 +38,7 @@ function LieuDetails(props, {navigation}) {
     };
 
     const getmateriel = () => {
-        fetch(`http://64.225.72.25:5000/getmateriel/${data.nummateriel}`, {
+        fetch(`http://188.166.40.140:5000/getmateriel/${data.nummateriel}`, {
             method : 'GET'
         })
         .then(resp => resp.json())

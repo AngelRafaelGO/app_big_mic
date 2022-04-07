@@ -9,7 +9,7 @@ const UserCard = ({route, navigation}) => {
 
   //Send a mail to user
   const sendMail = () => {
-    fetch(`http://64.225.72.25:5000/getcompte/${item.numcompte}`, {
+    fetch(`http://188.166.40.140:5000/getcompte/${item.numcompte}`, {
       method : 'GET'
     })
     .then(resp => resp.json())
@@ -38,7 +38,7 @@ const UserCard = ({route, navigation}) => {
   
   //Fetch prestas from database
   const loadPrestas = () => {
-    fetch(`http://64.225.72.25:5000/getfilteredpresta/${item.numcompte}`, {
+    fetch(`http://188.166.40.140:5000/getfilteredpresta/${item.numcompte}`, {
         method : 'GET'
     })
     .then(resp => resp.json())
@@ -51,7 +51,7 @@ const UserCard = ({route, navigation}) => {
 
   //Fetch Artist's information
   const getArtistInfo = () => {
-    fetch(`http://64.225.72.25:5000/getcompte/${item.numcompte}`, {
+    fetch(`http://188.166.40.140:5000/getcompte/${item.numcompte}`, {
         method : 'GET'
     })
     .then(resp => resp.json())

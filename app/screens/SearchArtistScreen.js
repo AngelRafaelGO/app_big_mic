@@ -38,7 +38,7 @@ const SearchUserScreen = ({navigation}) => {
 
   const getPrestasFromApi = async () => {
     try {
-      const response = await fetch('http://64.225.72.25:5000/getpresta', {
+      const response = await fetch('http://188.166.40.140:5000/getpresta', {
         method: 'GET',
       });
       const prestas = await response.json();

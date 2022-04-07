@@ -27,7 +27,7 @@ function EditPresta(props, {navigation}) {
 
     const getphoto = (navigation) => {
         if(data.numphoto != null){
-            fetch(`http://64.225.72.25:5000/getphoto/${data.numphoto}`, { 
+            fetch(`http://188.166.40.140:5000/getphoto/${data.numphoto}`, { 
                 method : 'GET',
                 headers: {
                     'Content-Type' : 'application/json'
@@ -48,7 +48,7 @@ function EditPresta(props, {navigation}) {
         console.log('updatedata numphoto: ' + numphoto);
         if(fichierphoto !=''){
             if(photoinitiale!=''){
-                fetch(`http://64.225.72.25:5000/updatephoto/${data.numphoto}`, { 
+                fetch(`http://188.166.40.140:5000/updatephoto/${data.numphoto}`, { 
                     method : 'PUT',
                     headers: {
                         'Content-Type' : 'application/json'
@@ -61,7 +61,7 @@ function EditPresta(props, {navigation}) {
                 })
                 .catch(error => console.log("PUT error: " + error))
             } else {
-                fetch('http://64.225.72.25:5000/addphoto', {
+                fetch('http://188.166.40.140:5000/addphoto', {
                     method : 'POST',
                     headers: {
                         'Content-Type' : 'application/json'
@@ -81,7 +81,7 @@ function EditPresta(props, {navigation}) {
         }
         console.log('numphoto ' + numphoto);
 
-        fetch(`http://64.225.72.25:5000/updatepresta/${data.numprest}`, { 
+        fetch(`http://188.166.40.140:5000/updatepresta/${data.numprest}`, { 
             method : 'PUT',
             headers: {
                 'Content-Type' : 'application/json'

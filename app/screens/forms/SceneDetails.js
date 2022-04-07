@@ -9,7 +9,7 @@ function SceneDetails(props, {navigation}) {
     
 
     const deleteData =  (data) => {
-        fetch(`http://64.225.72.25:5000/deletescene/${data.numscene}`, {
+        fetch(`http://188.166.40.140:5000/deletescene/${data.numscene}`, {
             method : 'DELETE',
         })
         .then(data => {

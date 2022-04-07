@@ -21,7 +21,7 @@ function Prestations({navigation}) {
   
   const getphoto = (navigation) => {
     if(numphoto != null){
-        fetch(`http://64.225.72.25:5000/getphoto/${numphoto}`, { 
+        fetch(`http://188.166.40.140:5000/getphoto/${numphoto}`, { 
             method : 'GET',
             headers: {
                 'Content-Type' : 'application/json'
@@ -38,7 +38,7 @@ function Prestations({navigation}) {
 
 
   const loadAdminData = () => {
-    fetch('http://64.225.72.25:5000/getpresta', {
+    fetch('http://188.166.40.140:5000/getpresta', {
         method : 'GET'
     })
     .then(resp => resp.json())
@@ -53,7 +53,7 @@ function Prestations({navigation}) {
     if(pseudo == "the Great Band"){
       loadAdminData();
     } else {
-      fetch(`http://64.225.72.25:5000/getfilteredpresta/${numcompte}`, {
+      fetch(`http://188.166.40.140:5000/getfilteredpresta/${numcompte}`, {
           method : 'GET'
       })
       .then(resp => resp.json())

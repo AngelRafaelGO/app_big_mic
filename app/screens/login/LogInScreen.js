@@ -12,7 +12,7 @@ function LoginScreen({navigation}) {
     let userData = [];
 
     const getMail = (mail) => {
-        fetch(`http://64.225.72.25:5000/getmail/${mail}`, {
+        fetch(`http://188.166.40.140:5000/getmail/${mail}`, {
             method : 'GET',
         }) 
         .then(resp => resp.json())

@@ -22,7 +22,7 @@ function EditLieu(props, {navigation}) {
     const [descmateriel, setdescmateriel] = useState('');
     
     const getmateriel = () => {
-        fetch(`http://64.225.72.25:5000/getmateriel/${data.nummateriel}`, {
+        fetch(`http://188.166.40.140:5000/getmateriel/${data.nummateriel}`, {
             method : 'GET'
         })
         .then(resp => resp.json())
@@ -40,7 +40,7 @@ function EditLieu(props, {navigation}) {
       }, []);
     
     function insertMateriel(){
-        fetch('http://64.225.72.25:5000/addmateriel', {
+        fetch('http://188.166.40.140:5000/addmateriel', {
             method : 'POST',
             headers: {
                 'Content-Type' : 'application/json'
@@ -56,7 +56,7 @@ function EditLieu(props, {navigation}) {
     }
 
     function modifMateriel(){
-        fetch(`http://64.225.72.25:5000/updatemateriel/${data.nummateriel}`, {
+        fetch(`http://188.166.40.140:5000/updatemateriel/${data.nummateriel}`, {
             method : 'PUT',
             headers: {
                 'Content-Type' : 'application/json'
@@ -77,7 +77,7 @@ function EditLieu(props, {navigation}) {
            modifMateriel(); 
         }
 
-        fetch(`http://64.225.72.25:5000/updatelieu/${data.numlieu}`, { 
+        fetch(`http://188.166.40.140:5000/updatelieu/${data.numlieu}`, { 
             method : 'PUT',
             headers: {
                 'Content-Type' : 'application/json'

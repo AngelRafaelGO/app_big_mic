@@ -26,7 +26,7 @@ function SceneFormEdit (props,{navigation}) {
 
     
     const updateData = () => {
-        fetch(`http://64.225.72.25:5000/updatescene/${item.numscene}`, {
+        fetch(`http://188.166.40.140:5000/updatescene/${item.numscene}`, {
             method : 'PUT',
             headers: {
                 'Content-Type' : 'application/json'
