@@ -12,16 +12,16 @@ function PrestaDetails(props, {navigation}) {
     const { numcompte } = currentUsr[0];
     const { pseudo } = currentUsr[0]
 
-    const [fichierphoto, setFichierphoto] = useState('');
+    const [fichierphoto, setfichierphoto] = useState('');
 
-    const [img, setImg] = useState();
+    // const [img, setImg] = useState();
 
-    const fetchImage = async () => {
-      const res = await fetch(fichierphoto.fichierphoto);
-      const imageBlob = await res.blob();
-      const imageObjectURL = URL.createObjectURL(imageBlob);
-      setImg(imageObjectURL);
-    };
+    // const fetchImage = async () => {
+    //   const res = await fetch(fichierphoto.fichierphoto);
+    //   const imageBlob = await res.blob();
+    //   const imageObjectURL = URL.createObjectURL(imageBlob);
+    //   setImg(imageObjectURL);
+    // };
 
     const confirmDeletion = () =>
     Alert.alert(
@@ -59,22 +59,22 @@ function PrestaDetails(props, {navigation}) {
         .then(resp => {
             if(resp.numphoto != null || resp.fichierphoto !='' || resp.fichierphoto != 'undefined'){
                 console.log("il y a une photo " + resp.numphoto + " - "+ resp.fichierphoto);
-                setFichierphoto(resp);
+                setfichierphoto(resp.fichierphoto);
             }
         })
         .catch(error => {
             console.log("photo upload error: " + error);
-            Alert.alert('pas de photo');
+            // Alert.alert('pas de photo');
         })
     };
 
     useEffect(() =>{ 
         getphoto();
-        if (fichierphoto.fichierphoto == ''){
-            fichierphoto.fichierphoto = 'https://picsum.photos/700';
-            console.log("fichier: " + fichierphoto.fichierphoto);
+        if (fichierphoto == ''){
+            setfichierphoto('https://picsum.photos/700');
+            console.log("fichier: " + fichierphoto);
         }
-        fetchImage();
+    //     // fetchImage();
       }, []);
 
 
@@ -91,11 +91,11 @@ function PrestaDetails(props, {navigation}) {
                 <TouchableOpacity 
                     style={styles.imgView} 
                     onPress={() => Alert.alert("go to full screen image")}>
-                    <Image source={{ uri: fichierphoto.fichierphoto}} style = {styles.img} />
+                    <Image source={{ uri: fichierphoto}} style = {styles.img} />
                     {/* <Image source={{ uri: 'https://picsum.photos/700'}} style = {styles.img} /> */}
                 </TouchableOpacity>
                 <Text style= {styles.txtChamp}>
-                    {data.numphoto} - {fichierphoto.fichierphoto}
+                    {data.numphoto} - {fichierphoto}
                 </Text>
                 <Text style= {styles.txtChamp}>
                     Description:

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity, Alert, Dimensions, ScrollView} from 'react-native';
 // import { ScrollView } from 'react-native-gesture-handler';
 import {TextInput, Button} from 'react-native-paper';
@@ -21,9 +21,66 @@ function EditPresta(props, {navigation}) {
     const [descprest, setdescprest] = useState(data.descprest)
     const [lienprest, setlienprest] = useState(data.lienprest)
     const [numphoto, setnumphoto] = useState(data.numphoto)
+    const [fichierphoto, setfichierphoto] = useState('')
+    const [photoinitiale, setphotoinitiale] = useState('')
 
+
+    const getphoto = (navigation) => {
+        if(data.numphoto != null){
+            fetch(`http://64.225.72.25:5000/getphoto/${data.numphoto}`, { 
+                method : 'GET',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+            })
+            .then(resp => resp.json())
+            .then(resp => {
+                setfichierphoto(resp.fichierphoto);
+                setphotoinitiale(resp.fichierphoto);
+                console.log("get fichierpohot: " + resp.fichierphoto + " --- " + photoinitiale);
+            })   
+            .catch(error => console.log("PUT error: " + error))
+        }
+
+    }
     const updateData = (navigation) => {
-        // setnumphoto('');
+        console.log('updatedata fichierphoto: ' + fichierphoto);
+        console.log('updatedata numphoto: ' + numphoto);
+        if(fichierphoto !=''){
+            if(photoinitiale!=''){
+                fetch(`http://64.225.72.25:5000/updatephoto/${data.numphoto}`, { 
+                    method : 'PUT',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({fichierphoto:fichierphoto})
+                })
+                .then(resp => resp.json())
+                .then(data => {
+                    props.navigation.navigate('PrestaDetails', {data:data})
+                })
+                .catch(error => console.log("PUT error: " + error))
+            } else {
+                fetch('http://64.225.72.25:5000/addphoto', {
+                    method : 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                },
+                    body: JSON.stringify({fichierphoto: fichierphoto})
+                })
+                .then(resp => resp.json())
+                .then(resp => {
+                    console.log('numero: ' + resp.numphoto)
+                    setnumphoto(resp.numphoto)
+                })
+                .catch(error => {
+                    console.log("Image URI couldn't be stored properly: " + error);
+                    setnumphoto(1);
+                })    
+            }
+        }
+        console.log('numphoto ' + numphoto);
+
         fetch(`http://64.225.72.25:5000/updatepresta/${data.numprest}`, { 
             method : 'PUT',
             headers: {
@@ -36,8 +93,18 @@ function EditPresta(props, {navigation}) {
             props.navigation.navigate('PrestaDetails', {data:data})
         })
         .catch(error => console.log("PUT error: " + error))
+
+    
     }
     
+    useEffect(() =>{ 
+        getphoto();
+        if (fichierphoto == ''){
+            setfichierphoto('https://picsum.photos/700');
+            console.log("fichier: " + fichierphoto);
+        }
+      }, []);
+
 
 
   return (
@@ -46,12 +113,10 @@ function EditPresta(props, {navigation}) {
             <Text style = {styles.textInputStyle}>
                 {numcompte} - {pseudo}
             </Text>
-            <TouchableOpacity 
-                style={styles.imgView} 
+            <View style={styles.imgView} 
                 onPress={() => Alert.alert("you will be able to change the image here next time")}>
-                    <Image source={{ uri: 'https://picsum.photos/400'}} style = {styles.img} />
-                    {/* <Image source={{ uri : fichierphoto}} style = {styles.img} /> */}
-            </TouchableOpacity>
+                    <Image source={{ uri: fichierphoto}} style = {styles.img} />
+            </View>
 
             <View>
                 <TextInput style = {styles.textInputStyle}
@@ -74,6 +139,12 @@ function EditPresta(props, {navigation}) {
                     value = {lienprest}
                     mode="outlined"
                     onChangeText = {text => setlienprest(text)}
+                />
+                <TextInput style = {styles.textInputStyle}
+                    label = "Illustration de prestation"
+                    // value = {fichierphoto}
+                    mode="outlined"
+                    onChangeText = {text => setfichierphoto(text)}
                 />
                 <View style = {styles.viewStyle}>
                     <Button style = {styles.btnStyle}

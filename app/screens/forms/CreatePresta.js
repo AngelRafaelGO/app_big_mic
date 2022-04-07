@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react'
-import {View, Text, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, TouchableOpacity, RefreshControl} from 'react-native'; 
+import {View, Text, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, Alert} from 'react-native'; 
 import {TextInput, Button} from 'react-native-paper';
 import { AuthContext } from '../../config/context';
 import * as ImagePicker from 'expo-image-picker';
@@ -16,48 +16,53 @@ function CreatePresta(props, {navigation}) {
     const [titreprest, settitreprest] = useState("")
     const [descprest, setdescprest] = useState("")
     const [lienprest, setlienprest] = useState("")
-    const [numphoto, setnumphoto] = useState("")
+    const [numphoto, setnumphoto] = useState(null)
 
-    const [fichierphoto, setFichierphoto] = useState("")
+    const [fichierphoto, setfichierphoto] = useState("")
 
     const [image, setImage] = useState("");
     
-    const pickImage = async (props) => {
+    // const pickImage = async (props) => {
         
-        let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        quality: 1,
-        });
+    //     let result = await ImagePicker.launchImageLibraryAsync({
+    //     mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    //     quality: 1,
+    //     });
     
-          console.log("ImagePicker returns: " + result.uri);
+    //       console.log("ImagePicker returns: " + result.uri);
     
-          if (!result.cancelled){
-              setFichierphoto(result);
-          } else {
-              console.log('cancelled');
-        }
-      }
+    //       if (!result.cancelled){
+    //           setfichierphoto(result);
+    //       } else {
+    //           console.log('cancelled');
+    //     }
+    //   }
 
     const insertData = (navigation) => {
-        console.log("image sélectionnée: " + fichierphoto.uri);
-        if(fichierphoto.uri != ''){
-                fetch('http://64.225.72.25:5000/addphoto', {
-                    method : 'POST',
-                headers: {
+        console.log("image sélectionnée: " + fichierphoto);
+        if(fichierphoto == ''){
+            setfichierphoto('https://picsum.photos/400')
+            Alert.alert("Pas d'image sélectionnée");
+        }
+
+        fetch('http://64.225.72.25:5000/addphoto', {
+            method : 'POST',
+            headers: {
                 'Content-Type' : 'application/json'
-            },
-                body: JSON.stringify({fichierphoto: fichierphoto.uri})
-            })
-            .then(resp => resp.json())
-            .then(resp => {
-                console.log('numero: ' + resp.numphoto)
-                setnumphoto(resp.numphoto)
-            })
-            .catch(error => {
-                console.log("Image URI couldn't be stored properly: " + error);
-                setnumphoto(1);
-            })
-        } else Alert.Alert("Pas d'image sélectionnée");
+        },
+            body: JSON.stringify({fichierphoto: fichierphoto})
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            console.log('numero: ' + resp.numphoto)
+            setnumphoto(resp.numphoto)
+        })
+        .catch(error => {
+            console.log("Image URI couldn't be stored properly: " + error);
+            setnumphoto(1);
+        })
+
+        console.log('numero enregistré: ' + numphoto)
 
         fetch('http://64.225.72.25:5000/addpresta', {
             method : 'POST',
@@ -99,12 +104,15 @@ function CreatePresta(props, {navigation}) {
             mode="outlined"
             onChangeText = {text => setlienprest(text)}
         />
-        <TouchableOpacity 
-            style={styles.imgView} 
-            onPress={() => pickImage()}>
-                <Image source={{ uri : fichierphoto.uri}} style = {styles.img} />
-                {/* <Image source={{ uri : fichierphoto.uri !== null ? image.url: '../../assets/No_Image_uploaded.png'}} style = {styles.img} /> */}
-        </TouchableOpacity>
+        <View style={styles.imgView}>
+            <Image source={{ uri : fichierphoto}} style = {styles.img} />
+        </View>
+        <TextInput style = {styles.textInputStyle}
+            label = "Illustration de prestations (lien)"
+            value = {fichierphoto}
+            mode="outlined"
+            onChangeText = {text => setfichierphoto(text)}
+        />
 
         <View style = {styles.btnStyle} >
             <Button style = {styles.btnInside}

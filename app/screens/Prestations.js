@@ -15,7 +15,28 @@ function Prestations({navigation}) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); 
   const [isAdmin, setAdmin] = useState(false); 
+
+  const [numphoto, setnumphoto] = useState(null);
+  const [fichierphoto, setfichierphoto] = useState('');
   
+  const getphoto = (navigation) => {
+    if(numphoto != null){
+        fetch(`http://64.225.72.25:5000/getphoto/${numphoto}`, { 
+            method : 'GET',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+          console.log(resp.fichierphoto);
+          setfichierphoto(resp.fichierphoto);
+        })   
+        .catch(error => console.log("PUT error: " + error))
+    }
+  }
+
+
   const loadAdminData = () => {
     fetch('http://64.225.72.25:5000/getpresta', {
         method : 'GET'
@@ -53,13 +74,21 @@ function Prestations({navigation}) {
   }
   
   const renderData = (item) => {
+
+    setnumphoto(item.numphoto);
+    console.log('render data - numphoto' + numphoto);
+    getphoto();
+    if(fichierphoto == ''){
+      setfichierphoto('https://picsum.photos/700');
+    }
+
     return (
     <Card style = {styles.cardStyle} onPress = {() => clickedItem(item)}>
       <Card.Title
         title={item.titreprest}
         subtitle={item.lienprest} />
 
-        <Card.Cover source= {{ uri: 'https://picsum.photos/700'}} />
+        <Card.Cover source= {{ uri: fichierphoto}} />
     </Card>
     );
   }
