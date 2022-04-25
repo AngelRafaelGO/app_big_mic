@@ -7,7 +7,6 @@ Big Mic is a networking app designed to simplify organizing open-mic events. The
 It was presented and demoed to our professors (who are also product owners). The MVP was achieved over four sprints of one week each by a team of four fullstack developers (including myself).
 
 ## Build with
-The app was build using :
 
 Reactjs
 <a href="https://reactjs.org/" title="React"><img src="https://github.com/tomchen/stack-icons/blob/master/logos/react.svg" alt="React" width="21px" height="21px"></a><br>
